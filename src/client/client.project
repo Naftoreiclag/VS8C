@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeLite_Project Name="client" InternalType="Console">
+  <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+  "name": "Debug",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }, {
+  "name": "Release",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }]]]>
+    </Plugin>
+  </Plugins>
+  <Description/>
+  <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+    <File Name="OgreApp.hpp"/>
+    <File Name="OgreApp.cpp"/>
+    <File Name="VseApp.cpp"/>
+    <File Name="VseApp.hpp"/>
+  </VirtualDirectory>
+  <Settings Type="Executable">
+    <GlobalSettings>
+      <Compiler Options="" C_Options="" Assembler="">
+        <IncludePath Value="."/>
+      </Compiler>
+      <Linker Options="">
+        <LibraryPath Value="."/>
+      </Linker>
+      <ResourceCompiler Options=""/>
+    </GlobalSettings>
+    <Configuration Name="Debug" CompilerType="MinGW ( gcc.exe (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.1.0 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-g;-O0;-std=c++11" C_Options="-g;-O0;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <IncludePath Value="$(OGRE_SDK)/$(OgreSDKName)/include"/>
+        <IncludePath Value="$(OGRE_SDK)/$(OgreSDKName)/include/OGRE"/>
+        <IncludePath Value="$(BOOST_HOME)"/>
+        <IncludePath Value="$(SDL2_HOME)/include/SDL2"/>
+        <IncludePath Value="$(CEGUI_HOME)/include/cegui-0"/>
+        <IncludePath Value="$(SFML_HOME)/include"/>
+        <IncludePath Value="$(BOX2D_HOME)/include"/>
+        <Preprocessor Value="_DEBUG"/>
+        <Preprocessor Value="WIN32"/>
+        <Preprocessor Value="_WINDOWS"/>
+      </Compiler>
+      <Linker Options="-Wl,--enable-auto-image-base;-Wl,--add-stdcall-alias;-Wl,--enable-auto-import" Required="yes">
+        <LibraryPath Value="$(OGRE_SDK)/$(OgreSDKName)/bin/Debug"/>
+        <LibraryPath Value="$(BOOST_HOME)/lib"/>
+        <LibraryPath Value="$(SDL2_HOME)/lib"/>
+        <LibraryPath Value="$(CEGUI_HOME)/lib"/>
+        <LibraryPath Value="$(SFML_HOME)/lib/Debug"/>
+        <LibraryPath Value="$(BOX2D_HOME)/lib"/>
+        <Library Value="sfml-window-d"/>
+        <Library Value="sfml-system-d"/>
+        <Library Value="sfml-network-d"/>
+        <Library Value="sfml-graphics-d"/>
+        <Library Value="OgreMain_d"/>
+        <Library Value="CEGUIBase-0_d.dll"/>
+        <Library Value="CEGUIOgreRenderer-0_d.dll"/>
+        <Library Value="boost_date_time-mgw51-mt-d-1_59"/>
+        <Library Value="boost_thread-mgw51-mt-d-1_59"/>
+        <Library Value="boost_system-mgw51-mt-d-1_59"/>
+        <Library Value="boost_chrono-mgw51-mt-d-1_59"/>
+        <Library Value="libSDL2"/>
+        <Library Value="Box2D.dll"/>
+      </Linker>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="../../binDebug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[OgreSDKName=ogre-1-8-sdk
+SDL2_HOME=../../dependencies/win/mingw-w64/SDL2
+CEGUI_HOME=C:/CEGUI/built
+SFML_HOME=../../dependencies/win/mingw-w64/SFML-2.3.1
+BOX2D_HOME=../../dependencies/win/mingw-w64/Box2D
+Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild>
+        <Command Enabled="no"># README</Command>
+        <Command Enabled="yes">cp ../../README.md $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># BOOST</Command>
+        <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_date_time-mgw51-mt-d-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_thread-mgw51-mt-d-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_system-mgw51-mt-d-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_chrono-mgw51-mt-d-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># OGRE</Command>
+        <Command Enabled="yes">cp $(OGRE_SDK)/$(OgreSDKName)/bin/Debug/*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># SDL2</Command>
+        <Command Enabled="yes">cp $(SDL2_HOME)/bin/*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># SFML</Command>
+        <Command Enabled="yes">cp $(SFML_HOME)/bin/Debug/*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># CEGUI</Command>
+        <Command Enabled="yes">cp $(CEGUI_HOME)/bin/*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(CEGUI_HOME)/dependencies/bin/*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="no"># cp $(OGRE_SDK)/$(OgreSDKName)/bin/RelWithDebInfo/OgreMain.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_system-mgw51-mt-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># CONFIG</Command>
+        <Command Enabled="yes">cp config/Debug/*.xml $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp config/Debug/*.cfg $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># Mingw64</Command>
+        <Command Enabled="yes">cp $(Mingw64Dlls)/libgcc_s_seh*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(Mingw64Dlls)/libstdc++*.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp $(Mingw64Dlls)/libwinpthread*.dll $(IntermediateDirectory)</Command>
+      </PostBuild>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+    <Configuration Name="Release" CompilerType="MinGW ( gcc.exe (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.1.0 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
+      <Compiler Options="-O2;-Wall" C_Options="-O2;-Wall" Assembler="" Required="yes" PreCompiledHeader="" PCHInCommandLine="no" PCHFlags="" PCHFlagsPolicy="0">
+        <IncludePath Value="."/>
+        <Preprocessor Value="NDEBUG"/>
+      </Compiler>
+      <Linker Options="" Required="yes"/>
+      <ResourceCompiler Options="" Required="no"/>
+      <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="./Release" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
+      <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
+        <![CDATA[]]>
+      </Environment>
+      <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
+        <DebuggerSearchPaths/>
+        <PostConnectCommands/>
+        <StartupCommands/>
+      </Debugger>
+      <PreBuild/>
+      <PostBuild/>
+      <CustomBuild Enabled="no">
+        <RebuildCommand/>
+        <CleanCommand/>
+        <BuildCommand/>
+        <PreprocessFileCommand/>
+        <SingleFileCommand/>
+        <MakefileGenerationCommand/>
+        <ThirdPartyToolName>None</ThirdPartyToolName>
+        <WorkingDirectory/>
+      </CustomBuild>
+      <AdditionalRules>
+        <CustomPostBuild/>
+        <CustomPreBuild/>
+      </AdditionalRules>
+      <Completion EnableCpp11="no" EnableCpp14="no">
+        <ClangCmpFlagsC/>
+        <ClangCmpFlags/>
+        <ClangPP/>
+        <SearchPaths/>
+      </Completion>
+    </Configuration>
+  </Settings>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
+</CodeLite_Project>

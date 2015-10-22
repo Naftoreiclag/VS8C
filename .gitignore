@@ -1,0 +1,12 @@
+src/.codelite/*
+src/.clang/*
+
+binDebug/*
+bin/*
+
+src/client/*.mk
+src/client/client.txt
+src/Makefile
+
+dependencies/*
+media/*
