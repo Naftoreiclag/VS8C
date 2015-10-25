@@ -15,6 +15,7 @@ std::string BoxSys::generateOgreEntityName() {
     std::stringstream ss;
     ss << "cube" << id;
     
+    ++ id;
     return ss.str();
     
 }
