@@ -147,7 +147,7 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event) {
         }
         case SDLK_q: {
             nres::Entity* testCube = mWorld.newEntity();
-            btVector3 size(0.5f, 0.5f, 0.5f);
+            btVector3 size(1, 1, 1);
             testCube->add(new BoxComp(new btBoxShape(size)));
             testCube->publish();
             break;

@@ -69,7 +69,7 @@ void BoxSys::onTick(float tps) {
         
         if(comp->needsAttencion) {
             comp->boxNode->setPosition(comp->location.getX(), comp->location.getY(), comp->location.getZ());
-            
+            comp->boxNode->setOrientation(comp->rotation.getX(), comp->rotation.getY(), comp->rotation.getZ(), comp->rotation.getW());
         }
         
     }
