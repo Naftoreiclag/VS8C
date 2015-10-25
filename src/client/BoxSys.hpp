@@ -3,6 +3,7 @@
 
 #include <string>
 
+#include "btBulletDynamicsCommon.h"
 #include "OgreSceneManager.h"
 
 #include "NRES.hpp"
@@ -21,6 +22,7 @@ private:
     std::vector<nres::Entity*> trackedEntities;
     
     Ogre::SceneManager* smgr;
+    btDynamicsWorld* dynamicsWorld;
     
 public:
     virtual void onEntityExists(nres::Entity* entity);

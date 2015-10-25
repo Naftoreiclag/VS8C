@@ -4,13 +4,15 @@ namespace vse {
     
 const nres::ComponentID BoxComp::componentID = "box";
 
-BoxComp::BoxComp()
-{
+BoxComp::BoxComp(btCollisionShape* collisionShape)
+: mCollisionShape(collisionShape) {
     x = 0;
 }
 
-BoxComp::~BoxComp()
-{
+BoxComp::~BoxComp() {
+    delete mCollisionShape;
+    delete motionState;
+    delete rigidBody;
 }
 
 const nres::ComponentID& BoxComp::getID() {

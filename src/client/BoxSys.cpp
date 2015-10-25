@@ -22,6 +22,7 @@ std::string BoxSys::generateOgreEntityName() {
 BoxSys::BoxSys() {
     requiredComponents.push_back(BoxComp::componentID);
     
+    dynamicsWorld = VseApp::getSingleton().mDynamicsWorld;
     smgr = VseApp::getSingleton().mSmgr;
 }
 
@@ -34,6 +35,13 @@ void BoxSys::onEntityExists(nres::Entity* entity) {
     comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
     comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
     comp->boxNode->attachObject(comp->boxModel);
+    
+    btScalar mass = 1;
+    comp->motionState = new btDefaultMotionState();
+    btVector3 inertia(0, 0, 0);
+    comp->mCollisionShape->calculateLocalInertia(mass, inertia);
+    comp->rigidBody = new btRigidBody(mass, comp->motionState, comp->mCollisionShape, inertia);
+    dynamicsWorld->addRigidBody(comp->rigidBody);
     
     trackedEntities.push_back(entity);
 }

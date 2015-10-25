@@ -23,7 +23,7 @@ VseApp::VseApp() {
 VseApp::~VseApp() {
 }
 
-void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow) {
+void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow) {
     mOgreRoot = ogreRoot;
     mOgreWindow = ogreWindow;
     mSdlWindow = sdlWindow;
@@ -33,7 +33,6 @@ void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamPitch = Ogre::Degree(0);
     mCamYaw = Ogre::Degree(0);
     mCamRoll = Ogre::Degree(0);
-    
     
     mSmgr = mOgreRoot->createSceneManager(Ogre::ST_GENERIC);
     mRootNode = mSmgr->getRootSceneNode();
@@ -68,18 +67,36 @@ void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     Ogre::Light* light = mSmgr->createLight("Light");
     light->setPosition(20,80,50);
     
-    mBoxSys = new BoxSys();
+    mBroadphase = new btDbvtBroadphase();
+    mCollisionConfiguration = new btDefaultCollisionConfiguration();
+    mDispatcher = new btCollisionDispatcher(mCollisionConfiguration);
+    mSolver = new btSequentialImpulseConstraintSolver();
+    mDynamicsWorld = new btDiscreteDynamicsWorld(mDispatcher, mBroadphase, mSolver, mCollisionConfiguration);
+    mDynamicsWorld->setGravity(btVector3(0, -9.8067, 0));
     
+	btStaticPlaneShape* planeShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
+	btRigidBody* planeRigid = new btRigidBody(0, 0, planeShape);
+	mDynamicsWorld->addRigidBody(planeRigid);
+    
+    mBoxSys = new BoxSys();
     mWorld.attachSystem(mBoxSys);
+    
     mTestCube = mWorld.newEntity();
-    mTestCube->add(new BoxComp());
+    btVector3 size(0.5f, 0.5f, 0.5f);
+    mTestCube->add(new BoxComp(new btBoxShape(size)));
     mTestCube->publish();
 }
 
-void VseApp::onClose() {
+void VseApp::onAppEnd() {
+    delete mDynamicsWorld;
+    delete mSolver;
+    delete mDispatcher;
+    delete mCollisionConfiguration;
+    delete mBroadphase;
 }
 void VseApp::onTick(float tps) {
     
+    mDynamicsWorld->stepSimulation(tps, 5);
     mBoxSys->onTick(tps);
     
     BoxComp* comp = (BoxComp*) mTestCube->getComponent(BoxComp::componentID);

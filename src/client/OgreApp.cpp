@@ -69,19 +69,19 @@ void OgreApp::run() {
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     
     VseApp& garnetApp = VseApp::getSingleton();
-    garnetApp.initialize(mOgreRoot, mOgreWindow, mSdlWindow);
+    garnetApp.onAppBegin(mOgreRoot, mOgreWindow, mSdlWindow);
     
     sf::Clock tpsTimer;
     
-    bool running = true;
-    while(running) {
+    bool appRunning = true;
+    while(appRunning) {
         SDL_Event event;
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_QUIT: {
-                    garnetApp.onClose();
+                    garnetApp.onAppEnd();
                     mOgreRoot->queueEndRendering();
-                    running = false;
+                    appRunning = false;
                     break;
                 }
                 case SDL_KEYDOWN: {
@@ -113,15 +113,19 @@ void OgreApp::run() {
             }
         }
         
-        float tps = tpsTimer.getElapsedTime().asSeconds();
-        tpsTimer.restart();
-        garnetApp.onTick(tps);
+        // It is possible that an event triggered the loop to end
+        if(appRunning) {
+            float tps = tpsTimer.getElapsedTime().asSeconds();
+            tpsTimer.restart();
+            garnetApp.onTick(tps);
+            
+            if(!mOgreRoot->renderOneFrame()) {
+                appRunning = false;
+            }
+        }
         
         Ogre::WindowEventUtilities::messagePump();
         
-        if(!mOgreRoot->renderOneFrame()) {
-            break;
-        }
     }
 }
 

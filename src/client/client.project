@@ -55,6 +55,8 @@
       <File Name="OgreApp.hpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
+  <Dependencies Name="Debug"/>
+  <Dependencies Name="Release"/>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -74,7 +76,7 @@
         <IncludePath Value="$(SDL2_HOME)/include/SDL2"/>
         <IncludePath Value="$(CEGUI_HOME)/include/cegui-0"/>
         <IncludePath Value="$(SFML_HOME)/include"/>
-        <IncludePath Value="$(BOX2D_HOME)/include"/>
+        <IncludePath Value="$(BULLET_HOME)/include/bullet"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="WIN32"/>
         <Preprocessor Value="_WINDOWS"/>
@@ -85,7 +87,7 @@
         <LibraryPath Value="$(SDL2_HOME)/lib"/>
         <LibraryPath Value="$(CEGUI_HOME)/lib"/>
         <LibraryPath Value="$(SFML_HOME)/lib/Debug"/>
-        <LibraryPath Value="$(BOX2D_HOME)/lib"/>
+        <LibraryPath Value="$(BULLET_HOME)/lib"/>
         <Library Value="sfml-window-d"/>
         <Library Value="sfml-system-d"/>
         <Library Value="sfml-network-d"/>
@@ -98,7 +100,16 @@
         <Library Value="boost_system-mgw51-mt-d-1_59"/>
         <Library Value="boost_chrono-mgw51-mt-d-1_59"/>
         <Library Value="libSDL2"/>
-        <Library Value="Box2D.dll"/>
+        <Library Value="libBulletDynamics_Debug.dll"/>
+        <Library Value="libBulletCollision_Debug.dll"/>
+        <Library Value="libLinearMath_Debug.dll"/>
+        <Library Value="libBullet2FileLoader_Debug.dll"/>
+        <Library Value="libBullet3Collision_Debug.dll"/>
+        <Library Value="libBullet3Common_Debug.dll"/>
+        <Library Value="libBullet3Dynamics_Debug.dll"/>
+        <Library Value="libBullet3Geometry_Debug.dll"/>
+        <Library Value="libBullet3OpenCL_clew_Debug.dll"/>
+        <Library Value="libBulletSoftBody_Debug.dll"/>
       </Linker>
       <ResourceCompiler Options="" Required="no"/>
       <General OutputFile="$(IntermediateDirectory)/$(ProjectName)" IntermediateDirectory="../../binDebug" Command="./$(ProjectName)" CommandArguments="" UseSeparateDebugArgs="no" DebugArguments="" WorkingDirectory="$(IntermediateDirectory)" PauseExecWhenProcTerminates="yes" IsGUIProgram="no" IsEnabled="yes"/>
@@ -107,7 +118,7 @@
 SDL2_HOME=../../dependencies/win/mingw-w64/SDL2
 CEGUI_HOME=C:/CEGUI/built
 SFML_HOME=../../dependencies/win/mingw-w64/SFML-2.3.1
-BOX2D_HOME=../../dependencies/win/mingw-w64/Box2D
+BULLET_HOME=C:/CppLibs/Built/BULLET_PHYSICS-d
 Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
       </Environment>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
@@ -138,8 +149,10 @@ Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
         <Command Enabled="no"># CEGUI</Command>
         <Command Enabled="yes">cp $(CEGUI_HOME)/bin/*.dll $(IntermediateDirectory)</Command>
         <Command Enabled="yes">cp $(CEGUI_HOME)/dependencies/bin/*.dll $(IntermediateDirectory)</Command>
-        <Command Enabled="no"># cp $(OGRE_SDK)/$(OgreSDKName)/bin/RelWithDebInfo/OgreMain.dll $(IntermediateDirectory)</Command>
         <Command Enabled="yes">cp $(BOOST_HOME)/lib/libboost_system-mgw51-mt-1_59.dll $(IntermediateDirectory)</Command>
+        <Command Enabled="yes"/>
+        <Command Enabled="no"># BULLET</Command>
+        <Command Enabled="yes">cp $(BULLET_HOME)/bin/*.dll $(IntermediateDirectory)</Command>
         <Command Enabled="yes"/>
         <Command Enabled="no"># CONFIG</Command>
         <Command Enabled="yes">cp config/Debug/*.xml $(IntermediateDirectory)</Command>
@@ -211,6 +224,4 @@ Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
       </Completion>
     </Configuration>
   </Settings>
-  <Dependencies Name="Debug"/>
-  <Dependencies Name="Release"/>
 </CodeLite_Project>

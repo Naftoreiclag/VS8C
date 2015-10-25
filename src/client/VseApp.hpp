@@ -1,6 +1,7 @@
 #ifndef GRT_GARNETAPP_HPP
 #define GRT_GARNETAPP_HPP
 
+#include "btBulletDynamicsCommon.h"
 #include "OgreRoot.h"
 #include "OgreCamera.h"
 #include "OgreSceneManager.h"
@@ -18,6 +19,13 @@ class VseApp
 public:
     static VseApp& getSingleton();
 public:
+    btBroadphaseInterface* mBroadphase;
+    btDefaultCollisionConfiguration* mCollisionConfiguration;
+    btCollisionDispatcher* mDispatcher;
+    btSequentialImpulseConstraintSolver* mSolver;
+    
+    btDiscreteDynamicsWorld* mDynamicsWorld;
+
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
     Ogre::SceneManager* mSmgr;
@@ -40,10 +48,10 @@ public:
     nres::Entity* mTestCube;
     
     
-    void initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow);
+    void onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow);
     
     // User wants to close application
-    void onClose();
+    void onAppEnd();
     
     // Ticks
     void onTick(float tps);
