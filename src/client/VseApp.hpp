@@ -7,7 +7,10 @@
 #include "OgreRenderWindow.h"
 #include "SDL_events.h"
 
-namespace grt
+#include "NRES.hpp"
+#include "BoxSys.hpp"
+
+namespace vse
 {
 
 class VseApp
@@ -31,6 +34,10 @@ public:
     Ogre::Degree mCamPitch;
     Ogre::Degree mCamYaw;
     Ogre::Degree mCamRoll;
+    
+    nres::World mWorld;
+    BoxSys mBoxSys;
+    nres::Entity* mTestCube;
     
     
     void initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow);

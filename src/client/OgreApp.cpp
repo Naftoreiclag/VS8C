@@ -8,7 +8,7 @@
 
 #include "VseApp.hpp"
 
-namespace grt
+namespace vse
 {
 
 OgreApp& OgreApp::getSingleton() {

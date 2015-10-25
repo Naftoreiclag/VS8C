@@ -6,8 +6,10 @@
 #include "OgreEntity.h"
 #include "SDL.h"
 
+#include "BoxSys.hpp"
+#include "BoxComp.hpp"
 
-namespace grt
+namespace vse
 {
     
 VseApp& VseApp::getSingleton() {
@@ -51,10 +53,13 @@ void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     
     Ogre::SceneNode* headNode = mSmgr->getRootSceneNode()->createChildSceneNode();
-    Ogre::Entity* ogreHead = mSmgr->createEntity("Head", "ogrehead.mesh");
+    Ogre::Entity* ogreHead = mSmgr->createEntity("Head", "Cube.mesh");
     headNode->attachObject(ogreHead);
     headNode->setPosition(0, 0, -80);
-    headNode->setScale(0.2f, 0.2f, 0.2f);
+    
+    Ogre::SceneNode* groundNode = mSmgr->getRootSceneNode()->createChildSceneNode();
+    Ogre::Entity* groundEnt = mSmgr->createEntity("Ground", "ground.mesh");
+    groundNode->attachObject(groundEnt);
     
     mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
     
@@ -62,11 +67,18 @@ void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     Ogre::Light* light = mSmgr->createLight("Light");
     light->setPosition(20,80,50);
+    
+    mWorld.attachSystem(&mBoxSys);
+    mTestCube = mWorld.newEntity();
+    mTestCube->add(new BoxComp());
+    mTestCube->publish();
 }
 
 void VseApp::onClose() {
 }
 void VseApp::onTick(float tps) {
+    
+    mBoxSys.tick(tps);
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     

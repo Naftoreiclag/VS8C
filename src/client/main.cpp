@@ -2,7 +2,7 @@
 
 #include "OgreApp.hpp"
 
-using namespace grt;
+using namespace vse;
 
 int main(int argc, char **argv) {
     OgreApp& app = OgreApp::getSingleton();

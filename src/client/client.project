@@ -34,6 +34,24 @@
     <File Name="OgreApp.cpp"/>
     <File Name="VseApp.cpp"/>
     <File Name="VseApp.hpp"/>
+    <VirtualDirectory Name="nres">
+      <File Name="nresComponent.cpp"/>
+      <File Name="nresComponent.hpp"/>
+      <File Name="nresEntity.cpp"/>
+      <File Name="nresEntity.hpp"/>
+      <File Name="nresSystem.cpp"/>
+      <File Name="nresSystem.hpp"/>
+      <File Name="nresTypedefs.hpp"/>
+      <File Name="nresWorld.cpp"/>
+      <File Name="nresWorld.hpp"/>
+      <File Name="NRES.hpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="entities">
+      <File Name="BoxComp.hpp"/>
+      <File Name="BoxComp.cpp"/>
+      <File Name="BoxSys.hpp"/>
+      <File Name="BoxSys.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

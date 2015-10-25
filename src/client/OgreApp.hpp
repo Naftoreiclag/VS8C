@@ -8,7 +8,7 @@
 
 #include "SDL_syswm.h"
 
-namespace grt
+namespace vse
 {
 
 class OgreApp {
