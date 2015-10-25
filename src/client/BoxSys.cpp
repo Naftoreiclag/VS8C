@@ -37,7 +37,10 @@ void BoxSys::onEntityExists(nres::Entity* entity) {
     comp->boxNode->attachObject(comp->boxModel);
     
     btScalar mass = 1;
-    comp->motionState = new btDefaultMotionState();
+    btTransform trans;
+    trans.setIdentity();
+    trans.setOrigin(btVector3(4, 5, 4));
+    comp->motionState = new BoxComp::RigidBodyMotionListener(trans, comp);
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(mass, inertia);
     comp->rigidBody = new btRigidBody(mass, comp->motionState, comp->mCollisionShape, inertia);
@@ -63,7 +66,11 @@ void BoxSys::onTick(float tps) {
         
         comp->x += tps;
         
-        comp->boxNode->setPosition(comp->x, 0, 0);
+        if(comp->needsAttencion) {
+            comp->boxNode->setPosition(comp->location.getX(), comp->location.getY(), comp->location.getZ());
+            
+        }
+        
     }
 }
 }
