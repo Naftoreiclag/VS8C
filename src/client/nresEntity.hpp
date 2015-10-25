@@ -5,6 +5,8 @@
 
 #include "nresTypedefs.hpp"
 
+#include "EntSignal.hpp"
+
 namespace nres
 {
     
@@ -30,7 +32,7 @@ public:
     
     Component* getComponent(const ComponentID& componentID);
     
-    void broadcast(void* data);
+    void broadcast(vse::EntSignal* data);
 };
 
 }

@@ -45,7 +45,8 @@ public:
     
     nres::World mWorld;
     BoxSys* mBoxSys;
-    nres::Entity* mTestCube;
+    
+    nres::Entity* mLocalPlayer;
     
     
     void onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow);

@@ -8,6 +8,8 @@
 
 #include "BoxSys.hpp"
 #include "BoxComp.hpp"
+#include "LocalPlayerComp.hpp"
+#include "LocalPlayerMoveSignal.hpp"
 
 namespace vse
 {
@@ -38,7 +40,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mRootNode = mSmgr->getRootSceneNode();
     
     mCam = mSmgr->createCamera("Camera");
-    mCam->setNearClipDistance(5);
+    mCam->setNearClipDistance(0.1f);
     
     mCamLocNode = mRootNode->createChildSceneNode("CameraNode");
     mCamYawNode = mCamLocNode->createChildSceneNode();
@@ -48,24 +50,20 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     mCam->setAspectRatio(Ogre::Real(1280) / Ogre::Real(720));
     
+    mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+    mSmgr->setSkyBox(true, "Test");
+    
     Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
     viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
-    
-    Ogre::SceneNode* headNode = mSmgr->getRootSceneNode()->createChildSceneNode();
-    Ogre::Entity* ogreHead = mSmgr->createEntity("Head", "Cube.mesh");
-    headNode->attachObject(ogreHead);
-    headNode->setPosition(0, 0, -80);
     
     Ogre::SceneNode* groundNode = mSmgr->getRootSceneNode()->createChildSceneNode();
     Ogre::Entity* groundEnt = mSmgr->createEntity("Ground", "ground.mesh");
     groundNode->attachObject(groundEnt);
     
-    mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-    
-    mSmgr->setSkyBox(true, "Test");
-    
     Ogre::Light* light = mSmgr->createLight("Light");
-    light->setPosition(20,80,50);
+    light->setType(Ogre::Light::LT_DIRECTIONAL);
+    light->setDirection(-1, -1, -1);
     
     mBroadphase = new btDbvtBroadphase();
     mCollisionConfiguration = new btDefaultCollisionConfiguration();
@@ -81,10 +79,12 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mBoxSys = new BoxSys();
     mWorld.attachSystem(mBoxSys);
     
-    mTestCube = mWorld.newEntity();
-    btVector3 size(0.5f, 0.5f, 0.5f);
-    mTestCube->add(new BoxComp(new btBoxShape(size)));
-    mTestCube->publish();
+    mLocalPlayer = mWorld.newEntity();
+    btVector3 size(1, 1, 1);
+    mLocalPlayer->add(new BoxComp(new btBoxShape(size)));
+    mLocalPlayer->add(new LocalPlayerComp());
+    mLocalPlayer->publish();
+    
 }
 
 void VseApp::onAppEnd() {
@@ -98,8 +98,6 @@ void VseApp::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mBoxSys->onTick(tps);
-    
-    BoxComp* comp = (BoxComp*) mTestCube->getComponent(BoxComp::componentID);
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
@@ -125,6 +123,10 @@ void VseApp::onTick(float tps) {
     
     if(moved) {
         mCamLocNode->translate(mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec, Ogre::SceneNode::TS_LOCAL);
+    }
+    
+    if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {
+        mLocalPlayer->broadcast(new LocalPlayerMoveSignal());
     }
 }
 

@@ -11,10 +11,10 @@ namespace vse {
 
 class BoxComp : public nres::Component {
 public:
-    btQuaternion rotation;
-    btVector3 location;
-    btVector3 velocity;
-    bool needsAttencion;
+    btQuaternion mRotation;
+    btVector3 mLocation;
+    btVector3 mLinVel;
+    bool mOnPhysUpdate;
 public:
     static const nres::ComponentID componentID;
     BoxComp(btCollisionShape* collisionShape);

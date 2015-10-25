@@ -1,10 +1,12 @@
 #ifndef NRES_SYSTEM_HPP
 #define NRES_SYSTEM_HPP
 
+#include <vector>
+
 #include "nresTypedefs.hpp"
 #include "nresEntity.hpp"
 
-#include <vector>
+#include "EntSignal.hpp"
 
 namespace nres
 {
@@ -16,7 +18,7 @@ public:
 public:
     virtual void onEntityExists(Entity* entity) = 0;
     virtual void onEntityDestroyed(Entity* entity) = 0;
-    virtual void onEntityBroadcast(Entity* entity, void* data) = 0;
+    virtual void onEntityBroadcast(Entity* entity, vse::EntSignal* data) = 0;
     
     virtual const std::vector<ComponentID>& getRequiredComponents() = 0;
 };

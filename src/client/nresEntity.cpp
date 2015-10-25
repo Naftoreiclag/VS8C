@@ -52,7 +52,7 @@ Component* Entity::getComponent(const ComponentID& componentID) {
     return 0;
 }
 
-void Entity::broadcast(void* data) {
+void Entity::broadcast(vse::EntSignal* data) {
     assert(isPublished);
     
     for(std::vector<System*>::iterator sysIter = systems.begin(); sysIter != systems.end(); ++ sysIter) {
@@ -60,6 +60,8 @@ void Entity::broadcast(void* data) {
         
         sys->onEntityBroadcast(this, data);
     }
+    
+    delete data;
 }
 
 }

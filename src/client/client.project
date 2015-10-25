@@ -48,6 +48,14 @@
       <File Name="BoxComp.cpp"/>
       <File Name="BoxSys.hpp"/>
       <File Name="BoxSys.cpp"/>
+      <File Name="LocalPlayerComp.hpp"/>
+      <File Name="LocalPlayerComp.cpp"/>
+      <VirtualDirectory Name="signals">
+        <File Name="EntSignal.cpp"/>
+        <File Name="EntSignal.hpp"/>
+        <File Name="LocalPlayerMoveSignal.hpp"/>
+        <File Name="LocalPlayerMoveSignal.cpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">
       <File Name="main.cpp"/>

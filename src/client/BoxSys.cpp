@@ -1,10 +1,12 @@
 #include "BoxSys.hpp"
 
+#include <sstream>
+#include <stdint.h>
+
 #include "VseApp.hpp"
 #include "BoxComp.hpp"
 
-#include <sstream>
-#include <stdint.h>
+#include "LocalPlayerMoveSignal.hpp"
 
 namespace vse {
 
@@ -19,10 +21,10 @@ void BoxSys::RigidBodyMotionListener::getWorldTransform(btTransform& worldTransf
 }
 
 void BoxSys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
-	sendTo->rotation = worldTransform.getRotation();
-	sendTo->location = worldTransform.getOrigin();
-	sendTo->velocity = sendTo->rigidBody->getLinearVelocity();
-	sendTo->needsAttencion = true;
+	sendTo->mRotation = worldTransform.getRotation();
+	sendTo->mLocation = worldTransform.getOrigin();
+	sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
+	sendTo->mOnPhysUpdate = true;
 }
     
 std::string BoxSys::generateOgreEntityName() {
@@ -66,8 +68,20 @@ void BoxSys::onEntityExists(nres::Entity* entity) {
 void BoxSys::onEntityDestroyed(nres::Entity* entity) {
     
 }
-void BoxSys::onEntityBroadcast(nres::Entity* entity, void* data) {
-    
+void BoxSys::onEntityBroadcast(nres::Entity* entity, EntSignal* data) {
+    switch(data->getType()) {
+        case EntSignal::Type::LOCAL_PLAYER_MOVE: {
+            LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
+            
+            BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
+            comp->rigidBody->applyCentralForce(btVector3(0, 1, 0));
+            
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 const std::vector<nres::ComponentID>& BoxSys::getRequiredComponents() {
     return requiredComponents;
@@ -78,11 +92,11 @@ void BoxSys::onTick(float tps) {
         nres::Entity* entity = *it;
         BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
         
-        if(comp->needsAttencion) {
-            comp->boxNode->setPosition(comp->location.getX(), comp->location.getY(), comp->location.getZ());
-            comp->boxNode->setOrientation(comp->rotation.getW(), comp->rotation.getX(), comp->rotation.getY(), comp->rotation.getZ());
+        if(comp->mOnPhysUpdate) {
+            comp->boxNode->setPosition(comp->mLocation.getX(), comp->mLocation.getY(), comp->mLocation.getZ());
+            comp->boxNode->setOrientation(comp->mRotation.getW(), comp->mRotation.getX(), comp->mRotation.getY(), comp->mRotation.getZ());
             
-            comp->needsAttencion = false;
+            comp->mOnPhysUpdate = false;
         }
         
     }
