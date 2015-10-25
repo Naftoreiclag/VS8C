@@ -26,15 +26,16 @@ void Entity::add(Component* component) {
 
 void Entity::publish() {
     assert(!isPublished);
+    isPublished = true;
     
     for(std::vector<System*>::iterator sysIter = world->systems.begin(); sysIter != world->systems.end(); ++ sysIter) {
         System* sys = *sysIter;
         
         if(true) {
             systems.push_back(sys);
+            sys->onEntityExists(this);
         }
     }
-    isPublished = true;
 }
 
 Component* Entity::getComponent(const ComponentID& componentID) {
@@ -57,7 +58,7 @@ void Entity::broadcast(void* data) {
     for(std::vector<System*>::iterator sysIter = systems.begin(); sysIter != systems.end(); ++ sysIter) {
         System* sys = *sysIter;
         
-        sys->entityBroadcasted(this, data);
+        sys->onEntityBroadcast(this, data);
     }
 }
 

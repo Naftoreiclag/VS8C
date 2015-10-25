@@ -68,7 +68,9 @@ void VseApp::initialize(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     Ogre::Light* light = mSmgr->createLight("Light");
     light->setPosition(20,80,50);
     
-    mWorld.attachSystem(&mBoxSys);
+    mBoxSys = new BoxSys();
+    
+    mWorld.attachSystem(mBoxSys);
     mTestCube = mWorld.newEntity();
     mTestCube->add(new BoxComp());
     mTestCube->publish();
@@ -78,7 +80,11 @@ void VseApp::onClose() {
 }
 void VseApp::onTick(float tps) {
     
-    mBoxSys.tick(tps);
+    mBoxSys->onTick(tps);
+    
+    BoxComp* comp = (BoxComp*) mTestCube->getComponent(BoxComp::componentID);
+    
+    std::cout << comp->x << std::endl;
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     

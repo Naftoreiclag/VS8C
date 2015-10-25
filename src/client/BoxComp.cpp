@@ -1,12 +1,12 @@
 #include "BoxComp.hpp"
 
-namespace vse
-{
+namespace vse {
     
-const nres::ComponentID BoxComp::staticID = "box";
+const nres::ComponentID BoxComp::componentID = "box";
 
 BoxComp::BoxComp()
 {
+    x = 0;
 }
 
 BoxComp::~BoxComp()
@@ -14,7 +14,7 @@ BoxComp::~BoxComp()
 }
 
 const nres::ComponentID& BoxComp::getID() {
-    return staticID;
+    return componentID;
 }
 
 

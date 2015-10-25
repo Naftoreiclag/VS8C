@@ -1,6 +1,10 @@
 #ifndef SKE_BOXSYS_HPP
 #define SKE_BOXSYS_HPP
 
+#include <string>
+
+#include "OgreSceneManager.h"
+
 #include "NRES.hpp"
 
 namespace vse
@@ -16,14 +20,17 @@ private:
     std::vector<nres::ComponentID> requiredComponents;
     std::vector<nres::Entity*> trackedEntities;
     
+    Ogre::SceneManager* smgr;
+    
 public:
-    virtual void entityExists(nres::Entity* entity);
-    virtual void entityDestroyed(nres::Entity* entity);
-    virtual void entityBroadcasted(nres::Entity* entity, void* data);
+    virtual void onEntityExists(nres::Entity* entity);
+    virtual void onEntityDestroyed(nres::Entity* entity);
+    virtual void onEntityBroadcast(nres::Entity* entity, void* data);
     
     virtual const std::vector<nres::ComponentID>& getRequiredComponents();
     
-    void tick(float tps);
+    void onTick(float tps);
+    std::string generateOgreEntityName();
 };
 
 }

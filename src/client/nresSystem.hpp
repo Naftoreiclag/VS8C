@@ -14,9 +14,9 @@ public:
     System();
     virtual ~System();
 public:
-    virtual void entityExists(Entity* entity) = 0;
-    virtual void entityDestroyed(Entity* entity) = 0;
-    virtual void entityBroadcasted(Entity* entity, void* data) = 0;
+    virtual void onEntityExists(Entity* entity) = 0;
+    virtual void onEntityDestroyed(Entity* entity) = 0;
+    virtual void onEntityBroadcast(Entity* entity, void* data) = 0;
     
     virtual const std::vector<ComponentID>& getRequiredComponents() = 0;
 };

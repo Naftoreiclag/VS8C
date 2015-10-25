@@ -1,25 +1,46 @@
 #include "BoxSys.hpp"
 
+#include "VseApp.hpp"
 #include "BoxComp.hpp"
+
+#include <sstream>
+#include <stdint.h>
 
 namespace vse
 {
+    
+std::string BoxSys::generateOgreEntityName() {
+    static uint32_t id = 0;
+    
+    std::stringstream ss;
+    ss << "cube" << id;
+    
+    return ss.str();
+    
+}
 
 BoxSys::BoxSys() {
-    requiredComponents.push_back(BoxComp::staticID);
+    requiredComponents.push_back(BoxComp::componentID);
+    
+    smgr = VseApp::getSingleton().mSmgr;
 }
 
 BoxSys::~BoxSys()
 {
 }
 
-void BoxSys::entityExists(nres::Entity* entity) {
+void BoxSys::onEntityExists(nres::Entity* entity) {
+    BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
+    comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
+    comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
+    comp->boxNode->attachObject(comp->boxModel);
+    
     trackedEntities.push_back(entity);
 }
-void BoxSys::entityDestroyed(nres::Entity* entity) {
+void BoxSys::onEntityDestroyed(nres::Entity* entity) {
     
 }
-void BoxSys::entityBroadcasted(nres::Entity* entity, void* data) {
+void BoxSys::onEntityBroadcast(nres::Entity* entity, void* data) {
     
 }
 const std::vector<nres::ComponentID>& BoxSys::getRequiredComponents() {
@@ -27,12 +48,14 @@ const std::vector<nres::ComponentID>& BoxSys::getRequiredComponents() {
 }
 
 
-void BoxSys::tick(float tps) {
+void BoxSys::onTick(float tps) {
     for(std::vector<nres::Entity*>::iterator it = trackedEntities.begin(); it != trackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
-        BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::staticID);
+        BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
         
         comp->x += tps;
+        
+        comp->boxNode->setPosition(comp->x, 0, 0);
     }
 }
 }

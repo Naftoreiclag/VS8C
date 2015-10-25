@@ -36,7 +36,7 @@ public:
     Ogre::Degree mCamRoll;
     
     nres::World mWorld;
-    BoxSys mBoxSys;
+    BoxSys* mBoxSys;
     nres::Entity* mTestCube;
     
     
