@@ -5,6 +5,7 @@
 
 #include "btBulletDynamicsCommon.h"
 #include "OgreSceneManager.h"
+#include "BoxComp.hpp"
 
 #include "NRES.hpp"
 
@@ -13,6 +14,16 @@ namespace vse
 
 class BoxSys : public nres::System
 {
+public:
+    class RigidBodyMotionListener : public btMotionState {
+    protected:
+        btTransform initialLoc;
+        BoxComp* const sendTo;
+    public:
+        RigidBodyMotionListener(const btTransform& initialLoc, BoxComp* const sendTo);
+        virtual void getWorldTransform(btTransform& worldTransform) const;
+        virtual void setWorldTransform(const btTransform& worldTransform);
+    };
 public:
     BoxSys();
     virtual ~BoxSys();

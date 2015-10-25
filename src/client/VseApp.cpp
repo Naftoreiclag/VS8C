@@ -101,8 +101,6 @@ void VseApp::onTick(float tps) {
     
     BoxComp* comp = (BoxComp*) mTestCube->getComponent(BoxComp::componentID);
     
-    std::cout << comp->x << std::endl;
-    
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
     Ogre::Vector3 moveVec;

@@ -2,7 +2,6 @@
 #define SKE_BOXCOMP_HPP
 
 #include "btBulletDynamicsCommon.h"
-
 #include "OgreSceneNode.h"
 #include "OgreEntity.h"
 
@@ -11,16 +10,6 @@
 namespace vse {
 
 class BoxComp : public nres::Component {
-public:
-    class RigidBodyMotionListener : public btMotionState {
-    protected:
-        btTransform initialLoc;
-        BoxComp* const sendTo;
-    public:
-        RigidBodyMotionListener(const btTransform& initialLoc, BoxComp* const sendTo);
-        virtual void getWorldTransform(btTransform& worldTransform) const;
-        virtual void setWorldTransform(const btTransform& worldTransform);
-    };
 public:
     btQuaternion rotation;
     btVector3 location;
@@ -37,8 +26,6 @@ public:
     btCollisionShape* mCollisionShape; // For deletion
     btRigidBody* rigidBody;
     btMotionState* motionState;
-    
-    float x;
 public:
     virtual const nres::ComponentID& getID();
 
