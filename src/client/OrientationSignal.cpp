@@ -3,7 +3,7 @@
 namespace vse {
 
 OrientationSignal::OrientationSignal(Quate orienationUpdate)
-: mOrienationUpdate(orienationUpdate) {
+: mOrientationUpdate(orienationUpdate) {
 }
 
 OrientationSignal::~OrientationSignal() {

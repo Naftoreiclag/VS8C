@@ -13,7 +13,7 @@ public:
 
     virtual EntSignal::Type getType() const;
     
-    Quate mOrienationUpdate;
+    Quate mOrientationUpdate;
 };
 
 }

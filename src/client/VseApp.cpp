@@ -9,6 +9,7 @@
 
 #include "PhysicsSys.hpp"
 #include "PhysicsComp.hpp"
+#include "SceneNodeComp.hpp"
 #include "LocalPlayerComp.hpp"
 #include "LocalPlayerMoveSignal.hpp"
 
@@ -96,9 +97,13 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mPhysicsSys = new PhysicsSys();
     mWorld.attachSystem(mPhysicsSys);
     
+    mRenderSys = new RenderSys();
+    mWorld.attachSystem(mRenderSys);
+    
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);
     mLocalPlayer->add(new PhysicsComp(new btBoxShape(size)));
+    mLocalPlayer->add(new SceneNodeComp());
     mLocalPlayer->add(new LocalPlayerComp());
     mLocalPlayer->publish();
     
@@ -168,6 +173,7 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event) {
             nres::Entity* testCube = mWorld.newEntity();
             btVector3 size(1, 1, 1);
             testCube->add(new PhysicsComp(new btBoxShape(size)));
+            testCube->add(new SceneNodeComp());
             testCube->publish();
             break;
         }

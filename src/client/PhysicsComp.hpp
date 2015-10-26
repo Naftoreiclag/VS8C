@@ -2,8 +2,6 @@
 #define SKE_PHYSICSCOMP_HPP
 
 #include "btBulletDynamicsCommon.h"
-#include "OgreSceneNode.h"
-#include "OgreEntity.h"
 
 #include "NRES.hpp"
 
@@ -19,9 +17,6 @@ public:
     static const nres::ComponentID componentID;
     PhysicsComp(btCollisionShape* collisionShape);
     virtual ~PhysicsComp();
-    
-    Ogre::SceneNode* boxNode;
-    Ogre::Entity* boxModel;
     
     btCollisionShape* mCollisionShape; // For deletion
     btRigidBody* rigidBody;

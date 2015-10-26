@@ -10,6 +10,7 @@
 
 #include "NRES.hpp"
 #include "PhysicsSys.hpp"
+#include "RenderSys.hpp"
 
 namespace vse
 {
@@ -60,6 +61,7 @@ public:
     void updateCamDolly();
     
     nres::World mWorld;
+    RenderSys* mRenderSys;
     PhysicsSys* mPhysicsSys;
     
     nres::Entity* mLocalPlayer;

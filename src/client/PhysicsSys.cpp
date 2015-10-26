@@ -14,21 +14,20 @@
 
 namespace vse {
 
-
 PhysicsSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo)
 : sendTo(sendTo),
 initialLoc(initialLoc) {
 }
 
 void PhysicsSys::RigidBodyMotionListener::getWorldTransform(btTransform& worldTransform) const {
-	worldTransform = initialLoc;
+    worldTransform = initialLoc;
 }
 
 void PhysicsSys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
-	sendTo->mRotation = worldTransform.getRotation();
-	sendTo->mLocation = worldTransform.getOrigin();
-	sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
-	sendTo->mOnPhysUpdate = true;
+    sendTo->mRotation = worldTransform.getRotation();
+    sendTo->mLocation = worldTransform.getOrigin();
+    sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
+    sendTo->mOnPhysUpdate = true;
 }
 
 PhysicsSys::PhysicsSys() {
@@ -65,7 +64,6 @@ void PhysicsSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) 
             
             PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
             comp->rigidBody->applyCentralForce(signal->requestedMovement);
-            
             break;
         }
         default: {

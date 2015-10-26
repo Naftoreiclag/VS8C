@@ -1,6 +1,9 @@
 #ifndef VSE_SCENENODECOMP_HPP
 #define VSE_SCENENODECOMP_HPP
 
+#include "OgreSceneNode.h"
+#include "OgreEntity.h"
+
 #include "NRES.hpp"
 
 namespace vse {
@@ -13,6 +16,9 @@ public:
     
     static const nres::ComponentID componentID;
     virtual const nres::ComponentID& getID();
+    
+    Ogre::SceneNode* boxNode;
+    Ogre::Entity* boxModel;
 
 };
 
