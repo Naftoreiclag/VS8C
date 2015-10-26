@@ -5,9 +5,9 @@
 
 #include "btBulletDynamicsCommon.h"
 #include "OgreSceneManager.h"
-#include "BoxComp.hpp"
-
 #include "NRES.hpp"
+
+#include "BoxComp.hpp"
 
 namespace vse
 {

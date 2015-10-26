@@ -6,6 +6,9 @@
 #include "VseApp.hpp"
 #include "BoxComp.hpp"
 
+#include "Vec3f.hpp"
+#include "Quate.hpp"
+
 #include "LocalPlayerMoveSignal.hpp"
 
 namespace vse {
@@ -74,7 +77,7 @@ void BoxSys::onEntityBroadcast(nres::Entity* entity, EntSignal* data) {
             LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
             
             BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
-            comp->rigidBody->applyCentralForce(btVector3(0, 1, 0));
+            comp->rigidBody->applyCentralForce(btVector3(0, 30, 0));
             
             break;
         }
@@ -93,8 +96,8 @@ void BoxSys::onTick(float tps) {
         BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
         
         if(comp->mOnPhysUpdate) {
-            comp->boxNode->setPosition(comp->mLocation.getX(), comp->mLocation.getY(), comp->mLocation.getZ());
-            comp->boxNode->setOrientation(comp->mRotation.getW(), comp->mRotation.getX(), comp->mRotation.getY(), comp->mRotation.getZ());
+            comp->boxNode->setPosition(Vec3f(comp->mLocation));
+            comp->boxNode->setOrientation(Quate(comp->mRotation));
             
             comp->mOnPhysUpdate = false;
         }

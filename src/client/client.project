@@ -62,6 +62,14 @@
       <File Name="OgreApp.cpp"/>
       <File Name="OgreApp.hpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="math">
+      <File Name="Vec2f.cpp"/>
+      <File Name="Vec2f.hpp"/>
+      <File Name="Vec3f.cpp"/>
+      <File Name="Vec3f.hpp"/>
+      <File Name="Quate.hpp"/>
+      <File Name="Quate.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
