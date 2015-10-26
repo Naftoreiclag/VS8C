@@ -34,14 +34,30 @@ public:
     SDL_Window* mSdlWindow;
     
     Ogre::SceneNode* mRootNode;
+    
+    // Camera location
     Ogre::SceneNode* mCamLocNode;
+    
+    // Camera orientation producers
     Ogre::SceneNode* mCamPitchNode;
     Ogre::SceneNode* mCamYawNode;
     Ogre::SceneNode* mCamRollNode;
     
+    // Determines orientation
     Ogre::Degree mCamPitch;
     Ogre::Degree mCamYaw;
     Ogre::Degree mCamRoll;
+    
+    float mCamDolly;
+    float mCamDollyMax;
+    float mCamDollyMin;
+    
+    Ogre::Degree mDollyAngle;
+    float mDollyXCoeff;
+    float mDollyZCoeff;
+    
+    
+    void updateCamDolly();
     
     nres::World mWorld;
     BoxSys* mBoxSys;

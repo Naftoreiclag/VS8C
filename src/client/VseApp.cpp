@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <iostream>
 
+#include "OgreMath.h"
 #include "OgreEntity.h"
 #include "SDL.h"
 
@@ -21,11 +22,8 @@ VseApp& VseApp::getSingleton() {
     return instance;
 }
 
-VseApp::VseApp() {
-}
-
-VseApp::~VseApp() {
-}
+VseApp::VseApp() {}
+VseApp::~VseApp() {}
 
 void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow) {
     mOgreRoot = ogreRoot;
@@ -33,10 +31,6 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mSdlWindow = sdlWindow;
     
     SDL_SetRelativeMouseMode(SDL_TRUE);
-    
-    mCamPitch = Ogre::Degree(0);
-    mCamYaw = Ogre::Degree(0);
-    mCamRoll = Ogre::Degree(0);
     
     mSmgr = mOgreRoot->createSceneManager(Ogre::ST_GENERIC);
     mRootNode = mSmgr->getRootSceneNode();
@@ -49,6 +43,25 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamPitchNode = mCamYawNode->createChildSceneNode();
     mCamRollNode = mCamPitchNode->createChildSceneNode();
     mCamRollNode->attachObject(mCam);
+    
+    Ogre::SceneNode* testHeadNode = mCamLocNode->createChildSceneNode();
+    Ogre::Entity* testHeadEnt = mSmgr->createEntity("TestHead", "Cube.mesh");
+    testHeadNode->attachObject(testHeadEnt);
+    testHeadNode->setScale(0.5f, 0.5f, 0.5f);
+    
+    mCamPitch = Ogre::Degree(0);
+    mCamYaw = Ogre::Degree(0);
+    mCamRoll = Ogre::Degree(0);
+    
+    mCamDolly = 5.f;
+    
+    mDollyAngle = Ogre::Degree(10);
+    mDollyXCoeff = Ogre::Math::Sin(mDollyAngle);
+    mDollyZCoeff = Ogre::Math::Cos(mDollyAngle);
+    
+    mCamLocNode->setPosition(0, 1.5f, 0);
+    
+    updateCamDolly();
     
     mCam->setAspectRatio(Ogre::Real(1280) / Ogre::Real(720));
     
@@ -180,12 +193,19 @@ void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
         mCamPitch = Ogre::Degree(-90);
     }
     
+    updateCamDolly();
+}
+
+void VseApp::updateCamDolly() {
     mCamYawNode->resetOrientation();
     mCamYawNode->yaw(mCamYaw);
     mCamPitchNode->resetOrientation();
     mCamPitchNode->pitch(mCamPitch);
-    
+
+    mCamPitchNode->setPosition(mDollyXCoeff * mCamDolly, 0, 0);
+    mCamRollNode->setPosition(0, 0, mDollyZCoeff * mCamDolly);
 }
+
 void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
 }
 void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
