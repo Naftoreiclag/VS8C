@@ -1,10 +1,10 @@
-#include "BoxSys.hpp"
+#include "PhysicsSys.hpp"
 
 #include <sstream>
 #include <stdint.h>
 
 #include "VseApp.hpp"
-#include "BoxComp.hpp"
+#include "PhysicsComp.hpp"
 
 #include "Vec3f.hpp"
 #include "Quate.hpp"
@@ -14,7 +14,7 @@
 namespace vse {
 
 
-BoxSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, BoxComp* const sendTo)
+BoxSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo)
 : sendTo(sendTo),
 initialLoc(initialLoc) {
 }
@@ -41,7 +41,7 @@ std::string BoxSys::generateOgreEntityName() {
 }
 
 BoxSys::BoxSys() {
-    requiredComponents.push_back(BoxComp::componentID);
+    requiredComponents.push_back(PhysicsComp::componentID);
     
     dynamicsWorld = VseApp::getSingleton().mDynamicsWorld;
     smgr = VseApp::getSingleton().mSmgr;
@@ -51,7 +51,7 @@ BoxSys::~BoxSys() {
 }
 
 void BoxSys::onEntityExists(nres::Entity* entity) {
-    BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
+    PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
     comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
     comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
     comp->boxNode->attachObject(comp->boxModel);
@@ -76,7 +76,7 @@ void BoxSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
         case EntSignal::Type::LOCAL_PLAYER_MOVE: {
             LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
             
-            BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
+            PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
             comp->rigidBody->applyCentralForce(signal->requestedMovement);
             
             break;
@@ -93,7 +93,7 @@ const std::vector<nres::ComponentID>& BoxSys::getRequiredComponents() {
 void BoxSys::onTick(float tps) {
     for(std::vector<nres::Entity*>::iterator it = trackedEntities.begin(); it != trackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
-        BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
+        PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
         
         if(comp->mOnPhysUpdate) {
             comp->boxNode->setPosition(Vec3f(comp->mLocation));

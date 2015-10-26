@@ -7,7 +7,7 @@
 #include "OgreSceneManager.h"
 #include "NRES.hpp"
 
-#include "BoxComp.hpp"
+#include "PhysicsComp.hpp"
 
 namespace vse
 {
@@ -18,9 +18,9 @@ public:
     class RigidBodyMotionListener : public btMotionState {
     protected:
         btTransform initialLoc;
-        BoxComp* const sendTo;
+        PhysicsComp* const sendTo;
     public:
-        RigidBodyMotionListener(const btTransform& initialLoc, BoxComp* const sendTo);
+        RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo);
         virtual void getWorldTransform(btTransform& worldTransform) const;
         virtual void setWorldTransform(const btTransform& worldTransform);
     };

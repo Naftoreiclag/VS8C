@@ -44,17 +44,23 @@
       <File Name="NRES.hpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="entities">
-      <File Name="BoxComp.hpp"/>
-      <File Name="BoxComp.cpp"/>
-      <File Name="BoxSys.hpp"/>
-      <File Name="BoxSys.cpp"/>
-      <File Name="LocalPlayerComp.hpp"/>
-      <File Name="LocalPlayerComp.cpp"/>
       <VirtualDirectory Name="signals">
         <File Name="EntSignal.cpp"/>
         <File Name="EntSignal.hpp"/>
         <File Name="LocalPlayerMoveSignal.hpp"/>
         <File Name="LocalPlayerMoveSignal.cpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="components">
+        <File Name="LocalPlayerComp.cpp"/>
+        <File Name="LocalPlayerComp.hpp"/>
+        <File Name="PhysicsComp.cpp"/>
+        <File Name="PhysicsComp.hpp"/>
+        <File Name="SceneNodeComp.cpp"/>
+        <File Name="SceneNodeComp.hpp"/>
+      </VirtualDirectory>
+      <VirtualDirectory Name="systems">
+        <File Name="PhysicsSys.cpp"/>
+        <File Name="PhysicsSys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">

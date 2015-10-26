@@ -7,8 +7,8 @@
 #include "OgreEntity.h"
 #include "SDL.h"
 
-#include "BoxSys.hpp"
-#include "BoxComp.hpp"
+#include "PhysicsSys.hpp"
+#include "PhysicsComp.hpp"
 #include "LocalPlayerComp.hpp"
 #include "LocalPlayerMoveSignal.hpp"
 
@@ -98,7 +98,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);
-    mLocalPlayer->add(new BoxComp(new btBoxShape(size)));
+    mLocalPlayer->add(new PhysicsComp(new btBoxShape(size)));
     mLocalPlayer->add(new LocalPlayerComp());
     mLocalPlayer->publish();
     
@@ -140,12 +140,12 @@ void VseApp::onTick(float tps) {
     
     if(moved) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
-        //mLocalPlayer->broadcast(new LocalPlayerMoveSignal(transl * 100));
+        mLocalPlayer->broadcast(new LocalPlayerMoveSignal(transl * 1000));
         mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
     }
     
     if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {
-        mLocalPlayer->broadcast(new LocalPlayerMoveSignal(Vec3f(0, 100, 0)));
+        //mLocalPlayer->broadcast(new LocalPlayerMoveSignal(Vec3f(0, 100, 0)));
     }
 }
 
@@ -167,7 +167,7 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event) {
         case SDLK_q: {
             nres::Entity* testCube = mWorld.newEntity();
             btVector3 size(1, 1, 1);
-            testCube->add(new BoxComp(new btBoxShape(size)));
+            testCube->add(new PhysicsComp(new btBoxShape(size)));
             testCube->publish();
             break;
         }

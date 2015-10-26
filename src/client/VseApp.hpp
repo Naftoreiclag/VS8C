@@ -9,7 +9,7 @@
 #include "SDL_events.h"
 
 #include "NRES.hpp"
-#include "BoxSys.hpp"
+#include "PhysicsSys.hpp"
 
 namespace vse
 {

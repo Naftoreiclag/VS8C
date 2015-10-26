@@ -1,5 +1,5 @@
-#ifndef SKE_BOXCOMP_HPP
-#define SKE_BOXCOMP_HPP
+#ifndef SKE_PHYSICSCOMP_HPP
+#define SKE_PHYSICSCOMP_HPP
 
 #include "btBulletDynamicsCommon.h"
 #include "OgreSceneNode.h"
@@ -9,7 +9,7 @@
 
 namespace vse {
 
-class BoxComp : public nres::Component {
+class PhysicsComp : public nres::Component {
 public:
     btQuaternion mRotation;
     btVector3 mLocation;
@@ -17,8 +17,8 @@ public:
     bool mOnPhysUpdate;
 public:
     static const nres::ComponentID componentID;
-    BoxComp(btCollisionShape* collisionShape);
-    virtual ~BoxComp();
+    PhysicsComp(btCollisionShape* collisionShape);
+    virtual ~PhysicsComp();
     
     Ogre::SceneNode* boxNode;
     Ogre::Entity* boxModel;
@@ -33,4 +33,4 @@ public:
 
 }
 
-#endif // SKE_BOXCOMP_HPP
+#endif // SKE_PHYSICSCOMP_HPP
