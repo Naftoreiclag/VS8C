@@ -61,6 +61,8 @@
       <VirtualDirectory Name="systems">
         <File Name="PhysicsSys.cpp"/>
         <File Name="PhysicsSys.hpp"/>
+        <File Name="RenderSys.hpp"/>
+        <File Name="RenderSys.cpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">

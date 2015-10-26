@@ -1,7 +1,7 @@
 #include "LocalPlayerComp.hpp"
 
-namespace vse
-{
+namespace vse {
+    
 const nres::ComponentID LocalPlayerComp::componentID = "localpl";
 
 LocalPlayerComp::LocalPlayerComp() {

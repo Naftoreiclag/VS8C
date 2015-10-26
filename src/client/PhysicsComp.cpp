@@ -2,7 +2,7 @@
 
 namespace vse {
     
-const nres::ComponentID PhysicsComp::componentID = "box";
+const nres::ComponentID PhysicsComp::componentID = "physics";
 
 PhysicsComp::PhysicsComp(btCollisionShape* collisionShape)
 : mCollisionShape(collisionShape) {

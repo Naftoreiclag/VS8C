@@ -3,8 +3,7 @@
 
 #include "NRES.hpp"
 
-namespace vse
-{
+namespace vse {
 
 class SceneNodeComp : public nres::Component
 {

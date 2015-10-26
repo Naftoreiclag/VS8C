@@ -3,8 +3,7 @@
 
 #include "NRES.hpp"
 
-namespace vse
-{
+namespace vse {
 
 class LocalPlayerComp : public nres::Component
 {

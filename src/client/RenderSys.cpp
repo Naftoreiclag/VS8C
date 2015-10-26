@@ -1,4 +1,4 @@
-#include "PhysicsSys.hpp"
+#include "RenderSys.hpp"
 
 #include <sstream>
 #include <stdint.h>
@@ -14,23 +14,23 @@
 namespace vse {
 
 
-PhysicsSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo)
+RenderSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo)
 : sendTo(sendTo),
 initialLoc(initialLoc) {
 }
 
-void PhysicsSys::RigidBodyMotionListener::getWorldTransform(btTransform& worldTransform) const {
+void RenderSys::RigidBodyMotionListener::getWorldTransform(btTransform& worldTransform) const {
 	worldTransform = initialLoc;
 }
 
-void PhysicsSys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
+void RenderSys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
 	sendTo->mRotation = worldTransform.getRotation();
 	sendTo->mLocation = worldTransform.getOrigin();
 	sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
 	sendTo->mOnPhysUpdate = true;
 }
     
-std::string PhysicsSys::generateOgreEntityName() {
+std::string RenderSys::generateOgreEntityName() {
     static uint32_t id = 0;
     
     std::stringstream ss;
@@ -40,17 +40,17 @@ std::string PhysicsSys::generateOgreEntityName() {
     return ss.str();
 }
 
-PhysicsSys::PhysicsSys() {
+RenderSys::RenderSys() {
     requiredComponents.push_back(PhysicsComp::componentID);
     
     dynamicsWorld = VseApp::getSingleton().mDynamicsWorld;
     smgr = VseApp::getSingleton().mSmgr;
 }
 
-PhysicsSys::~PhysicsSys() {
+RenderSys::~RenderSys() {
 }
 
-void PhysicsSys::onEntityExists(nres::Entity* entity) {
+void RenderSys::onEntityExists(nres::Entity* entity) {
     PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
     comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
     comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
@@ -68,10 +68,10 @@ void PhysicsSys::onEntityExists(nres::Entity* entity) {
     
     trackedEntities.push_back(entity);
 }
-void PhysicsSys::onEntityDestroyed(nres::Entity* entity) {
+void RenderSys::onEntityDestroyed(nres::Entity* entity) {
     
 }
-void PhysicsSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
+void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
         case EntSignal::Type::LOCAL_PLAYER_MOVE: {
             LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
@@ -86,11 +86,11 @@ void PhysicsSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) 
         }
     }
 }
-const std::vector<nres::ComponentID>& PhysicsSys::getRequiredComponents() {
+const std::vector<nres::ComponentID>& RenderSys::getRequiredComponents() {
     return requiredComponents;
 }
 
-void PhysicsSys::onTick(float tps) {
+void RenderSys::onTick(float tps) {
     for(std::vector<nres::Entity*>::iterator it = trackedEntities.begin(); it != trackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
         PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
@@ -105,4 +105,3 @@ void PhysicsSys::onTick(float tps) {
     }
 }
 }
-

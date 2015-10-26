@@ -1,5 +1,5 @@
-#ifndef SKE_PHYSICSSYS_HPP
-#define SKE_PHYSICSSYS_HPP
+#ifndef VSE_RENDERSYS_HPP
+#define VSE_RENDERSYS_HPP
 
 #include <string>
 
@@ -11,7 +11,7 @@
 
 namespace vse {
 
-class PhysicsSys : public nres::System {
+class RenderSys : public nres::System {
 public:
     class RigidBodyMotionListener : public btMotionState {
     protected:
@@ -23,8 +23,8 @@ public:
         virtual void setWorldTransform(const btTransform& worldTransform);
     };
 public:
-    PhysicsSys();
-    virtual ~PhysicsSys();
+    RenderSys();
+    virtual ~RenderSys();
     
 private:
     std::vector<nres::ComponentID> requiredComponents;
@@ -46,4 +46,4 @@ public:
 
 }
 
-#endif // SKE_PHYSICSSYS_HPP
+#endif // VSE_RENDERSYS_HPP

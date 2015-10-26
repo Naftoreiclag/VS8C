@@ -60,7 +60,7 @@ public:
     void updateCamDolly();
     
     nres::World mWorld;
-    BoxSys* mBoxSys;
+    PhysicsSys* mPhysicsSys;
     
     nres::Entity* mLocalPlayer;
     
