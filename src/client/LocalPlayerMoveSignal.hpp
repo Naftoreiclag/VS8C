@@ -2,15 +2,18 @@
 #define VSE_LOCALPLAYERMOVESIGNAL_HPP
 
 #include "EntSignal.hpp"
+#include "Vec3f.hpp"
 
 namespace vse {
 
 class LocalPlayerMoveSignal : public EntSignal {
 public:
-    LocalPlayerMoveSignal();
+    LocalPlayerMoveSignal(Vec3f requestedMovement);
     virtual ~LocalPlayerMoveSignal();
 
-    virtual EntSignal::Type getType();
+    virtual EntSignal::Type getType() const;
+    
+    Vec3f requestedMovement;
 };
 
 }

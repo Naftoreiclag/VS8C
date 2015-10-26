@@ -13,7 +13,7 @@ public:
     EntSignal();
     virtual ~EntSignal();
     
-    virtual Type getType() = 0;
+    virtual Type getType() const = 0;
 
 };
 

@@ -71,13 +71,13 @@ void BoxSys::onEntityExists(nres::Entity* entity) {
 void BoxSys::onEntityDestroyed(nres::Entity* entity) {
     
 }
-void BoxSys::onEntityBroadcast(nres::Entity* entity, EntSignal* data) {
+void BoxSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
         case EntSignal::Type::LOCAL_PLAYER_MOVE: {
             LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
             
             BoxComp* comp = (BoxComp*) entity->getComponent(BoxComp::componentID);
-            comp->rigidBody->applyCentralForce(btVector3(0, 30, 0));
+            comp->rigidBody->applyCentralForce(signal->requestedMovement);
             
             break;
         }

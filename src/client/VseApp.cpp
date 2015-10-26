@@ -11,6 +11,8 @@
 #include "LocalPlayerComp.hpp"
 #include "LocalPlayerMoveSignal.hpp"
 
+#include "Vec3f.hpp"
+
 namespace vse
 {
     
@@ -101,7 +103,7 @@ void VseApp::onTick(float tps) {
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
-    Ogre::Vector3 moveVec;
+    Vec3f moveVec;
     float spd = tps * 5;
     bool moved = false;
     if(keyStates[SDL_GetScancodeFromKey(SDLK_w)]) {
@@ -122,11 +124,13 @@ void VseApp::onTick(float tps) {
     }
     
     if(moved) {
-        mCamLocNode->translate(mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec, Ogre::SceneNode::TS_LOCAL);
+        Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
+        //mLocalPlayer->broadcast(new LocalPlayerMoveSignal(transl * 100));
+        mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
     }
     
     if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {
-        mLocalPlayer->broadcast(new LocalPlayerMoveSignal());
+        mLocalPlayer->broadcast(new LocalPlayerMoveSignal(Vec3f(0, 100, 0)));
     }
 }
 
