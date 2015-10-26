@@ -49,6 +49,10 @@
         <File Name="EntSignal.hpp"/>
         <File Name="LocalPlayerMoveSignal.hpp"/>
         <File Name="LocalPlayerMoveSignal.cpp"/>
+        <File Name="LocationSignal.hpp"/>
+        <File Name="LocationSignal.cpp"/>
+        <File Name="OrientationSignal.hpp"/>
+        <File Name="OrientationSignal.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="components">
         <File Name="LocalPlayerComp.cpp"/>

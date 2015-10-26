@@ -1,6 +1,5 @@
 #include "PhysicsSys.hpp"
 
-#include <sstream>
 #include <stdint.h>
 
 #include "VseApp.hpp"
@@ -10,6 +9,8 @@
 #include "Quate.hpp"
 
 #include "LocalPlayerMoveSignal.hpp"
+#include "LocationSignal.hpp"
+#include "OrientationSignal.hpp"
 
 namespace vse {
 
@@ -29,22 +30,11 @@ void PhysicsSys::RigidBodyMotionListener::setWorldTransform(const btTransform& w
 	sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
 	sendTo->mOnPhysUpdate = true;
 }
-    
-std::string PhysicsSys::generateOgreEntityName() {
-    static uint32_t id = 0;
-    
-    std::stringstream ss;
-    ss << "cube" << id;
-    
-    ++ id;
-    return ss.str();
-}
 
 PhysicsSys::PhysicsSys() {
     requiredComponents.push_back(PhysicsComp::componentID);
     
     dynamicsWorld = VseApp::getSingleton().mDynamicsWorld;
-    smgr = VseApp::getSingleton().mSmgr;
 }
 
 PhysicsSys::~PhysicsSys() {
@@ -52,9 +42,6 @@ PhysicsSys::~PhysicsSys() {
 
 void PhysicsSys::onEntityExists(nres::Entity* entity) {
     PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
-    comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
-    comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
-    comp->boxNode->attachObject(comp->boxModel);
     
     btScalar mass = 1;
     btTransform trans;
@@ -96,12 +83,11 @@ void PhysicsSys::onTick(float tps) {
         PhysicsComp* comp = (PhysicsComp*) entity->getComponent(PhysicsComp::componentID);
         
         if(comp->mOnPhysUpdate) {
-            comp->boxNode->setPosition(Vec3f(comp->mLocation));
-            comp->boxNode->setOrientation(Quate(comp->mRotation));
+            entity->broadcast(new LocationSignal(Vec3f(comp->mLocation)));
+            entity->broadcast(new OrientationSignal(Quate(comp->mRotation)));
             
             comp->mOnPhysUpdate = false;
         }
-        
     }
 }
 }

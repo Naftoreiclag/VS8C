@@ -1,10 +1,7 @@
 #ifndef SKE_PHYSICSSYS_HPP
 #define SKE_PHYSICSSYS_HPP
 
-#include <string>
-
 #include "btBulletDynamicsCommon.h"
-#include "OgreSceneManager.h"
 #include "NRES.hpp"
 
 #include "PhysicsComp.hpp"
@@ -30,7 +27,6 @@ private:
     std::vector<nres::ComponentID> requiredComponents;
     std::vector<nres::Entity*> trackedEntities;
     
-    Ogre::SceneManager* smgr;
     btDynamicsWorld* dynamicsWorld;
     
 public:
@@ -41,7 +37,6 @@ public:
     virtual const std::vector<nres::ComponentID>& getRequiredComponents();
     
     void onTick(float tps);
-    std::string generateOgreEntityName();
 };
 
 }

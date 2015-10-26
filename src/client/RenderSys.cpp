@@ -13,7 +13,6 @@
 
 namespace vse {
 
-
 RenderSys::RigidBodyMotionListener::RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo)
 : sendTo(sendTo),
 initialLoc(initialLoc) {
