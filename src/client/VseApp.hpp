@@ -48,9 +48,9 @@ public:
     Ogre::Degree mCamYaw;
     Ogre::Degree mCamRoll;
     
-    float mCamDolly;
-    float mCamDollyMax;
-    float mCamDollyMin;
+    float mDollyScale;
+    float mDollyMax;
+    float mDollyMin;
     
     Ogre::Degree mDollyAngle;
     float mDollyXCoeff;
@@ -81,6 +81,7 @@ public:
     void onMouseMove(const SDL_MouseMotionEvent& event);
     void onMousePress(const SDL_MouseButtonEvent& event);
     void onMouseRelease(const SDL_MouseButtonEvent& event);
+    void onMouseWheel(const SDL_MouseWheelEvent& event);
     
     VseApp();
     ~VseApp();

@@ -107,6 +107,10 @@ void OgreApp::run() {
                     garnetApp.onMouseRelease(event.button);
                     break;
                 }
+                case SDL_MOUSEWHEEL: {
+                    garnetApp.onMouseWheel(event.wheel);
+                    break;
+                }
                 default : {
                     break;
                 }

@@ -53,7 +53,9 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamYaw = Ogre::Degree(0);
     mCamRoll = Ogre::Degree(0);
     
-    mCamDolly = 5.f;
+    mDollyScale = 5.f;
+    mDollyMax = 10.f;
+    mDollyMin = 0.f;
     
     mDollyAngle = Ogre::Degree(10);
     mDollyXCoeff = Ogre::Math::Sin(mDollyAngle);
@@ -202,14 +204,30 @@ void VseApp::updateCamDolly() {
     mCamPitchNode->resetOrientation();
     mCamPitchNode->pitch(mCamPitch);
 
-    mCamPitchNode->setPosition(mDollyXCoeff * mCamDolly, 0, 0);
-    mCamRollNode->setPosition(0, 0, mDollyZCoeff * mCamDolly);
+    mCamPitchNode->setPosition(mDollyXCoeff * mDollyScale, 0, 0);
+    mCamRollNode->setPosition(0, 0, mDollyZCoeff * mDollyScale);
 }
 
 void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
 }
 void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
     
+}
+
+void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
+    float delta = -event.y;
+    delta *= 0.5f;
+    
+    mDollyScale += delta;
+    
+    if(mDollyScale < mDollyMin) {
+        mDollyScale = mDollyMin;
+    }
+    if(mDollyScale > mDollyMax) {
+        mDollyScale = mDollyMax;
+    }
+    
+    updateCamDolly();
 }
 }
 
