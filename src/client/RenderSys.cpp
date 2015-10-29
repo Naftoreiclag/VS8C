@@ -18,7 +18,7 @@ std::string RenderSys::generateOgreEntityName() {
     static uint32_t id = 0;
     
     std::stringstream ss;
-    ss << "cube" << id;
+    ss << "vse" << id;
     
     ++ id;
     return ss.str();

@@ -3,7 +3,6 @@
 
 #include <string>
 
-#include "btBulletDynamicsCommon.h"
 #include "OgreSceneManager.h"
 #include "NRES.hpp"
 

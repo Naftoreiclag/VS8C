@@ -1,7 +1,7 @@
 #include "PhysicsComp.hpp"
 
 namespace vse {
-    
+
 const nres::ComponentID PhysicsComp::componentID = "physics";
 
 PhysicsComp::PhysicsComp(btCollisionShape* collisionShape)
