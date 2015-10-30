@@ -55,14 +55,16 @@
         <File Name="OrientationSignal.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="components">
-        <File Name="LocalPlayerComp.cpp"/>
         <File Name="LocalPlayerComp.hpp"/>
-        <File Name="SceneNodeComp.cpp"/>
         <File Name="SceneNodeComp.hpp"/>
-        <File Name="RigidBodyComp.cpp"/>
         <File Name="RigidBodyComp.hpp"/>
         <File Name="LegSpringComp.hpp"/>
-        <File Name="LegSpringComp.cpp"/>
+        <VirtualDirectory Name="implementation">
+          <File Name="LegSpringComp.cpp"/>
+          <File Name="LocalPlayerComp.cpp"/>
+          <File Name="RigidBodyComp.cpp"/>
+          <File Name="SceneNodeComp.cpp"/>
+        </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="systems">
         <File Name="RenderSys.hpp"/>

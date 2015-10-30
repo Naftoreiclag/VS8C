@@ -1,14 +1,17 @@
 #ifndef VSE_LEGSPRING_COMP
 #define VSE_LEGSPRING_COMP
 
-namespace vse
-{
+#include "NRES.hpp"
 
-class LegSpringComp
-{
+namespace vse {
+
+class LegSpringComp : public nres::Component {
 public:
     LegSpringComp();
-    ~LegSpringComp();
+    virtual <~LegSpringComp();
+    
+    static const nres::ComponentID componentID;
+    virtual const nres::ComponentID& getID();
 
 };
 

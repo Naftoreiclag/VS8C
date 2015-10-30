@@ -5,8 +5,7 @@
 
 namespace vse {
 
-class LocalPlayerComp : public nres::Component
-{
+class LocalPlayerComp : public nres::Component {
 public:
     LocalPlayerComp();
     virtual ~LocalPlayerComp();
