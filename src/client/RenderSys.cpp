@@ -1,5 +1,6 @@
 #include "RenderSys.hpp"
 
+#include <algorithm>
 #include <sstream>
 #include <stdint.h>
 
@@ -25,7 +26,7 @@ std::string RenderSys::generateOgreEntityName() {
 }
 
 RenderSys::RenderSys() {
-    requiredComponents.push_back(SceneNodeComp::componentID);
+    mRequiredComponents.push_back(SceneNodeComp::componentID);
     
     smgr = VseApp::getSingleton().mSmgr;
 }
@@ -39,10 +40,10 @@ void RenderSys::onEntityExists(nres::Entity* entity) {
     comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
     comp->boxNode->attachObject(comp->boxModel);
     
-    trackedEntities.push_back(entity);
+    mTrackedEntities.push_back(entity);
 }
 void RenderSys::onEntityDestroyed(nres::Entity* entity) {
-    trackedEntities.erase(std::remove(trackedEntities.begin(), trackedEntities.end(), entity), trackedEntities.end());
+    mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
 void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
@@ -66,7 +67,7 @@ void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     }
 }
 const std::vector<nres::ComponentID>& RenderSys::getRequiredComponents() {
-    return requiredComponents;
+    return mRequiredComponents;
 }
 
 }

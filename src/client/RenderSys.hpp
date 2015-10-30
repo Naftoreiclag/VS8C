@@ -16,8 +16,8 @@ public:
     virtual ~RenderSys();
     
 private:
-    std::vector<nres::ComponentID> requiredComponents;
-    std::vector<nres::Entity*> trackedEntities;
+    std::vector<nres::ComponentID> mRequiredComponents;
+    std::vector<nres::Entity*> mTrackedEntities;
     
     Ogre::SceneManager* smgr;
     
