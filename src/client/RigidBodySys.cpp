@@ -1,5 +1,6 @@
 #include "RigidBodySys.hpp"
 
+#include <algorithm>
 #include <stdint.h>
 
 #include "VseApp.hpp"
@@ -55,7 +56,7 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     trackedEntities.push_back(entity);
 }
 void RigidBodySys::onEntityDestroyed(nres::Entity* entity) {
-    
+    trackedEntities.erase(std::remove(trackedEntities.begin(), trackedEntities.end(), entity), trackedEntities.end());
 }
 void RigidBodySys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {

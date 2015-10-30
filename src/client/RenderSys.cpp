@@ -42,7 +42,7 @@ void RenderSys::onEntityExists(nres::Entity* entity) {
     trackedEntities.push_back(entity);
 }
 void RenderSys::onEntityDestroyed(nres::Entity* entity) {
-    
+    trackedEntities.erase(std::remove(trackedEntities.begin(), trackedEntities.end(), entity), trackedEntities.end());
 }
 void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
