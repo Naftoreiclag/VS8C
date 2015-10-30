@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #include "VseApp.hpp"
-#include "PhysicsComp.hpp"
+#include "RigidBodyComp.hpp"
 
 #include "Vec3f.hpp"
 #include "Quate.hpp"

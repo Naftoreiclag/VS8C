@@ -7,7 +7,7 @@
 
 namespace vse {
 
-class PhysicsComp : public nres::Component {
+class RigidBodyComp : public nres::Component {
 public:
     btQuaternion mRotation;
     btVector3 mLocation;
@@ -15,8 +15,8 @@ public:
     bool mOnPhysUpdate;
 public:
     static const nres::ComponentID componentID;
-    PhysicsComp(btCollisionShape* collisionShape);
-    virtual ~PhysicsComp();
+    RigidBodyComp(btCollisionShape* collisionShape);
+    virtual ~RigidBodyComp();
     
     btCollisionShape* mCollisionShape; // For deletion
     btRigidBody* rigidBody;

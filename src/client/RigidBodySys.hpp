@@ -4,24 +4,24 @@
 #include "btBulletDynamicsCommon.h"
 #include "NRES.hpp"
 
-#include "PhysicsComp.hpp"
+#include "RigidBodyComp.hpp"
 
 namespace vse {
 
-class PhysicsSys : public nres::System {
+class RigidBodySys : public nres::System {
 public:
     class RigidBodyMotionListener : public btMotionState {
     protected:
         btTransform initialLoc;
-        PhysicsComp* const sendTo;
+        RigidBodyComp* const sendTo;
     public:
-        RigidBodyMotionListener(const btTransform& initialLoc, PhysicsComp* const sendTo);
+        RigidBodyMotionListener(const btTransform& initialLoc, RigidBodyComp* const sendTo);
         virtual void getWorldTransform(btTransform& worldTransform) const;
         virtual void setWorldTransform(const btTransform& worldTransform);
     };
 public:
-    PhysicsSys();
-    virtual ~PhysicsSys();
+    RigidBodySys();
+    virtual ~RigidBodySys();
     
 private:
     std::vector<nres::ComponentID> requiredComponents;

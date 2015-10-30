@@ -9,7 +9,7 @@
 #include "SDL_events.h"
 
 #include "NRES.hpp"
-#include "PhysicsSys.hpp"
+#include "RigidBodySys.hpp"
 #include "RenderSys.hpp"
 
 namespace vse
@@ -62,7 +62,7 @@ public:
     
     nres::World mWorld;
     RenderSys* mRenderSys;
-    PhysicsSys* mPhysicsSys;
+    RigidBodySys* mPhysicsSys;
     
     nres::Entity* mLocalPlayer;
     

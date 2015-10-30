@@ -7,8 +7,8 @@
 #include "OgreEntity.h"
 #include "SDL.h"
 
-#include "PhysicsSys.hpp"
-#include "PhysicsComp.hpp"
+#include "RigidBodySys.hpp"
+#include "RigidBodyComp.hpp"
 #include "SceneNodeComp.hpp"
 #include "LocalPlayerComp.hpp"
 #include "LocalPlayerMoveSignal.hpp"
@@ -94,7 +94,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
 	btRigidBody* planeRigid = new btRigidBody(0, 0, planeShape);
 	mDynamicsWorld->addRigidBody(planeRigid);
     
-    mPhysicsSys = new PhysicsSys();
+    mPhysicsSys = new RigidBodySys();
     mWorld.attachSystem(mPhysicsSys);
     
     mRenderSys = new RenderSys();
@@ -102,7 +102,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);
-    mLocalPlayer->add(new PhysicsComp(new btBoxShape(size)));
+    mLocalPlayer->add(new RigidBodyComp(new btBoxShape(size)));
     mLocalPlayer->add(new SceneNodeComp());
     mLocalPlayer->add(new LocalPlayerComp());
     mLocalPlayer->publish();
@@ -172,7 +172,7 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event) {
         case SDLK_q: {
             nres::Entity* testCube = mWorld.newEntity();
             btVector3 size(1, 1, 1);
-            testCube->add(new PhysicsComp(new btBoxShape(size)));
+            testCube->add(new RigidBodyComp(new btBoxShape(size)));
             testCube->add(new SceneNodeComp());
             testCube->publish();
             break;

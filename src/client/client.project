@@ -57,16 +57,16 @@
       <VirtualDirectory Name="components">
         <File Name="LocalPlayerComp.cpp"/>
         <File Name="LocalPlayerComp.hpp"/>
-        <File Name="PhysicsComp.cpp"/>
-        <File Name="PhysicsComp.hpp"/>
         <File Name="SceneNodeComp.cpp"/>
         <File Name="SceneNodeComp.hpp"/>
+        <File Name="RigidBodyComp.cpp"/>
+        <File Name="RigidBodyComp.hpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="systems">
-        <File Name="PhysicsSys.cpp"/>
-        <File Name="PhysicsSys.hpp"/>
         <File Name="RenderSys.hpp"/>
         <File Name="RenderSys.cpp"/>
+        <File Name="RigidBodySys.cpp"/>
+        <File Name="RigidBodySys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">
