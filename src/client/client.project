@@ -61,12 +61,16 @@
         <File Name="SceneNodeComp.hpp"/>
         <File Name="RigidBodyComp.cpp"/>
         <File Name="RigidBodyComp.hpp"/>
+        <File Name="LegSpringComp.hpp"/>
+        <File Name="LegSpringComp.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="systems">
         <File Name="RenderSys.hpp"/>
         <File Name="RenderSys.cpp"/>
         <File Name="RigidBodySys.cpp"/>
         <File Name="RigidBodySys.hpp"/>
+        <File Name="LegSpringSys.cpp"/>
+        <File Name="LegSpringSys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">
