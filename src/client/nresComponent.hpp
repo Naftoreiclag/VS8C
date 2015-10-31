@@ -12,7 +12,7 @@ public:
     Component();
     virtual ~Component();
 public:
-    virtual const ComponentID& getID() = 0;
+    virtual const ComponentID& getID() const = 0;
 };
 
 }

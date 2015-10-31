@@ -11,7 +11,7 @@ public:
     virtual ~LocalPlayerComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID();
+    virtual const nres::ComponentID& getID() const;
 
 };
 

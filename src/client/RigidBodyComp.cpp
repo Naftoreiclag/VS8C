@@ -14,7 +14,7 @@ RigidBodyComp::~RigidBodyComp() {
     delete rigidBody;
 }
 
-const nres::ComponentID& RigidBodyComp::getID() {
+const nres::ComponentID& RigidBodyComp::getID() const {
     return componentID;
 }
 

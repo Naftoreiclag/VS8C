@@ -10,7 +10,7 @@ LocalPlayerComp::LocalPlayerComp() {
 LocalPlayerComp::~LocalPlayerComp() {
 }
 
-const nres::ComponentID& LocalPlayerComp::getID() {
+const nres::ComponentID& LocalPlayerComp::getID() const {
     return componentID;
 }
 

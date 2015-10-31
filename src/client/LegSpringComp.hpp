@@ -8,10 +8,10 @@ namespace vse {
 class LegSpringComp : public nres::Component {
 public:
     LegSpringComp();
-    virtual <~LegSpringComp();
+    virtual ~LegSpringComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID();
+    virtual const nres::ComponentID& getID() const;
 
 };
 

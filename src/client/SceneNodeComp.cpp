@@ -10,7 +10,7 @@ SceneNodeComp::SceneNodeComp() {
 SceneNodeComp::~SceneNodeComp() {
 }
 
-const nres::ComponentID& SceneNodeComp::getID() {
+const nres::ComponentID& SceneNodeComp::getID() const {
     return componentID;
 }
 

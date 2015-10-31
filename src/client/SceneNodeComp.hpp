@@ -15,7 +15,7 @@ public:
     virtual ~SceneNodeComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID();
+    virtual const nres::ComponentID& getID() const;
     
     Ogre::SceneNode* boxNode;
     Ogre::Entity* boxModel;
