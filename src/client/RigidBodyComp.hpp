@@ -21,7 +21,7 @@ public:
     Vec3f mBodyOffset;
 public:
     static const nres::ComponentID componentID;
-    RigidBodyComp(btCollisionShape* collisionShape);
+    RigidBodyComp(btCollisionShape* collisionShape, const Vec3f& initialPos = Vec3f(0, 0, 0), const Vec3f& bodyOffset = Vec3f(0, 0, 0));
     virtual ~RigidBodyComp();
     
     btCollisionShape* mCollisionShape; // For deletion

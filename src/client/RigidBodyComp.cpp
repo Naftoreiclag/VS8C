@@ -4,8 +4,10 @@ namespace vse {
 
 const nres::ComponentID RigidBodyComp::componentID = "physics";
 
-RigidBodyComp::RigidBodyComp(btCollisionShape* collisionShape)
-: mCollisionShape(collisionShape) {
+RigidBodyComp::RigidBodyComp(btCollisionShape* collisionShape, const Vec3f& initialPos, const Vec3f& bodyOffset)
+: mCollisionShape(collisionShape)
+, mInitialPos(initialPos)
+, mBodyOffset(bodyOffset) {
 }
 
 RigidBodyComp::~RigidBodyComp() {

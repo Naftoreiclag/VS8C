@@ -46,7 +46,7 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     btScalar mass = 1;
     btTransform trans;
     trans.setIdentity();
-    trans.setOrigin(btVector3(4, 5, 4));
+    trans.setOrigin(comp->mInitialPos);
     comp->motionState = new RigidBodyMotionListener(trans, comp);
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(mass, inertia);
@@ -79,13 +79,13 @@ const std::vector<nres::ComponentID>& RigidBodySys::getRequiredComponents() {
 void RigidBodySys::onTick(float tps) {
     for(std::vector<nres::Entity*>::iterator it = mTrackedEntities.begin(); it != mTrackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
-        RigidBodyComp* comp = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
+        RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
         
-        if(comp->mOnPhysUpdate) {
-            entity->broadcast(new LocationSignal(Vec3f(comp->mLocation)));
-            entity->broadcast(new OrientationSignal(Quate(comp->mRotation)));
+        if(rigidBody->mOnPhysUpdate) {
+            entity->broadcast(new LocationSignal(Vec3f(rigidBody->mLocation) - rigidBody->mBodyOffset));
+            entity->broadcast(new OrientationSignal(Quate(rigidBody->mRotation)));
             
-            comp->mOnPhysUpdate = false;
+            rigidBody->mOnPhysUpdate = false;
         }
     }
 }
