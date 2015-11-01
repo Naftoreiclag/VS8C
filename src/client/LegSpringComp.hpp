@@ -11,6 +11,7 @@ namespace vse {
 
 class LegSpringComp : public nres::Component {
 public:
+    // Spring properties
     Vec3f mLength;
     Vec3f mStart;
     Vec3f mEnd;
@@ -19,28 +20,28 @@ public:
     float mDamping;
     Vec3f mCompression;
     
-    float mTouchingGround;
-    const btRigidBody* mGroundBody;
-    Vec3f mGroundVelocity;
+    float mTouchingGround; // If the spring is currently in contact with something
+    const btRigidBody* mGroundBody; // Last body that was touched
+    Vec3f mGroundVelLin; // Linear velocity of the last body that was touched
     
-    Vec3f mTargetVelLin;
-    float mMinVelLin;
+    Vec3f mTargetVelLin; // How fast we want to go
+    float mMinVelLin; // The slowest we can go before speed is clamped to zero
     
-    Vec3f mUpVector;
+    Vec3f mUpVector; // Opposes gravity
     
-    bool mNeedStep;
-    float mDecel;
-    float mAccel;
+    bool mNeedStep; // If true, accelerate body to target velocity for one tick
+    float mDecel; // Rate of deceleration when stopping
+    float mAccel; // Rate of acceleration when moving
     
 public:
     LegSpringComp(
-        const Vec3f& startOffset,
-        const Vec3f& endOffset,
-        const float& springStiffness,
-        const float& springDamping,
-        const float& footAccel,
-        const float& footGrip,
-        const float& minVelocityRelativeToGround = 0.3f,
+        const Vec3f& start,
+        const Vec3f& end,
+        const float& stiffness,
+        const float& damping,
+        const float& accel,
+        const float& decel,
+        const float& minVel = 0.3f,
         const Vec3f& upVector = Vec3f(0, 1, 0));
     virtual ~LegSpringComp();
     

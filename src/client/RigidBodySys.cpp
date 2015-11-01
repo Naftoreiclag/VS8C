@@ -27,7 +27,7 @@ void RigidBodySys::RigidBodyMotionListener::getWorldTransform(btTransform& world
 void RigidBodySys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
     sendTo->mRotation = worldTransform.getRotation();
     sendTo->mLocation = worldTransform.getOrigin();
-    sendTo->mLinVel = sendTo->rigidBody->getLinearVelocity();
+    sendTo->mVelocityLinear = sendTo->mRigidBody->getLinearVelocity();
     sendTo->mOnPhysUpdate = true;
 }
 
@@ -42,16 +42,14 @@ RigidBodySys::~RigidBodySys() {
 void RigidBodySys::onEntityExists(nres::Entity* entity) {
     RigidBodyComp* comp = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
     
-    btScalar mass = 1;
     btTransform trans;
     trans.setIdentity();
     trans.setOrigin(comp->mInitialLoc);
     comp->motionState = new RigidBodyMotionListener(trans, comp);
     btVector3 inertia(0, 0, 0);
-    comp->mCollisionShape->calculateLocalInertia(mass, inertia);
-    comp->rigidBody = new btRigidBody(mass, comp->motionState, comp->mCollisionShape, inertia);
-    mDynamicsWorld->addRigidBody(comp->rigidBody);
-    comp->mMass = mass;
+    comp->mCollisionShape->calculateLocalInertia(comp->mMass, inertia);
+    comp->mRigidBody = new btRigidBody(comp->mMass, comp->motionState, comp->mCollisionShape, inertia);
+    mDynamicsWorld->addRigidBody(comp->mRigidBody);
     
     mTrackedEntities.push_back(entity);
 }
@@ -64,7 +62,7 @@ void RigidBodySys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data
             LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
             
             RigidBodyComp* comp = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
-            comp->rigidBody->applyCentralForce(signal->requestedMovement);
+            comp->mRigidBody->applyCentralForce(signal->requestedMovement);
             break;
         }
         default: {

@@ -39,8 +39,9 @@ void LegSpringSys::onTick() {
         LegSpringComp* legSpring = (LegSpringComp*) entity->getComponent(LegSpringComp::componentID);
         RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
         
-        rigidBody->rigidBody->setAngularFactor(0);
-        rigidBody->rigidBody->setAngularVelocity(btVector3(0, 0, 0));
+        // Do not move
+        rigidBody->setAngularFactor(0);
+        rigidBody->setAngularVelocity(btVector3(0, 0, 0));
         
         // Perform sweep test to determine what the legs are "standing on"
         Vec3f absStart = rigidBody->mLocation + legSpring->mStart;
@@ -70,15 +71,15 @@ void LegSpringSys::onTick() {
         
         if(groundBody) {
             legSpring->mGroundBody = groundBody;
-            legSpring->mGroundVelocity = groundBody->getLinearVelocity();
+            legSpring->mGroundVelLin = groundBody->getLinearVelocity();
             
             // Walking
             if(legSpring->mNeedStep) {
-                Vec3f walkAccel = MathUtils::onPlane((legSpring->mGroundVelocity - rigidBody->mLinVel) + legSpring->mTargetVelLin, legSpring->mUpVector);
+                Vec3f walkAccel = MathUtils::onPlane((legSpring->mGroundVelLin - rigidBody->mVelocityLinear) + legSpring->mTargetVelLin, legSpring->mUpVector);
                 if(!walkAccel.isZero()) {
                     walkAccel.normalize();
                     walkAccel *= legSpring->mAccel;
-                    rigidBody->rigidBody->applyForce(walkAccel * rigidBody->mMass, Vec3f(0, 0, 0));
+                    rigidBody->applyForce(walkAccel * rigidBody->mMass);
                 }
                 
                 legSpring->mNeedStep = false;
@@ -87,20 +88,20 @@ void LegSpringSys::onTick() {
             // Not walking
             else {
                 // Character's velocity relative to ground is too slow
-                if((rigidBody->mLinVel - legSpring->mGroundVelocity).magSq() < legSpring->mMinVelLin * legSpring->mMinVelLin) {
+                if((rigidBody->mVelocityLinear - legSpring->mGroundVelLin).magSq() < legSpring->mMinVelLin * legSpring->mMinVelLin) {
                     // Apply impulse to set character velocity relative to ground to zero
-                    Vec3f impulse = legSpring->mGroundVelocity - rigidBody->mLinVel;
-                    rigidBody->rigidBody->applyImpulse(impulse * rigidBody->mMass, Vec3f(0, 0, 0));
+                    Vec3f impulse = legSpring->mGroundVelLin - rigidBody->mVelocityLinear;
+                    rigidBody->applyImpulse(impulse * rigidBody->mMass);
                 }
                 
                 // Gradually slow down
                 else {
-                    Vec3f gripAccel = MathUtils::onPlane(legSpring->mGroundVelocity - rigidBody->mLinVel, legSpring->mUpVector);
+                    Vec3f gripAccel = MathUtils::onPlane(legSpring->mGroundVelLin - rigidBody->mVelocityLinear, legSpring->mUpVector);
                     if(!gripAccel.isZero()) {
                         gripAccel.normalize();
                         gripAccel *= legSpring->mDecel;
                         
-                        rigidBody->rigidBody->applyForce(gripAccel * rigidBody->mMass, Vec3f(0, 0, 0));
+                        rigidBody->applyForce(gripAccel * rigidBody->mMass);
                     }
                 }
             }
@@ -110,11 +111,11 @@ void LegSpringSys::onTick() {
 
             // Calculate and apply Hooke's law with damping
             legSpring->mCompression = legSpring->mLength - newLength; // how much the spring is "compressed"
-            Vec3f energyLoss = legSpring->mDirection * rigidBody->mLinVel.dot(legSpring->mDirection); // get the body's velocity in terms of the springs' compression
+            Vec3f energyLoss = legSpring->mDirection * rigidBody->mVelocityLinear.dot(legSpring->mDirection); // get the body's velocity in terms of the springs' compression
             Vec3f hooke = // Hooke's law
             -(legSpring->mCompression * legSpring->mStiffness) // The force the spring exerts due to compression is compression multiplied by the spring's stiffness
             -(energyLoss * legSpring->mDamping); // Reduce the force due to damping
-            rigidBody->rigidBody->applyForce(hooke, Vec3f(0, 0, 0));
+            rigidBody->applyForce(hooke);
             
         
             legSpring->mTouchingGround = true;
