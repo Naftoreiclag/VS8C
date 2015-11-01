@@ -42,6 +42,8 @@
       <File Name="nresWorld.cpp"/>
       <File Name="nresWorld.hpp"/>
       <File Name="NRES.hpp"/>
+      <File Name="nresListener.hpp"/>
+      <File Name="nresListener.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="entities">
       <VirtualDirectory Name="signals">
