@@ -5,6 +5,7 @@
 
 #include "OgreMath.h"
 #include "OgreEntity.h"
+#include "OgreSubEntity.h"
 #include "SDL.h"
 
 #include "RigidBodySys.hpp"
@@ -82,7 +83,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCam->setAspectRatio(Ogre::Real(1280) / Ogre::Real(720));
     
     mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-    mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+    mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
     mSmgr->setSkyBox(true, "Test");
     
     Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
@@ -90,6 +91,8 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     Ogre::SceneNode* groundNode = mSmgr->getRootSceneNode()->createChildSceneNode();
     Ogre::Entity* groundEnt = mSmgr->createEntity("Ground", "ground.mesh");
+    //groundEnt->getSubEntity(0)->getMaterial()->setReceiveShadows(true);
+    groundEnt->setCastShadows(false);
     groundNode->attachObject(groundEnt);
     
     Ogre::Light* light = mSmgr->createLight("Light");
