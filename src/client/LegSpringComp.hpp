@@ -11,28 +11,26 @@ namespace vse {
 
 class LegSpringComp : public nres::Component {
 public:
-    Vec3f mStartOffset;
-    Vec3f mEndOffset;
-    Vec3f mSpring;
-    Vec3f mSpringNormalized;
-    float mSpringStiffness;
-    float mSpringDamping;
-    Vec3f mSpringCompression;
+    Vec3f mLength;
+    Vec3f mStart;
+    Vec3f mEnd;
+    Vec3f mDirection;
+    float mStiffness;
+    float mDamping;
+    Vec3f mCompression;
     
+    float mTouchingGround;
     const btRigidBody* mGroundBody;
     Vec3f mGroundVelocity;
     
-    
-    bool mNeedStep;
-    Vec3f mTargetVelocityRelativeToGround;
-    float mMinVelocityRelativeToGround;
+    Vec3f mTargetVelLin;
+    float mMinVelLin;
     
     Vec3f mUpVector;
     
-    float mFootGrip;
-    float mFootAccel;
-    
-    float mTouchingGround;
+    bool mNeedStep;
+    float mDecel;
+    float mAccel;
     
 public:
     LegSpringComp(

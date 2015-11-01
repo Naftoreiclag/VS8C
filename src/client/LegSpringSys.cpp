@@ -43,8 +43,8 @@ void LegSpringSys::onTick() {
         rigidBody->rigidBody->setAngularVelocity(btVector3(0, 0, 0));
         
         // Perform sweep test to determine what the legs are "standing on"
-        Vec3f absStart = rigidBody->mLocation + legSpring->mStartOffset;
-        Vec3f absEnd = rigidBody->mLocation + legSpring->mEndOffset;
+        Vec3f absStart = rigidBody->mLocation + legSpring->mStart;
+        Vec3f absEnd = rigidBody->mLocation + legSpring->mEnd;
         btCollisionWorld::AllHitsRayResultCallback rayCallback(absStart, absEnd);
         mDynamicsWorld->rayTest(absStart, absEnd, rayCallback);
         
@@ -74,10 +74,10 @@ void LegSpringSys::onTick() {
             
             // Walking
             if(legSpring->mNeedStep) {
-                Vec3f walkAccel = MathUtils::onPlane((legSpring->mGroundVelocity - rigidBody->mLinVel) + legSpring->mTargetVelocityRelativeToGround, legSpring->mUpVector);
+                Vec3f walkAccel = MathUtils::onPlane((legSpring->mGroundVelocity - rigidBody->mLinVel) + legSpring->mTargetVelLin, legSpring->mUpVector);
                 if(!walkAccel.isZero()) {
                     walkAccel.normalize();
-                    walkAccel *= legSpring->mFootAccel;
+                    walkAccel *= legSpring->mAccel;
                     rigidBody->rigidBody->applyForce(walkAccel * rigidBody->mMass, Vec3f(0, 0, 0));
                 }
                 
@@ -87,7 +87,7 @@ void LegSpringSys::onTick() {
             // Not walking
             else {
                 // Character's velocity relative to ground is too slow
-                if((rigidBody->mLinVel - legSpring->mGroundVelocity).magSq() < legSpring->mMinVelocityRelativeToGround * legSpring->mMinVelocityRelativeToGround) {
+                if((rigidBody->mLinVel - legSpring->mGroundVelocity).magSq() < legSpring->mMinVelLin * legSpring->mMinVelLin) {
                     // Apply impulse to set character velocity relative to ground to zero
                     Vec3f impulse = legSpring->mGroundVelocity - rigidBody->mLinVel;
                     rigidBody->rigidBody->applyImpulse(impulse * rigidBody->mMass, Vec3f(0, 0, 0));
@@ -98,7 +98,7 @@ void LegSpringSys::onTick() {
                     Vec3f gripAccel = MathUtils::onPlane(legSpring->mGroundVelocity - rigidBody->mLinVel, legSpring->mUpVector);
                     if(!gripAccel.isZero()) {
                         gripAccel.normalize();
-                        gripAccel *= legSpring->mFootGrip;
+                        gripAccel *= legSpring->mDecel;
                         
                         rigidBody->rigidBody->applyForce(gripAccel * rigidBody->mMass, Vec3f(0, 0, 0));
                     }
@@ -109,11 +109,11 @@ void LegSpringSys::onTick() {
             Vec3f newLength = hit - absStart;
 
             // Calculate and apply Hooke's law with damping
-            legSpring->mSpringCompression = legSpring->mSpring - newLength; // how much the spring is "compressed"
-            Vec3f energyLoss = legSpring->mSpringNormalized * rigidBody->mLinVel.dot(legSpring->mSpringNormalized); // get the body's velocity in terms of the springs' compression
+            legSpring->mCompression = legSpring->mLength - newLength; // how much the spring is "compressed"
+            Vec3f energyLoss = legSpring->mDirection * rigidBody->mLinVel.dot(legSpring->mDirection); // get the body's velocity in terms of the springs' compression
             Vec3f hooke = // Hooke's law
-            -(legSpring->mSpringCompression * legSpring->mSpringStiffness) // The force the spring exerts due to compression is compression multiplied by the spring's stiffness
-            -(energyLoss * legSpring->mSpringDamping); // Reduce the force due to damping
+            -(legSpring->mCompression * legSpring->mStiffness) // The force the spring exerts due to compression is compression multiplied by the spring's stiffness
+            -(energyLoss * legSpring->mDamping); // Reduce the force due to damping
             rigidBody->rigidBody->applyForce(hooke, Vec3f(0, 0, 0));
             
         

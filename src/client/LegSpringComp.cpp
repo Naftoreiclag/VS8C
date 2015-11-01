@@ -14,16 +14,16 @@ LegSpringComp::LegSpringComp(
     const float& footGrip,
     const float& minVelocityRelativeToGround,
     const Vec3f& upVector)
-: mStartOffset(startOffset)
-, mEndOffset(endOffset)
-, mSpring(endOffset - startOffset)
-, mSpringNormalized(mSpring.normalized())
-, mSpringStiffness(springStiffness)
-, mSpringDamping(springDamping)
-, mFootAccel(footAccel)
-, mFootGrip(footGrip)
+: mStart(startOffset)
+, mEnd(endOffset)
+, mLength(endOffset - startOffset)
+, mDirection(mLength.normalized())
+, mStiffness(springStiffness)
+, mDamping(springDamping)
+, mAccel(footAccel)
+, mDecel(footGrip)
 , mTouchingGround(false)
-, mMinVelocityRelativeToGround(minVelocityRelativeToGround)
+, mMinVelLin(minVelocityRelativeToGround)
 , mUpVector(upVector) {
 }
 

@@ -109,15 +109,14 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mLocalPlayer->add(new RigidBodyComp(new btBoxShape(size)));
     mLocalPlayer->add(new SceneNodeComp());
     mLocalPlayer->add(new LocalPlayerComp());
-    LegSpringComp* legSpring = new LegSpringComp(
-        Vec3f(0, 0, 0),
-        Vec3f(0, -3, 0),
-        80,
-        10,
-        30,
-        20
-    );
-    mLocalPlayer->add(legSpring);
+    mLocalPlayer->add(new LegSpringComp(
+        Vec3f(0, 0, 0), // Leg start
+        Vec3f(0, -3, 0), // Leg end
+        80, // Stiffness
+        10, // Damping
+        30, // Acceleration
+        20 // Deceleration
+    ));
     mLocalPlayer->publish();
     
 }
