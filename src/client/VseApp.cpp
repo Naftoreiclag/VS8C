@@ -119,7 +119,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);
     mLocalPlayer->add(new RigidBodyComp(new btBoxShape(size)));
-    mLocalPlayer->add(new SceneNodeComp());
+    mLocalPlayer->add(new SceneNodeComp("Cube.mesh"));
     mLocalPlayer->add(new LocalPlayerComp());
     mLocalPlayer->add(new LegSpringComp(
         Vec3f(0, 0, 0), // Leg start
@@ -192,9 +192,8 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event) {
         }
         case SDLK_q: {
             nres::Entity* testCube = mWorld.newEntity();
-            btVector3 size(1, 1, 1);
-            testCube->add(new RigidBodyComp(new btBoxShape(size)));
-            testCube->add(new SceneNodeComp());
+            testCube->add(new RigidBodyComp(new btSphereShape(1)));
+            testCube->add(new SceneNodeComp("Ball.mesh"));
             testCube->publish();
             break;
         }

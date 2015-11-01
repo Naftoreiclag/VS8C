@@ -35,7 +35,7 @@ void OgreApp::run() {
         SDL_GetWindowWMInfo(mSdlWindow, &sdlWindowInfo);
         
         Ogre::NameValuePairList ogreParams;
-        ogreParams["FSAA"] = "4";
+        ogreParams["FSAA"] = "0";
         
         #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
         ogreParams["externalWindowHandle"] = Ogre::StringConverter::toString(size_t(sdlWindowInfo.info.win.window));

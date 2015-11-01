@@ -4,7 +4,8 @@ namespace vse {
     
 const nres::ComponentID SceneNodeComp::componentID = "sceneN";
 
-SceneNodeComp::SceneNodeComp() {
+SceneNodeComp::SceneNodeComp(std::string resname)
+: mResourceName(resname) {
 }
 
 SceneNodeComp::~SceneNodeComp() {

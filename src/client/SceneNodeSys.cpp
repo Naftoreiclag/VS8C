@@ -36,7 +36,7 @@ SceneNodeSys::~SceneNodeSys() {
 void SceneNodeSys::onEntityExists(nres::Entity* entity) {
     SceneNodeComp* sceneNode = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
     sceneNode->mSceneNode = mSmgr->getRootSceneNode()->createChildSceneNode();
-    sceneNode->mOgreEntity = mSmgr->createEntity(generateOgreEntityName(), "Cube.mesh");
+    sceneNode->mOgreEntity = mSmgr->createEntity(generateOgreEntityName(), sceneNode->mResourceName);
     sceneNode->mSceneNode->attachObject(sceneNode->mOgreEntity);
     
     mTrackedEntities.push_back(entity);

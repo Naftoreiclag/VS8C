@@ -1,6 +1,8 @@
 #ifndef VSE_SCENENODECOMP_HPP
 #define VSE_SCENENODECOMP_HPP
 
+#include <string>
+
 #include "OgreSceneNode.h"
 #include "OgreEntity.h"
 
@@ -11,7 +13,7 @@ namespace vse {
 class SceneNodeComp : public nres::Component
 {
 public:
-    SceneNodeComp();
+    SceneNodeComp(std::string resname);
     virtual ~SceneNodeComp();
     
     static const nres::ComponentID componentID;
@@ -19,6 +21,8 @@ public:
     
     Ogre::SceneNode* mSceneNode;
     Ogre::Entity* mOgreEntity;
+    
+    std::string mResourceName;
 
 };
 
