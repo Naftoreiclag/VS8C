@@ -16,9 +16,10 @@ public:
     Vec3f mLocation;
     Vec3f mLinVel;
     bool mOnPhysUpdate;
+    float mMass;
     
-    Vec3f mInitialPos;
-    Vec3f mBodyOffset;
+    Vec3f mInitialLoc;
+    Vec3f mOffset;
 public:
     static const nres::ComponentID componentID;
     RigidBodyComp(btCollisionShape* collisionShape, const Vec3f& initialPos = Vec3f(0, 0, 0), const Vec3f& bodyOffset = Vec3f(0, 0, 0));

@@ -6,8 +6,8 @@ const nres::ComponentID RigidBodyComp::componentID = "physics";
 
 RigidBodyComp::RigidBodyComp(btCollisionShape* collisionShape, const Vec3f& initialPos, const Vec3f& bodyOffset)
 : mCollisionShape(collisionShape)
-, mInitialPos(initialPos)
-, mBodyOffset(bodyOffset) {
+, mInitialLoc(initialPos)
+, mOffset(bodyOffset) {
 }
 
 RigidBodyComp::~RigidBodyComp() {

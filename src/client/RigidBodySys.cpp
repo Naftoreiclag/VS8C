@@ -46,12 +46,13 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     btScalar mass = 1;
     btTransform trans;
     trans.setIdentity();
-    trans.setOrigin(comp->mInitialPos);
+    trans.setOrigin(comp->mInitialLoc);
     comp->motionState = new RigidBodyMotionListener(trans, comp);
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(mass, inertia);
     comp->rigidBody = new btRigidBody(mass, comp->motionState, comp->mCollisionShape, inertia);
     dynamicsWorld->addRigidBody(comp->rigidBody);
+    comp->mMass = mass;
     
     mTrackedEntities.push_back(entity);
 }
@@ -82,7 +83,7 @@ void RigidBodySys::onTick(float tps) {
         RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
         
         if(rigidBody->mOnPhysUpdate) {
-            entity->broadcast(new LocationSignal(Vec3f(rigidBody->mLocation) - rigidBody->mBodyOffset));
+            entity->broadcast(new LocationSignal(Vec3f(rigidBody->mLocation) - rigidBody->mOffset));
             entity->broadcast(new OrientationSignal(Quate(rigidBody->mRotation)));
             
             rigidBody->mOnPhysUpdate = false;
