@@ -1,7 +1,7 @@
 #include "SceneNodeComp.hpp"
 
-namespace vse
-{
+namespace vse {
+    
 const nres::ComponentID SceneNodeComp::componentID = "sceneN";
 
 SceneNodeComp::SceneNodeComp() {

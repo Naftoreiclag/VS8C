@@ -1,7 +1,6 @@
 #include "LegSpringComp.hpp"
 
-namespace vse
-{
+namespace vse {
 
 const nres::ComponentID LegSpringComp::componentID = "sprleg";
 
