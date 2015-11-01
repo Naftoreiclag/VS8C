@@ -34,10 +34,10 @@ SceneNodeSys::~SceneNodeSys() {
 }
 
 void SceneNodeSys::onEntityExists(nres::Entity* entity) {
-    SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
-    comp->boxNode = mSmgr->getRootSceneNode()->createChildSceneNode();
-    comp->boxModel = mSmgr->createEntity(generateOgreEntityName(), "Cube.mesh");
-    comp->boxNode->attachObject(comp->boxModel);
+    SceneNodeComp* sceneNode = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
+    sceneNode->mSceneNode = mSmgr->getRootSceneNode()->createChildSceneNode();
+    sceneNode->mOgreEntity = mSmgr->createEntity(generateOgreEntityName(), "Cube.mesh");
+    sceneNode->mSceneNode->attachObject(sceneNode->mOgreEntity);
     
     mTrackedEntities.push_back(entity);
 }
@@ -49,14 +49,14 @@ void SceneNodeSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
             SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
-            comp->boxNode->setPosition(signal->mLocationUpdate);
+            comp->mSceneNode->setPosition(signal->mLocationUpdate);
             
             break;
         }
         case EntSignal::Type::ORIENTATION: {
             OrientationSignal* signal = (OrientationSignal*) data;
             SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
-            comp->boxNode->setOrientation(signal->mOrientationUpdate);
+            comp->mSceneNode->setOrientation(signal->mOrientationUpdate);
             
             break;
         }
