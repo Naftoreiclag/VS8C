@@ -95,13 +95,13 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
 	btRigidBody* planeRigid = new btRigidBody(0, 0, planeShape);
 	mDynamicsWorld->addRigidBody(planeRigid);
     
-    mPhysicsSys = new RigidBodySys();
+    mPhysicsSys = new RigidBodySys(mDynamicsWorld);
     mWorld.attachSystem(mPhysicsSys);
     
     mLegSpringSys = new LegSpringSys(mDynamicsWorld);
     mWorld.attachSystem(mLegSpringSys);
     
-    mRenderSys = new RenderSys();
+    mRenderSys = new RenderSys(mSmgr);
     mWorld.attachSystem(mRenderSys);
     
     mLocalPlayer = mWorld.newEntity();
@@ -132,7 +132,7 @@ void VseApp::onAppEnd() {
 void VseApp::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
-    mPhysicsSys->onTick(tps);
+    mPhysicsSys->onTick();
     mLegSpringSys->onTick();
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);

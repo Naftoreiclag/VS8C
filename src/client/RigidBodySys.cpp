@@ -31,10 +31,9 @@ void RigidBodySys::RigidBodyMotionListener::setWorldTransform(const btTransform&
     sendTo->mOnPhysUpdate = true;
 }
 
-RigidBodySys::RigidBodySys() {
+RigidBodySys::RigidBodySys(btDynamicsWorld* dynamicsWorld)
+: mDynamicsWorld(dynamicsWorld) {
     mRequiredComponents.push_back(RigidBodyComp::componentID);
-    
-    dynamicsWorld = VseApp::getSingleton().mDynamicsWorld;
 }
 
 RigidBodySys::~RigidBodySys() {
@@ -51,7 +50,7 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(mass, inertia);
     comp->rigidBody = new btRigidBody(mass, comp->motionState, comp->mCollisionShape, inertia);
-    dynamicsWorld->addRigidBody(comp->rigidBody);
+    mDynamicsWorld->addRigidBody(comp->rigidBody);
     comp->mMass = mass;
     
     mTrackedEntities.push_back(entity);
@@ -77,7 +76,7 @@ const std::vector<nres::ComponentID>& RigidBodySys::getRequiredComponents() {
     return mRequiredComponents;
 }
 
-void RigidBodySys::onTick(float tps) {
+void RigidBodySys::onTick() {
     for(std::vector<nres::Entity*>::iterator it = mTrackedEntities.begin(); it != mTrackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
         RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);

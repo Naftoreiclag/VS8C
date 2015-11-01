@@ -20,14 +20,14 @@ public:
         virtual void setWorldTransform(const btTransform& worldTransform);
     };
 public:
-    RigidBodySys();
+    RigidBodySys(btDynamicsWorld* dynamicsWorld);
     virtual ~RigidBodySys();
     
 private:
     std::vector<nres::ComponentID> mRequiredComponents;
     std::vector<nres::Entity*> mTrackedEntities;
     
-    btDynamicsWorld* dynamicsWorld;
+    btDynamicsWorld* mDynamicsWorld;
     
 public:
     virtual void onEntityExists(nres::Entity* entity);
@@ -36,7 +36,7 @@ public:
     
     virtual const std::vector<nres::ComponentID>& getRequiredComponents();
     
-    void onTick(float tps);
+    void onTick();
 };
 
 }

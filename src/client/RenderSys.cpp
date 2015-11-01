@@ -25,10 +25,9 @@ std::string RenderSys::generateOgreEntityName() {
     return ss.str();
 }
 
-RenderSys::RenderSys() {
+RenderSys::RenderSys(Ogre::SceneManager* smgr)
+: mSmgr(smgr) {
     mRequiredComponents.push_back(SceneNodeComp::componentID);
-    
-    smgr = VseApp::getSingleton().mSmgr;
 }
 
 RenderSys::~RenderSys() {
@@ -36,8 +35,8 @@ RenderSys::~RenderSys() {
 
 void RenderSys::onEntityExists(nres::Entity* entity) {
     SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
-    comp->boxNode = smgr->getRootSceneNode()->createChildSceneNode();
-    comp->boxModel = smgr->createEntity(generateOgreEntityName(), "Cube.mesh");
+    comp->boxNode = mSmgr->getRootSceneNode()->createChildSceneNode();
+    comp->boxModel = mSmgr->createEntity(generateOgreEntityName(), "Cube.mesh");
     comp->boxNode->attachObject(comp->boxModel);
     
     mTrackedEntities.push_back(entity);

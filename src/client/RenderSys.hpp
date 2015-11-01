@@ -12,14 +12,14 @@ namespace vse {
 
 class RenderSys : public nres::System {
 public:
-    RenderSys();
+    RenderSys(Ogre::SceneManager* smgr);
     virtual ~RenderSys();
     
 private:
     std::vector<nres::ComponentID> mRequiredComponents;
     std::vector<nres::Entity*> mTrackedEntities;
     
-    Ogre::SceneManager* smgr;
+    Ogre::SceneManager* mSmgr;
     
 public:
     virtual void onEntityExists(nres::Entity* entity);
