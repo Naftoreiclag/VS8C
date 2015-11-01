@@ -83,7 +83,9 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCam->setAspectRatio(Ogre::Real(1280) / Ogre::Real(720));
     
     mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
-    mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
+    mSmgr->setShadowTextureSize(1024);
+    mSmgr->setShadowTextureFSAA(2);
+    mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE); // SHADOWTYPE_TEXTURE_ADDITIVE
     mSmgr->setSkyBox(true, "Test");
     
     Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
