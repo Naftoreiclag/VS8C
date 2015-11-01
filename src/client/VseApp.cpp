@@ -46,10 +46,14 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamRollNode = mCamPitchNode->createChildSceneNode();
     mCamRollNode->attachObject(mCam);
     
+    
+    
+    /*
     Ogre::SceneNode* testHeadNode = mCamLocNode->createChildSceneNode();
     Ogre::Entity* testHeadEnt = mSmgr->createEntity("TestHead", "Cube.mesh");
     testHeadNode->attachObject(testHeadEnt);
     testHeadNode->setScale(0.5f, 0.5f, 0.5f);
+    */
     
     mCamPitch = Ogre::Degree(0);
     mCamYaw = Ogre::Degree(0);
@@ -63,7 +67,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mDollyXCoeff = Ogre::Math::Sin(mDollyAngle);
     mDollyZCoeff = Ogre::Math::Cos(mDollyAngle);
     
-    mCamLocNode->setPosition(0, 1.5f, 0);
+    //mCamLocNode->setPosition(0, 1.5f, 0);
     
     updateCamDolly();
     
@@ -95,8 +99,8 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
 	btRigidBody* planeRigid = new btRigidBody(0, 0, planeShape);
 	mDynamicsWorld->addRigidBody(planeRigid);
     
-    mPhysicsSys = new RigidBodySys(mDynamicsWorld);
-    mWorld.attachSystem(mPhysicsSys);
+    mRigidBodySys = new RigidBodySys(mDynamicsWorld);
+    mWorld.attachSystem(mRigidBodySys);
     
     mLegSpringSys = new LegSpringSys(mDynamicsWorld);
     mWorld.attachSystem(mLegSpringSys);
@@ -131,7 +135,7 @@ void VseApp::onAppEnd() {
 void VseApp::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
-    mPhysicsSys->onTick();
+    mRigidBodySys->onTick();
     mLegSpringSys->onTick();
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
@@ -159,7 +163,7 @@ void VseApp::onTick(float tps) {
     if(moved) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
         mLocalPlayer->broadcast(new WalkSignal(transl * 1000));
-        mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
+        //mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
     }
     
     if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {

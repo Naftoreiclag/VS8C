@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "nresListener.hpp"
 #include "nresTypedefs.hpp"
 
 #include "EntSignal.hpp"
@@ -21,13 +22,14 @@ public:
 private:
     World* const world;
     
+    std::vector<Listener*> listeners;
     std::vector<Component*> components;
-    std::vector<System*> systems;
     
     bool isPublished;
     
 public:
     void add(Component* component);
+    void addListener(Listener* listener);
     void publish();
     
     Component* getComponent(const ComponentID& componentID);

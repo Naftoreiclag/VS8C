@@ -1,12 +1,11 @@
 #ifndef NRES_LISTENER_HPP
 #define NRES_LISTENER_HPP
 
-#include "nresEntity.hpp"
-
 #include "EntSignal.hpp"
 
 namespace nres {
-
+    
+class Entity;
 class Listener {
 public:
     Listener();

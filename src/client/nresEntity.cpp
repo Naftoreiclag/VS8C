@@ -14,10 +14,8 @@ Entity::Entity(World* world)
 , isPublished(false) {
 }
 
-Entity::~Entity()
-{
+Entity::~Entity() {
 }
-
 
 void Entity::add(Component* component) {
     assert(!isPublished);
@@ -25,13 +23,17 @@ void Entity::add(Component* component) {
     components.push_back(component);
 }
 
+void Entity::addListener(Listener* listener) {
+    assert(!isPublished);
+    
+    listeners.push_back(listener);
+}
+
 void Entity::publish() {
     assert(!isPublished);
     isPublished = true;
     
-    // Try find which systems correspond with this entity's set of components
-    
-    // Iterate over every system
+    // Try find which listeners (systems) correspond with this entity's set of components
     for(std::vector<System*>::iterator sysIter = world->systems.begin(); sysIter != world->systems.end(); ++ sysIter) {
         System* sys = *sysIter;
         
@@ -59,11 +61,16 @@ void Entity::publish() {
             }
         }
         
-        // Entity has all requirements, therefore tell it that we exist
+        // Entity has all requirements, therefore add it to our listener list
         if(haveAllRequirements) {
-            systems.push_back(sys);
-            sys->onEntityExists(this);
+            listeners.push_back(sys);
         }
+    }
+    
+    // Tell every listener that we exist
+    for(std::vector<Listener*>::iterator listIter = listeners.begin(); listIter != listeners.end(); ++ listIter) {
+        Listener* listener = *listIter;
+        listener->onEntityExists(this);
     }
 }
 
@@ -84,10 +91,10 @@ Component* Entity::getComponent(const ComponentID& componentID) {
 void Entity::broadcast(vse::EntSignal* data) {
     assert(isPublished);
     
-    for(std::vector<System*>::iterator sysIter = systems.begin(); sysIter != systems.end(); ++ sysIter) {
-        System* sys = *sysIter;
-        
-        sys->onEntityBroadcast(this, data);
+    // Broadcast message to every listener
+    for(std::vector<Listener*>::iterator listIter = listeners.begin(); listIter != listeners.end(); ++ listIter) {
+        Listener* listener = *listIter;
+        listener->onEntityBroadcast(this, data);
     }
     
     delete data;
