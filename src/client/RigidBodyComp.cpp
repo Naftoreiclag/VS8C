@@ -13,7 +13,7 @@ RigidBodyComp::RigidBodyComp(btCollisionShape* collisionShape, const float& mass
 
 RigidBodyComp::~RigidBodyComp() {
     delete mCollisionShape;
-    delete motionState;
+    delete mMotionState;
     delete mRigidBody;
 }
 

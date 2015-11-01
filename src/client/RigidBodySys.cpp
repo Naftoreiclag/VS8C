@@ -9,7 +9,7 @@
 #include "Vec3f.hpp"
 #include "Quate.hpp"
 
-#include "LocalPlayerMoveSignal.hpp"
+#include "WalkSignal.hpp"
 #include "LocationSignal.hpp"
 #include "OrientationSignal.hpp"
 
@@ -45,10 +45,10 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     btTransform trans;
     trans.setIdentity();
     trans.setOrigin(comp->mInitialLoc);
-    comp->motionState = new RigidBodyMotionListener(trans, comp);
+    comp->mMotionState = new RigidBodyMotionListener(trans, comp);
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(comp->mMass, inertia);
-    comp->mRigidBody = new btRigidBody(comp->mMass, comp->motionState, comp->mCollisionShape, inertia);
+    comp->mRigidBody = new btRigidBody(comp->mMass, comp->mMotionState, comp->mCollisionShape, inertia);
     mDynamicsWorld->addRigidBody(comp->mRigidBody);
     
     mTrackedEntities.push_back(entity);
@@ -57,18 +57,6 @@ void RigidBodySys::onEntityDestroyed(nres::Entity* entity) {
     mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
 void RigidBodySys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
-    switch(data->getType()) {
-        case EntSignal::Type::LOCAL_PLAYER_MOVE: {
-            LocalPlayerMoveSignal* signal = (LocalPlayerMoveSignal*) data;
-            
-            RigidBodyComp* comp = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
-            comp->mRigidBody->applyCentralForce(signal->requestedMovement);
-            break;
-        }
-        default: {
-            break;
-        }
-    }
 }
 const std::vector<nres::ComponentID>& RigidBodySys::getRequiredComponents() {
     return mRequiredComponents;

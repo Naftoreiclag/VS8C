@@ -7,9 +7,9 @@ namespace vse
 class EntSignal {
 public:
     enum Type {
-        LOCAL_PLAYER_MOVE, // Player input requests movement
-        LOCATION, // Entity changed spacial location
-        ORIENTATION // Entity changed spacial orientation (i.e. rotation)
+        REQ_WALK, // Player input requests movement
+        LOCATION, // Physics changed location
+        ORIENTATION // Physics changed orientation (i.e. rotation)
     };
 public:
     EntSignal();

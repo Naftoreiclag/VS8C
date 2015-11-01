@@ -12,7 +12,7 @@
 #include "SceneNodeComp.hpp"
 #include "LocalPlayerComp.hpp"
 #include "LegSpringComp.hpp"
-#include "LocalPlayerMoveSignal.hpp"
+#include "WalkSignal.hpp"
 
 #include "Vec3f.hpp"
 
@@ -158,7 +158,7 @@ void VseApp::onTick(float tps) {
     
     if(moved) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
-        mLocalPlayer->broadcast(new LocalPlayerMoveSignal(transl * 1000));
+        mLocalPlayer->broadcast(new WalkSignal(transl * 1000));
         mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
     }
     

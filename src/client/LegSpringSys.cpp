@@ -6,6 +6,8 @@
 #include "RigidBodyComp.hpp"
 #include "LegSpringComp.hpp"
 
+#include "WalkSignal.hpp"
+
 namespace vse
 {
 
@@ -26,7 +28,19 @@ void LegSpringSys::onEntityDestroyed(nres::Entity* entity) {
     mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
 void LegSpringSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
-    
+    switch(data->getType()) {
+        case EntSignal::Type::REQ_WALK: {
+            WalkSignal* signal = (WalkSignal*) data;
+            
+            LegSpringComp* comp = (LegSpringComp*) entity->getComponent(LegSpringComp::componentID);
+            comp->mTargetVelLin = signal->requestedMovement;
+            comp->mNeedStep = true;
+            break;
+        }
+        default: {
+            break;
+        }
+    }
 }
 
 const std::vector<nres::ComponentID>& LegSpringSys::getRequiredComponents() {

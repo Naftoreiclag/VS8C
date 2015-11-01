@@ -6,10 +6,10 @@
 
 namespace vse {
 
-class LocalPlayerMoveSignal : public EntSignal {
+class WalkSignal : public EntSignal {
 public:
-    LocalPlayerMoveSignal(Vec3f requestedMovement);
-    virtual ~LocalPlayerMoveSignal();
+    WalkSignal(Vec3f requestedMovement);
+    virtual ~WalkSignal();
 
     virtual EntSignal::Type getType() const;
     
