@@ -33,7 +33,7 @@ const std::vector<nres::ComponentID>& LegSpringSys::getRequiredComponents() {
     return mRequiredComponents;
 }
 
-void LegSpringSys::onTick(float tps) {
+void LegSpringSys::onTick() {
     for(std::vector<nres::Entity*>::iterator it = mTrackedEntities.begin(); it != mTrackedEntities.end(); ++ it) {
         nres::Entity* entity = *it;
         LegSpringComp* legSpring = (LegSpringComp*) entity->getComponent(LegSpringComp::componentID);

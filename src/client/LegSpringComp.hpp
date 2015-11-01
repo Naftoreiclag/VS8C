@@ -35,7 +35,15 @@ public:
     float mTouchingGround;
     
 public:
-    LegSpringComp(const Vec3f& startOffset, const Vec3f& endOffset, const Vec3f& upVector = Vec3f(0, 1, 0));
+    LegSpringComp(
+        const Vec3f& startOffset,
+        const Vec3f& endOffset,
+        const float& springStiffness,
+        const float& springDamping,
+        const float& footAccel,
+        const float& footGrip,
+        const float& minVelocityRelativeToGround = 0.3f,
+        const Vec3f& upVector = Vec3f(0, 1, 0));
     virtual ~LegSpringComp();
     
     static const nres::ComponentID componentID;

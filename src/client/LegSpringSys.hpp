@@ -25,7 +25,7 @@ public:
     
     virtual const std::vector<nres::ComponentID>& getRequiredComponents();
     
-    void onTick(float tps);
+    void onTick();
     
 };
 

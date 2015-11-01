@@ -11,6 +11,7 @@
 #include "NRES.hpp"
 #include "RigidBodySys.hpp"
 #include "RenderSys.hpp"
+#include "LegSpringSys.hpp"
 
 namespace vse
 {
@@ -63,6 +64,7 @@ public:
     nres::World mWorld;
     RenderSys* mRenderSys;
     RigidBodySys* mPhysicsSys;
+    LegSpringSys* mLegSpringSys;
     
     nres::Entity* mLocalPlayer;
     

@@ -11,6 +11,7 @@
 #include "RigidBodyComp.hpp"
 #include "SceneNodeComp.hpp"
 #include "LocalPlayerComp.hpp"
+#include "LegSpringComp.hpp"
 #include "LocalPlayerMoveSignal.hpp"
 
 #include "Vec3f.hpp"
@@ -97,6 +98,9 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mPhysicsSys = new RigidBodySys();
     mWorld.attachSystem(mPhysicsSys);
     
+    mLegSpringSys = new LegSpringSys(mDynamicsWorld);
+    mWorld.attachSystem(mLegSpringSys);
+    
     mRenderSys = new RenderSys();
     mWorld.attachSystem(mRenderSys);
     
@@ -105,6 +109,15 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mLocalPlayer->add(new RigidBodyComp(new btBoxShape(size)));
     mLocalPlayer->add(new SceneNodeComp());
     mLocalPlayer->add(new LocalPlayerComp());
+    LegSpringComp* legSpring = new LegSpringComp(
+        Vec3f(0, 0, 0),
+        Vec3f(0, -3, 0),
+        80,
+        10,
+        30,
+        20
+    );
+    mLocalPlayer->add(legSpring);
     mLocalPlayer->publish();
     
 }
@@ -120,6 +133,7 @@ void VseApp::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mPhysicsSys->onTick(tps);
+    mLegSpringSys->onTick();
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
