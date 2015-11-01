@@ -13,11 +13,30 @@
 #include "LocalPlayerComp.hpp"
 #include "LegSpringComp.hpp"
 #include "WalkSignal.hpp"
+#include "EntSignal.hpp"
+#include "LocationSignal.hpp"
 
 #include "Vec3f.hpp"
 
-namespace vse
-{
+namespace vse {
+    
+void VseApp::onEntityExists(nres::Entity* entity) {}
+void VseApp::onEntityDestroyed(nres::Entity* entity) {}
+
+void VseApp::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
+    switch(data->getType()) {
+        case EntSignal::Type::LOCATION: {
+            LocationSignal* signal = (LocationSignal*) data;
+            
+            mCamLocNode->setPosition(signal->mLocationUpdate);
+            
+            break;
+        }
+        default: {
+            break;
+        }
+    }
+}
     
 VseApp& VseApp::getSingleton() {
     static VseApp instance;
@@ -45,8 +64,6 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamPitchNode = mCamYawNode->createChildSceneNode();
     mCamRollNode = mCamPitchNode->createChildSceneNode();
     mCamRollNode->attachObject(mCam);
-    
-    
     
     /*
     Ogre::SceneNode* testHeadNode = mCamLocNode->createChildSceneNode();
@@ -121,6 +138,7 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
         30, // Acceleration
         20 // Deceleration
     ));
+    mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
 }

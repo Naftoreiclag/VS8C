@@ -13,11 +13,9 @@
 #include "SceneNodeSys.hpp"
 #include "LegSpringSys.hpp"
 
-namespace vse
-{
-
-class VseApp
-{
+namespace vse {
+    
+class VseApp : public nres::Listener {
 public:
     static VseApp& getSingleton();
 public:
@@ -86,6 +84,10 @@ public:
     void onMousePress(const SDL_MouseButtonEvent& event);
     void onMouseRelease(const SDL_MouseButtonEvent& event);
     void onMouseWheel(const SDL_MouseWheelEvent& event);
+    
+    virtual void onEntityExists(nres::Entity* entity);
+    virtual void onEntityDestroyed(nres::Entity* entity);
+    virtual void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
     
     VseApp();
     ~VseApp();
