@@ -67,12 +67,12 @@
         </VirtualDirectory>
       </VirtualDirectory>
       <VirtualDirectory Name="systems">
-        <File Name="RenderSys.hpp"/>
-        <File Name="RenderSys.cpp"/>
         <File Name="RigidBodySys.cpp"/>
         <File Name="RigidBodySys.hpp"/>
         <File Name="LegSpringSys.cpp"/>
         <File Name="LegSpringSys.hpp"/>
+        <File Name="SceneNodeSys.cpp"/>
+        <File Name="SceneNodeSys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">

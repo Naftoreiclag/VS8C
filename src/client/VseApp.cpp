@@ -101,8 +101,8 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mLegSpringSys = new LegSpringSys(mDynamicsWorld);
     mWorld.attachSystem(mLegSpringSys);
     
-    mRenderSys = new RenderSys(mSmgr);
-    mWorld.attachSystem(mRenderSys);
+    mSceneNodeSys = new SceneNodeSys(mSmgr);
+    mWorld.attachSystem(mSceneNodeSys);
     
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);

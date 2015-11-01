@@ -1,4 +1,4 @@
-#include "RenderSys.hpp"
+#include "SceneNodeSys.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -15,7 +15,7 @@
 
 namespace vse {
     
-std::string RenderSys::generateOgreEntityName() {
+std::string SceneNodeSys::generateOgreEntityName() {
     static uint32_t id = 0;
     
     std::stringstream ss;
@@ -25,15 +25,15 @@ std::string RenderSys::generateOgreEntityName() {
     return ss.str();
 }
 
-RenderSys::RenderSys(Ogre::SceneManager* smgr)
+SceneNodeSys::SceneNodeSys(Ogre::SceneManager* smgr)
 : mSmgr(smgr) {
     mRequiredComponents.push_back(SceneNodeComp::componentID);
 }
 
-RenderSys::~RenderSys() {
+SceneNodeSys::~SceneNodeSys() {
 }
 
-void RenderSys::onEntityExists(nres::Entity* entity) {
+void SceneNodeSys::onEntityExists(nres::Entity* entity) {
     SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
     comp->boxNode = mSmgr->getRootSceneNode()->createChildSceneNode();
     comp->boxModel = mSmgr->createEntity(generateOgreEntityName(), "Cube.mesh");
@@ -41,10 +41,10 @@ void RenderSys::onEntityExists(nres::Entity* entity) {
     
     mTrackedEntities.push_back(entity);
 }
-void RenderSys::onEntityDestroyed(nres::Entity* entity) {
+void SceneNodeSys::onEntityDestroyed(nres::Entity* entity) {
     mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
-void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
+void SceneNodeSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
@@ -65,7 +65,7 @@ void RenderSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
         }
     }
 }
-const std::vector<nres::ComponentID>& RenderSys::getRequiredComponents() {
+const std::vector<nres::ComponentID>& SceneNodeSys::getRequiredComponents() {
     return mRequiredComponents;
 }
 

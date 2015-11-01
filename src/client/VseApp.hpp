@@ -10,7 +10,7 @@
 
 #include "NRES.hpp"
 #include "RigidBodySys.hpp"
-#include "RenderSys.hpp"
+#include "SceneNodeSys.hpp"
 #include "LegSpringSys.hpp"
 
 namespace vse
@@ -62,8 +62,8 @@ public:
     void updateCamDolly();
     
     nres::World mWorld;
-    RenderSys* mRenderSys;
-    RigidBodySys* mPhysicsSys;
+    SceneNodeSys* mSceneNodeSys;
+    RigidBodySys* mRigidBodySys;
     LegSpringSys* mLegSpringSys;
     
     nres::Entity* mLocalPlayer;

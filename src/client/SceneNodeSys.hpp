@@ -10,10 +10,10 @@
 
 namespace vse {
 
-class RenderSys : public nres::System {
+class SceneNodeSys : public nres::System {
 public:
-    RenderSys(Ogre::SceneManager* smgr);
-    virtual ~RenderSys();
+    SceneNodeSys(Ogre::SceneManager* smgr);
+    virtual ~SceneNodeSys();
     
 private:
     std::vector<nres::ComponentID> mRequiredComponents;
