@@ -87,6 +87,8 @@
       <File Name="Vec3f.hpp"/>
       <File Name="Quate.hpp"/>
       <File Name="Quate.cpp"/>
+      <File Name="MathUtils.hpp"/>
+      <File Name="MathUtils.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
