@@ -22,6 +22,8 @@ LegSpringSys::~LegSpringSys() {
 
 
 void LegSpringSys::onEntityExists(nres::Entity* entity) {
+    RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
+    rigidBody->mRigidBody->setActivationState(DISABLE_DEACTIVATION);
     mTrackedEntities.push_back(entity);
 }
 void LegSpringSys::onEntityDestroyed(nres::Entity* entity) {
@@ -89,7 +91,7 @@ void LegSpringSys::onTick() {
             
             // Walking
             if(legSpring->mNeedStep) {
-                Vec3f walkAccel = MathUtils::onPlane((legSpring->mGroundVelLin - rigidBody->mVelocityLinear) + legSpring->mTargetVelLin, legSpring->mUpVector);
+                Vec3f walkAccel = MathUtils::onPlane(legSpring->mTargetVelLin - (rigidBody->mVelocityLinear - legSpring->mGroundVelLin), legSpring->mUpVector);
                 if(!walkAccel.isZero()) {
                     walkAccel.normalize();
                     walkAccel *= legSpring->mAccel;

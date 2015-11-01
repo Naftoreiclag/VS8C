@@ -24,9 +24,15 @@ void RigidBodyComp::setAngularVelocity(Vec3f angVel) {
     mRigidBody->setAngularVelocity(angVel);
 }
 void RigidBodyComp::applyForce(Vec3f force, Vec3f relLoc) {
+    if(force.isZero()) {
+        return;
+    }
     mRigidBody->applyForce(force, relLoc);
 }
 void RigidBodyComp::applyImpulse(Vec3f impulse, Vec3f relLoc) {
+    if(impulse.isZero()) {
+        return;
+    }
     mRigidBody->applyImpulse(impulse, relLoc);
 }
 

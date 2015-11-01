@@ -65,13 +65,6 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCamRollNode = mCamPitchNode->createChildSceneNode();
     mCamRollNode->attachObject(mCam);
     
-    /*
-    Ogre::SceneNode* testHeadNode = mCamLocNode->createChildSceneNode();
-    Ogre::Entity* testHeadEnt = mSmgr->createEntity("TestHead", "Cube.mesh");
-    testHeadNode->attachObject(testHeadEnt);
-    testHeadNode->setScale(0.5f, 0.5f, 0.5f);
-    */
-    
     mCamPitch = Ogre::Degree(0);
     mCamYaw = Ogre::Degree(0);
     mCamRoll = Ogre::Degree(0);
@@ -83,8 +76,6 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mDollyAngle = Ogre::Degree(10);
     mDollyXCoeff = Ogre::Math::Sin(mDollyAngle);
     mDollyZCoeff = Ogre::Math::Cos(mDollyAngle);
-    
-    //mCamLocNode->setPosition(0, 1.5f, 0);
     
     updateCamDolly();
     
@@ -159,29 +150,24 @@ void VseApp::onTick(float tps) {
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
     Vec3f moveVec;
-    float spd = tps * 5;
-    bool moved = false;
     if(keyStates[SDL_GetScancodeFromKey(SDLK_w)]) {
-        moveVec.z = -spd;
-        moved = true;
+        moveVec.z = -1;
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_a)]) {
-        moveVec.x = -spd;
-        moved = true;
+        moveVec.x = -1;
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_s)]) {
-        moveVec.z = spd;
-        moved = true;
+        moveVec.z = 1;
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_d)]) {
-        moveVec.x = spd;
-        moved = true;
+        moveVec.x = 1;
     }
     
-    if(moved) {
+    if(!moveVec.isZero()) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
-        mLocalPlayer->broadcast(new WalkSignal(transl * 1000));
-        //mCamLocNode->translate(transl, Ogre::SceneNode::TS_LOCAL);
+        transl.normalize();
+        transl *= 5;
+        mLocalPlayer->broadcast(new WalkSignal(transl));
     }
     
     if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {
