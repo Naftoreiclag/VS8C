@@ -28,44 +28,49 @@ public:
     Vec3f(const btVector3& v);
     
     // Equals
-    bool operator==(const Vec3f& v);
-    bool operator!=(const Vec3f& v);
+    bool operator==(const Vec3f& v) const;
+    bool operator!=(const Vec3f& v) const;
     
     // Scaling
-    Vec3f operator*(float s);
+    Vec3f operator*(float s) const;
     Vec3f& operator*=(float s);
     
     // Inverse scaling
-    Vec3f operator/(float s);
+    Vec3f operator/(float s) const;
     Vec3f& operator/=(float s);
     
     // Addition
-    Vec3f operator+(const Vec3f& v);
+    Vec3f operator+(const Vec3f& v) const;
     Vec3f& operator+=(const Vec3f& v);
     
     // Subtraction
-    Vec3f operator-(const Vec3f& v);
+    Vec3f operator-(const Vec3f& v) const;
     Vec3f& operator-=(const Vec3f& v);
     
     // Dot product
-    float dot(const Vec3f& v1, const Vec3f& v2);
+    float dot(const Vec3f& v2) const;
     
     // Cross product
-    Vec3f cross(const Vec3f& v1, const Vec3f& v2);
+    Vec3f cross(const Vec3f& v2) const;
     
     // Distance to other vector
-    float dist(const Vec3f& v);
-    float distSq(const Vec3f& v);
+    float dist(const Vec3f& v) const;
+    float distSq(const Vec3f& v) const;
     
     // Length of vector
-    float mag();
-    float magSq();
+    float mag() const;
+    float magSq() const;
+    
+    // Normalize this vector
+    void normalize();
+    // Normalized vector
+    Vec3f normalized() const;
     
     // Make zero
     void zero();
     
     // x == 0 && y == 0 && z == 0
-    bool isZero();
+    bool isZero() const;
 };
 
 }

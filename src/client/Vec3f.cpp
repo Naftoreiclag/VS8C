@@ -44,15 +44,15 @@ Vec3f::Vec3f(const btVector3& v)
 }
 
 // Equals
-bool Vec3f::operator==(const Vec3f& v1) {
+bool Vec3f::operator==(const Vec3f& v1) const {
     return v1.x == x && v1.y == y && v1.z == z;
 }
-bool Vec3f::operator!=(const Vec3f& v1) {
+bool Vec3f::operator!=(const Vec3f& v1) const {
     return !operator==(v1);
 }
 
 // Scaling
-Vec3f Vec3f::operator*(float s) {
+Vec3f Vec3f::operator*(float s) const {
     return Vec3f(x * s, y * s, z * s);
 }
 Vec3f& Vec3f::operator*=(float s) {
@@ -63,7 +63,7 @@ Vec3f& Vec3f::operator*=(float s) {
 }
 
 // Inverse scaling
-Vec3f Vec3f::operator/(float s) {
+Vec3f Vec3f::operator/(float s) const {
     return Vec3f(x / s, y / s, z / s);
 }
 Vec3f& Vec3f::operator/=(float s) {
@@ -74,7 +74,7 @@ Vec3f& Vec3f::operator/=(float s) {
 }
 
 // Addition
-Vec3f Vec3f::operator+(const Vec3f& v) {
+Vec3f Vec3f::operator+(const Vec3f& v) const {
     return Vec3f(x + v.x, y + v.y, z + v.z);
 }
 Vec3f& Vec3f::operator+=(const Vec3f& v) {
@@ -85,7 +85,7 @@ Vec3f& Vec3f::operator+=(const Vec3f& v) {
 }
 
 // Subtraction
-Vec3f Vec3f::operator-(const Vec3f& v) {
+Vec3f Vec3f::operator-(const Vec3f& v) const {
     return Vec3f(x - v.x, y - v.y, z - v.z);
 }
 Vec3f& Vec3f::operator-=(const Vec3f& v) {
@@ -96,32 +96,45 @@ Vec3f& Vec3f::operator-=(const Vec3f& v) {
 }
 
 // Dot product
-float Vec3f::dot(const Vec3f& v1, const Vec3f& v2) {
-    return (v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z);
+float Vec3f::dot(const Vec3f& v2) const {
+    return (x * v2.x) + (y * v2.y) + (z * v2.z);
 }
 
 // Cross product
-Vec3f Vec3f::cross(const Vec3f& v1, const Vec3f& v2) {
-    return Vec3f((v1.y * v2.z) - (v2.y * v1.z), (v1.z * v2.x) - (v2.z * v1.x), (v1.x * v2.y) - (v2.x * v1.y));
+Vec3f Vec3f::cross(const Vec3f& v2) const {
+    return Vec3f((y * v2.z) - (v2.y * z), (z * v2.x) - (v2.z * x), (x * v2.y) - (v2.x * y));
 }
 
 // Distance to other vector
-float Vec3f::distSq(const Vec3f& v) {
+float Vec3f::distSq(const Vec3f& v) const {
     float dx = v.x - x;
     float dy = v.y - y;
     float dz = v.z - z;
     return (dx * dx) + (dy * dy) + (dz * dz);
 }
-float Vec3f::dist(const Vec3f& v) {
+float Vec3f::dist(const Vec3f& v) const {
     return std::sqrt(distSq(v));
 }
 
 // Length of vector
-float Vec3f::magSq() {
+float Vec3f::magSq() const {
     return (x * x) + (y * y) + (z * z);
 }
-float Vec3f::mag() {
+float Vec3f::mag() const {
     return std::sqrt(magSq());
+}
+
+// Normalize this vector
+void Vec3f::normalize() {
+    float magnitude = mag();
+    x /= magnitude;
+    y /= magnitude;
+    z /= magnitude;
+}
+// Normalized vector
+Vec3f Vec3f::normalized() const {
+    float magnitude = mag();
+    return Vec3f(x / magnitude, y / magnitude, z / magnitude);
 }
 
 void Vec3f::zero() {
@@ -130,7 +143,7 @@ void Vec3f::zero() {
     z = 0.f;
 }
 
-bool Vec3f::isZero() {
+bool Vec3f::isZero() const {
     return x == 0.f && y == 0.f && z == 0.f;
 }
 
