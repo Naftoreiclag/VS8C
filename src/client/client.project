@@ -92,6 +92,9 @@
       <File Name="MathUtils.hpp"/>
       <File Name="MathUtils.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="json-cpp">
+      <File Name="../../dependencies/src/jsoncpp-0.10.5/dist/jsoncpp.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
@@ -115,6 +118,7 @@
         <IncludePath Value="$(CEGUI_HOME)/include/cegui-0"/>
         <IncludePath Value="$(SFML_HOME)/include"/>
         <IncludePath Value="$(BULLET_HOME)/include/bullet"/>
+        <IncludePath Value="$(JSON_CPP_HOME)/dist"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="WIN32"/>
         <Preprocessor Value="_WINDOWS"/>
@@ -154,6 +158,7 @@
       <Environment EnvVarSetName="&lt;Use Defaults&gt;" DbgSetName="&lt;Use Defaults&gt;">
         <![CDATA[OgreSDKName=ogre-1-8-sdk
 SDL2_HOME=../../dependencies/win/mingw-w64/SDL2
+JSON_CPP_HOME=../../dependencies/src/jsoncpp-0.10.5
 CEGUI_HOME=C:/CEGUI/built
 SFML_HOME=../../dependencies/win/mingw-w64/SFML-2.3.1
 BULLET_HOME=C:/CppLibs/Built/BULLET_PHYSICS-d
