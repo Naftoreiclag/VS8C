@@ -6,8 +6,8 @@
 namespace vse {
 namespace MathUtils {
 
-    Vec3f onAxis(const Vec3f& input, const Vec3f& axisToRemove);
-    Vec3f onPlane(const Vec3f& input, const Vec3f& axisPerpToPlane);
+    Vec3f onAxis(const Vec3f& input, const Vec3f& normalizedConstraint);
+    Vec3f onPlane(const Vec3f& input, const Vec3f& planeNormal);
     
 }
 }

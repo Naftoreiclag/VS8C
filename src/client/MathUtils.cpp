@@ -3,11 +3,11 @@
 namespace vse {
 namespace MathUtils {
     
-    Vec3f onAxis(const Vec3f& input, const Vec3f& axisToRemove) {
-        return axisToRemove * input.dot(axisToRemove);
+    Vec3f onAxis(const Vec3f& input, const Vec3f& normalizedConstraint) {
+        return normalizedConstraint * input.dot(normalizedConstraint);
     }
-    Vec3f onPlane(const Vec3f& input, const Vec3f& axisPerpToPlane) {
-        return input - (axisPerpToPlane * input.dot(axisPerpToPlane));
+    Vec3f onPlane(const Vec3f& input, const Vec3f& planeNormal) {
+        return input - (planeNormal * input.dot(planeNormal));
     }
     
 }

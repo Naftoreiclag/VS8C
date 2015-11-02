@@ -11,6 +11,7 @@ LegSpringComp::LegSpringComp(
     const float& springDamping,
     const float& footAccel,
     const float& footGrip,
+    const float& maxUpVel,
     const float& minVelocityRelativeToGround,
     const Vec3f& upVector)
 : mStart(startOffset)
@@ -22,6 +23,7 @@ LegSpringComp::LegSpringComp(
 , mAccel(footAccel)
 , mDecel(footGrip)
 , mTouchingGround(false)
+, mMaxUpwardVelLin(maxUpVel)
 , mMinVelLin(minVelocityRelativeToGround)
 , mUpVector(upVector) {
 }

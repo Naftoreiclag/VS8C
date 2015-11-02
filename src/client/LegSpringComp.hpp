@@ -19,6 +19,7 @@ public:
     float mStiffness;
     float mDamping;
     Vec3f mCompression;
+    float mMaxUpwardVelLin; // Maximum upward velocity that can be achieved by the spring (aka no jumping to the moon); < 0 means no maximum
     
     float mTouchingGround; // If the spring is currently in contact with something
     const btRigidBody* mGroundBody; // Last body that was touched
@@ -41,6 +42,7 @@ public:
         const float& damping,
         const float& accel,
         const float& decel,
+        const float& maxUpVel = -1,
         const float& minVel = 0.3f,
         const Vec3f& upVector = Vec3f(0, 1, 0));
     virtual ~LegSpringComp();

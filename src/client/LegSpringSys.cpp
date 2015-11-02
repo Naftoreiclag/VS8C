@@ -55,7 +55,7 @@ void LegSpringSys::onTick() {
         LegSpringComp* legSpring = (LegSpringComp*) entity->getComponent(LegSpringComp::componentID);
         RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
         
-        // Do not move
+        // Do not rotate
         rigidBody->setAngularFactor(0);
         rigidBody->setAngularVelocity(btVector3(0, 0, 0));
         
@@ -127,13 +127,19 @@ void LegSpringSys::onTick() {
 
             // Calculate and apply Hooke's law with damping
             legSpring->mCompression = legSpring->mLength - newLength; // how much the spring is "compressed"
-            Vec3f energyLoss = legSpring->mDirection * rigidBody->mVelocityLinear.dot(legSpring->mDirection); // get the body's velocity in terms of the springs' compression
-            Vec3f hooke = // Hooke's law
-            -(legSpring->mCompression * legSpring->mStiffness) // The force the spring exerts due to compression is compression multiplied by the spring's stiffness
-            -(energyLoss * legSpring->mDamping); // Reduce the force due to damping
-            rigidBody->applyForce(hooke);
+            Vec3f springVelocity = MathUtils::onAxis(rigidBody->mVelocityLinear, legSpring->mDirection); // get the body's velocity in terms of the springs' compression
             
-        
+            // Only apply spring forces under certain conditions
+            if(legSpring->mMaxUpwardVelLin < 0 || // User set to always apply spring forces
+                rigidBody->mVelocityLinear.dot(legSpring->mDirection) > 0 || // Body is traveling "down"
+                springVelocity.magSq() < legSpring->mMaxUpwardVelLin * legSpring->mMaxUpwardVelLin) { // Body is traveling "up", but not too quickly
+                    
+                Vec3f hooke = // Hooke's law
+                -(legSpring->mCompression * legSpring->mStiffness) // The force the spring exerts due to compression is compression multiplied by the spring's stiffness
+                -(springVelocity * legSpring->mDamping); // Reduce the force due to damping
+                rigidBody->applyForce(hooke);
+            }
+            
             legSpring->mTouchingGround = true;
         }
         else {

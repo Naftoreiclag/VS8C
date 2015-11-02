@@ -132,7 +132,8 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
         80, // Stiffness
         10, // Damping
         30, // Acceleration
-        20 // Deceleration
+        20, // Deceleration
+        1
     ));
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
