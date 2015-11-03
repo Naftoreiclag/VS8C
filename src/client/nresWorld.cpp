@@ -1,14 +1,13 @@
 #include "nresWorld.hpp"
 
-namespace nres
-{
+#include <algorithm>
 
-World::World()
-{
+namespace nres {
+
+World::World() {
 }
 
-World::~World()
-{
+World::~World() {
 }
 
 void World::attachSystem(System* system) {
@@ -16,13 +15,32 @@ void World::attachSystem(System* system) {
 }
 
 Entity* World::newEntity() {
-    return new Entity(this);
+    Entity* ret = new Entity(this);
+    
+    entities.push_back(ret);
+    
+    return ret;
 }
 
 void World::deleteEntity(Entity* entity) {
+    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
+    
     delete entity;
 }
 
+void World::deleteAllEntities() {
+    for(std::vector<Entity*>::iterator entIter = entities.begin(); entIter != entities.end(); ++ entIter) {
+        Entity* entity = *entIter;
+        
+        delete entity;
+    }
+    
+    entities.clear();
+}
+
+const std::vector<Entity*>& World::getEntities() const {
+    return entities;
+}
 
 }
 

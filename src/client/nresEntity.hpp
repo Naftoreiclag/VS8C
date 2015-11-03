@@ -35,6 +35,8 @@ public:
     Component* getComponent(const ComponentID& componentID);
     
     void broadcast(vse::EntSignal* data);
+    
+    const std::vector<Component*>& getComponents();
 };
 
 }

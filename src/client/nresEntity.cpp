@@ -15,6 +15,16 @@ Entity::Entity(World* world)
 }
 
 Entity::~Entity() {
+    // Broadcast deletion to every listener
+    for(std::vector<Listener*>::iterator listIter = listeners.begin(); listIter != listeners.end(); ++ listIter) {
+        Listener* listener = *listIter;
+        listener->onEntityDestroyed(this);
+    }
+    
+    for(std::vector<Component*>::iterator compIter = components.begin(); compIter != components.end(); ++ compIter) {
+        Component* comp = *compIter;
+        delete comp;
+    }
 }
 
 void Entity::add(Component* component) {
@@ -98,6 +108,10 @@ void Entity::broadcast(vse::EntSignal* data) {
     }
     
     delete data;
+}
+
+const std::vector<Component*>& Entity::getComponents() {
+    return components;
 }
 
 }

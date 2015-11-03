@@ -92,8 +92,14 @@
       <File Name="MathUtils.hpp"/>
       <File Name="MathUtils.cpp"/>
     </VirtualDirectory>
-    <VirtualDirectory Name="json-cpp">
-      <File Name="../../dependencies/src/jsoncpp-0.10.5/dist/jsoncpp.cpp"/>
+    <VirtualDirectory Name="library">
+      <VirtualDirectory Name="jsoncpp">
+        <File Name="../../dependencies/src/jsoncpp-0.10.5/dist/jsoncpp.cpp"/>
+      </VirtualDirectory>
+    </VirtualDirectory>
+    <VirtualDirectory Name="serialization">
+      <File Name="SerializationUtil.hpp"/>
+      <File Name="SerializationUtil.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
