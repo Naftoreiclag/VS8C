@@ -3,8 +3,7 @@
 
 #include "nresTypedefs.hpp"
 
-namespace nres
-{
+namespace nres {
 
 class Component
 {

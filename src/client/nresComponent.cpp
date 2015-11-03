@@ -1,7 +1,6 @@
 #include "nresComponent.hpp"
 
-namespace nres
-{
+namespace nres {
 
 Component::Component() {}
 Component::~Component() {}
