@@ -12,6 +12,7 @@
 #include "RigidBodySys.hpp"
 #include "SceneNodeSys.hpp"
 #include "LegSpringSys.hpp"
+#include "BulletDebugDrawer.hpp"
 
 namespace vse {
     
@@ -25,6 +26,8 @@ public:
     btSequentialImpulseConstraintSolver* mSolver;
     
     btDiscreteDynamicsWorld* mDynamicsWorld;
+    
+    BulletDebugDrawer* mDebugDrawer;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;

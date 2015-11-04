@@ -83,9 +83,11 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mCam->setAspectRatio(Ogre::Real(1280) / Ogre::Real(720));
     
     mSmgr->setAmbientLight(Ogre::ColourValue(0.5, 0.5, 0.5));
+    /*
     mSmgr->setShadowTextureSize(1024);
     mSmgr->setShadowTextureFSAA(2);
     mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE); // SHADOWTYPE_TEXTURE_ADDITIVE
+    */
     mSmgr->setSkyBox(true, "Test");
     
     Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
@@ -106,6 +108,8 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mDispatcher = new btCollisionDispatcher(mCollisionConfiguration);
     mSolver = new btSequentialImpulseConstraintSolver();
     mDynamicsWorld = new btDiscreteDynamicsWorld(mDispatcher, mBroadphase, mSolver, mCollisionConfiguration);
+    mDebugDrawer = new BulletDebugDrawer(mSmgr);
+    mDynamicsWorld->setDebugDrawer(mDebugDrawer);
     mDynamicsWorld->setGravity(btVector3(0, -9.8067, 0));
     
 	btStaticPlaneShape* planeShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
@@ -146,12 +150,16 @@ void VseApp::onAppEnd() {
     delete mDispatcher;
     delete mCollisionConfiguration;
     delete mBroadphase;
+    delete mDebugDrawer;
 }
 void VseApp::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
     mLegSpringSys->onTick();
+    
+    mDebugDrawer->onTick();
+    mDynamicsWorld->debugDrawWorld();
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
