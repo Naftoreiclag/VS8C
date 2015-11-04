@@ -6,8 +6,7 @@
 #include "nresWorld.hpp"
 #include "nresComponent.hpp"
 
-namespace nres
-{
+namespace nres {
 
 Entity::Entity(World* world)
 : world(world)
@@ -110,7 +109,7 @@ void Entity::broadcast(vse::EntSignal* data) {
     delete data;
 }
 
-const std::vector<Component*>& Entity::getComponents() {
+const std::vector<Component*>& Entity::getComponents() const {
     return components;
 }
 

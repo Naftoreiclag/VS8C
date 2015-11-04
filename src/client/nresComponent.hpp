@@ -5,8 +5,7 @@
 
 namespace nres {
 
-class Component
-{
+class Component {
 public:
     Component();
     virtual ~Component();

@@ -8,8 +8,7 @@
 
 #include "EntSignal.hpp"
 
-namespace nres
-{
+namespace nres {
     
 class World;
 class Component;
@@ -36,7 +35,7 @@ public:
     
     void broadcast(vse::EntSignal* data);
     
-    const std::vector<Component*>& getComponents();
+    const std::vector<Component*>& getComponents() const;
 };
 
 }
