@@ -127,17 +127,16 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     
     mLocalPlayer = mWorld.newEntity();
     btVector3 size(1, 1, 1);
-    mLocalPlayer->add(new RigidBodyComp(new btBoxShape(size)));
-    mLocalPlayer->add(new SceneNodeComp("Cube.mesh"));
+    mLocalPlayer->add(new RigidBodyComp(new btCapsuleShape(0.25, 0.75), 1, Vec3f(0, 1, 0), Vec3f(0, 0.375, 0)));
     mLocalPlayer->add(new LocalPlayerComp());
     mLocalPlayer->add(new LegSpringComp(
         Vec3f(0, 0, 0), // Leg start
-        Vec3f(0, -3, 0), // Leg end
+        Vec3f(0, -1, 0), // Leg end
         80, // Stiffness
         10, // Damping
         30, // Acceleration
         20, // Deceleration
-        1
+        1 // Max step up speed
     ));
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
@@ -180,7 +179,7 @@ void VseApp::onTick(float tps) {
     if(!moveVec.isZero()) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
         transl.normalize();
-        transl *= 5;
+        transl *= 1.5;
         mLocalPlayer->broadcast(new WalkSignal(transl));
     }
     

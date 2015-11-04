@@ -101,8 +101,10 @@
       <File Name="SerializationUtil.hpp"/>
       <File Name="SerializationUtil.cpp"/>
     </VirtualDirectory>
-    <File Name="BulletDebugDrawer.hpp"/>
-    <File Name="BulletDebugDrawer.cpp"/>
+    <VirtualDirectory Name="misc">
+      <File Name="BulletDebugDrawer.cpp"/>
+      <File Name="BulletDebugDrawer.hpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
