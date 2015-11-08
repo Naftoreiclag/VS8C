@@ -1,8 +1,6 @@
 #include "BulletDebugDrawer.hpp"
 
 #include <string>
-
-#include "OgreManualObject.h"
 #include "OgreTextureUnitState.h"
 #include "OgreColourValue.h"
 

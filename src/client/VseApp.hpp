@@ -13,6 +13,7 @@
 #include "SceneNodeSys.hpp"
 #include "LegSpringSys.hpp"
 #include "BulletDebugDrawer.hpp"
+#include "RayDebugDrawer.hpp"
 
 namespace vse {
     
@@ -27,7 +28,7 @@ public:
     
     btDiscreteDynamicsWorld* mDynamicsWorld;
     
-    BulletDebugDrawer* mDebugDrawer;
+    btRigidBody* mPlaneRigid;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
@@ -66,6 +67,8 @@ public:
     SceneNodeSys* mSceneNodeSys;
     RigidBodySys* mRigidBodySys;
     LegSpringSys* mLegSpringSys;
+    BulletDebugDrawer* mBtDebugDrawer;
+    RayDebugDrawer* mRayDebugDrawer;
     
     nres::Entity* mLocalPlayer;
     

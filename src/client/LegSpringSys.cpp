@@ -59,7 +59,7 @@ void LegSpringSys::onTick() {
         rigidBody->setAngularFactor(0);
         rigidBody->setAngularVelocity(btVector3(0, 0, 0));
         
-        // Perform sweep test to determine what the legs are "standing on"
+        // Perform ray test to determine what the legs are "standing on"
         Vec3f absStart = rigidBody->mLocation + legSpring->mStart;
         Vec3f absEnd = rigidBody->mLocation + legSpring->mEnd;
         btCollisionWorld::AllHitsRayResultCallback rayCallback(absStart, absEnd);

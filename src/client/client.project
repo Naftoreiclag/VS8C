@@ -104,6 +104,8 @@
     <VirtualDirectory Name="misc">
       <File Name="BulletDebugDrawer.cpp"/>
       <File Name="BulletDebugDrawer.hpp"/>
+      <File Name="RayDebugDrawer.hpp"/>
+      <File Name="RayDebugDrawer.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>

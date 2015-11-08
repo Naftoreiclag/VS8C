@@ -29,7 +29,7 @@ void VseApp::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
             
-            mCamLocNode->setPosition(signal->mLocationUpdate);
+            mCamLocNode->setPosition(signal->mLocationUpdate + Vec3f(0, 0.75, 0));
             
             break;
         }
@@ -108,13 +108,14 @@ void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SD
     mDispatcher = new btCollisionDispatcher(mCollisionConfiguration);
     mSolver = new btSequentialImpulseConstraintSolver();
     mDynamicsWorld = new btDiscreteDynamicsWorld(mDispatcher, mBroadphase, mSolver, mCollisionConfiguration);
-    mDebugDrawer = new BulletDebugDrawer(mSmgr);
-    mDynamicsWorld->setDebugDrawer(mDebugDrawer);
+    mBtDebugDrawer = new BulletDebugDrawer(mSmgr);
+    mRayDebugDrawer = new RayDebugDrawer(mSmgr);
+    mDynamicsWorld->setDebugDrawer(mBtDebugDrawer);
     mDynamicsWorld->setGravity(btVector3(0, -9.8067, 0));
     
-	btStaticPlaneShape* planeShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
-	btRigidBody* planeRigid = new btRigidBody(0, 0, planeShape);
-	mDynamicsWorld->addRigidBody(planeRigid);
+    btStaticPlaneShape* planeShape = new btStaticPlaneShape(btVector3(0, 1, 0), 0);
+    mPlaneRigid = new btRigidBody(0, 0, planeShape);
+    mDynamicsWorld->addRigidBody(mPlaneRigid);
     
     mRigidBodySys = new RigidBodySys(mDynamicsWorld);
     mWorld.attachSystem(mRigidBodySys);
@@ -149,7 +150,12 @@ void VseApp::onAppEnd() {
     delete mDispatcher;
     delete mCollisionConfiguration;
     delete mBroadphase;
-    delete mDebugDrawer;
+    delete mBtDebugDrawer;
+    
+    delete mRayDebugDrawer;
+    delete mSceneNodeSys;
+    delete mRigidBodySys;
+    delete mLegSpringSys;
 }
 void VseApp::onTick(float tps) {
     
@@ -157,7 +163,8 @@ void VseApp::onTick(float tps) {
     mRigidBodySys->onTick();
     mLegSpringSys->onTick();
     
-    mDebugDrawer->onTick();
+    mRayDebugDrawer->onTick(tps);
+    mBtDebugDrawer->onTick();
     mDynamicsWorld->debugDrawWorld();
     
     const Uint8* keyStates = SDL_GetKeyboardState(NULL);
@@ -175,16 +182,48 @@ void VseApp::onTick(float tps) {
     if(keyStates[SDL_GetScancodeFromKey(SDLK_d)]) {
         moveVec.x = 1;
     }
+    if(keyStates[SDL_GetScancodeFromKey(SDLK_f)]) {
+        Vec3f absStart = mCam->getDerivedPosition();
+        Vec3f absEnd = mCam->getDerivedDirection();
+        absEnd *= 100;
+        absEnd += absStart;
+        btCollisionWorld::AllHitsRayResultCallback rayCallback(absStart, absEnd);
+        mDynamicsWorld->rayTest(absStart, absEnd, rayCallback);
+        
+        mRayDebugDrawer->addRay(absStart, absEnd);
+        
+        if(rayCallback.hasHit()) {
+            Vec3f hit;
+            const btRigidBody* interactBody = nullptr;
+            if(rayCallback.hasHit()) {
+                btScalar closestHitFraction(1337);
+                for(int i = rayCallback.m_collisionObjects.size() - 1; i >= 0; -- i) {
+
+                    // If this result is closer than the closest valid result
+                    if(rayCallback.m_hitFractions.at(i) <= closestHitFraction) {
+                        // Get the object colliding with
+                        const btCollisionObject* other = rayCallback.m_collisionObjects.at(i);
+                        
+                        if(other != mPlaneRigid) {
+                            closestHitFraction = rayCallback.m_hitFractions.at(i);
+                            hit = rayCallback.m_hitPointWorld.at(i);
+                            interactBody = static_cast<const btRigidBody*>(other);
+                        }
+                    }
+                }
+            }
+            
+            if(interactBody) {
+                std::cout << "Hit";
+            }
+        }
+    }
     
     if(!moveVec.isZero()) {
         Vec3f transl = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * moveVec;
         transl.normalize();
         transl *= 1.5;
         mLocalPlayer->broadcast(new WalkSignal(transl));
-    }
-    
-    if(keyStates[SDL_GetScancodeFromKey(SDLK_p)]) {
-        //mLocalPlayer->broadcast(new LocalPlayerMoveSignal(Vec3f(0, 100, 0)));
     }
 }
 

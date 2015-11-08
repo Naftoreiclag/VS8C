@@ -3,6 +3,7 @@
 
 #include "btBulletDynamicsCommon.h"
 
+#include "OgreManualObject.h"
 #include "OgreSceneManager.h"
 
 namespace vse {
@@ -12,7 +13,7 @@ private:
     int mDebugMode;
 public:
     BulletDebugDrawer(Ogre::SceneManager* smgr);
-    ~BulletDebugDrawer();
+    virtual ~BulletDebugDrawer();
     
     Ogre::SceneManager* mSmgr;
     Ogre::ManualObject* mLines;
