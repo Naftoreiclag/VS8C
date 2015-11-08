@@ -37,32 +37,13 @@ RayDebugDrawer::~RayDebugDrawer() {
 }
 
 void RayDebugDrawer::addRay(Vec3f start, Vec3f end, int16_t id, float lifetime) {
-    bool addAsNew = true;
-    if(id != -1) {
-        for(std::vector<Ray>::iterator iter = mRays.begin(); iter != mRays.end(); ++ iter) {
-            Ray& ray = *iter;
-            
-            if(ray.id == id) {
-                ray.start = start;
-                ray.end = end;
-                ray.deathTimer = lifetime;
-                
-                addAsNew = false;
-                
-                break;
-            }
-        }
-    }
+    Ray ray;
+    ray.start = start;
+    ray.end = end;
+    ray.id = id;
+    ray.deathTimer = lifetime;
     
-    if(addAsNew) {
-        Ray ray;
-        ray.start = start;
-        ray.end = end;
-        ray.id = id;
-        ray.deathTimer = lifetime;
-        
-        mRays.push_back(ray);
-    }
+    mRays.push_back(ray);
 }
 
 void RayDebugDrawer::onTick(float tps) {

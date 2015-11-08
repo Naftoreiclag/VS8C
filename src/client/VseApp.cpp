@@ -183,14 +183,14 @@ void VseApp::onTick(float tps) {
         moveVec.x = 1;
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_f)]) {
-        Vec3f absStart = mCam->getDerivedPosition();
-        Vec3f absEnd = mCam->getDerivedDirection();
-        absEnd *= 100;
-        absEnd += absStart;
+        Vec3f absStart = mCamRollNode->convertLocalToWorldPosition(Vec3f(0, 0, 0));
+        Vec3f camDir = mCamYawNode->getOrientation() * mCamPitchNode->getOrientation() * Vec3f(0, 0, -1);
+        camDir *= 10;
+        Vec3f absEnd = absStart + camDir;
         btCollisionWorld::AllHitsRayResultCallback rayCallback(absStart, absEnd);
         mDynamicsWorld->rayTest(absStart, absEnd, rayCallback);
         
-        mRayDebugDrawer->addRay(absStart, absEnd);
+        // mRayDebugDrawer->addRay(absStart, absEnd, 1);
         
         if(rayCallback.hasHit()) {
             Vec3f hit;
