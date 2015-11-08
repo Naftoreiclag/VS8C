@@ -30,6 +30,7 @@ public:
     void add(Component* component);
     void addListener(Listener* listener);
     void publish();
+    void destroy();
     
     Component* getComponent(const ComponentID& componentID);
     

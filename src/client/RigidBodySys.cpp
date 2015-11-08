@@ -55,6 +55,10 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     mTrackedEntities.push_back(entity);
 }
 void RigidBodySys::onEntityDestroyed(nres::Entity* entity) {
+    RigidBodyComp* comp = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
+    
+    mDynamicsWorld->removeRigidBody(comp->mRigidBody);
+    
     mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
 void RigidBodySys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {

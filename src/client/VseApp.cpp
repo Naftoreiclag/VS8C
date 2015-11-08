@@ -224,7 +224,7 @@ void VseApp::onTick(float tps) {
             }
             
             if(entityHit) {
-                std::cout << "Hit";
+                entityHit->destroy();
             }
         }
     }

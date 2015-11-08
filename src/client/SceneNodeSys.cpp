@@ -42,6 +42,11 @@ void SceneNodeSys::onEntityExists(nres::Entity* entity) {
     mTrackedEntities.push_back(entity);
 }
 void SceneNodeSys::onEntityDestroyed(nres::Entity* entity) {
+    SceneNodeComp* sceneNode = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
+    
+    mSmgr->destroySceneNode(sceneNode->mSceneNode);
+    mSmgr->destroyEntity(sceneNode->mOgreEntity);
+    
     mTrackedEntities.erase(std::remove(mTrackedEntities.begin(), mTrackedEntities.end(), entity), mTrackedEntities.end());
 }
 void SceneNodeSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {

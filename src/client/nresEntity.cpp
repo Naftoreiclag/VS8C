@@ -38,6 +38,12 @@ void Entity::addListener(Listener* listener) {
     listeners.push_back(listener);
 }
 
+void Entity::destroy() {
+    assert(isPublished);
+    
+    world->deleteEntity(this);
+}
+
 void Entity::publish() {
     assert(!isPublished);
     isPublished = true;
