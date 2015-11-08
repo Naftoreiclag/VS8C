@@ -194,7 +194,7 @@ void VseApp::onTick(float tps) {
         
         if(rayCallback.hasHit()) {
             Vec3f hit;
-            const btRigidBody* interactBody = nullptr;
+            nres::Entity* entityHit = nullptr;
             if(rayCallback.hasHit()) {
                 btScalar closestHitFraction(1337);
                 for(int i = rayCallback.m_collisionObjects.size() - 1; i >= 0; -- i) {
@@ -204,16 +204,26 @@ void VseApp::onTick(float tps) {
                         // Get the object colliding with
                         const btCollisionObject* other = rayCallback.m_collisionObjects.at(i);
                         
-                        if(other != mPlaneRigid) {
-                            closestHitFraction = rayCallback.m_hitFractions.at(i);
-                            hit = rayCallback.m_hitPointWorld.at(i);
-                            interactBody = static_cast<const btRigidBody*>(other);
+                        if(other == mPlaneRigid) {
+                            continue;
+                        }
+                        
+                        void* userPtr = other->getUserPointer();
+                        
+                        if(userPtr) {
+                            nres::Entity* entity = static_cast<nres::Entity*>(userPtr);
+                            
+                            if(entity) {
+                                entityHit = entity;
+                                closestHitFraction = rayCallback.m_hitFractions.at(i);
+                                hit = rayCallback.m_hitPointWorld.at(i);
+                            }
                         }
                     }
                 }
             }
             
-            if(interactBody) {
+            if(entityHit) {
                 std::cout << "Hit";
             }
         }

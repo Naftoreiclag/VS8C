@@ -49,6 +49,7 @@ void RigidBodySys::onEntityExists(nres::Entity* entity) {
     btVector3 inertia(0, 0, 0);
     comp->mCollisionShape->calculateLocalInertia(comp->mMass, inertia);
     comp->mRigidBody = new btRigidBody(comp->mMass, comp->mMotionState, comp->mCollisionShape, inertia);
+    comp->mRigidBody->setUserPointer(entity);
     mDynamicsWorld->addRigidBody(comp->mRigidBody);
     
     mTrackedEntities.push_back(entity);
