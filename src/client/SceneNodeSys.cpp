@@ -54,7 +54,7 @@ void SceneNodeSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
             SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
-            comp->mSceneNode->setPosition(signal->mLocationUpdate);
+            comp->mSceneNode->setPosition(signal->mLocationUpdate + comp->mSceneNodeOffset);
             
             break;
         }

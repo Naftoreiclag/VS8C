@@ -5,11 +5,13 @@
 
 #include "NRES.hpp"
 
+#include "RayDebugDrawer.hpp"
+
 namespace vse {
 
 class LegSpringSys : public nres::System {
 public:
-    LegSpringSys(btDiscreteDynamicsWorld* const dynamicsWorld);
+    LegSpringSys(btDiscreteDynamicsWorld* dynamicsWorld, RayDebugDrawer* rayDebugDrawer = nullptr);
     virtual ~LegSpringSys();
     
 private:
@@ -17,6 +19,7 @@ private:
     std::vector<nres::Entity*> mTrackedEntities;
 
     btDiscreteDynamicsWorld* const mDynamicsWorld;
+    RayDebugDrawer* const mRayDebugDrawer;
 
 public:
     virtual void onEntityExists(nres::Entity* entity);

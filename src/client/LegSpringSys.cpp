@@ -11,8 +11,9 @@
 namespace vse
 {
 
-LegSpringSys::LegSpringSys(btDiscreteDynamicsWorld* const dynamicsWorld)
-: mDynamicsWorld(dynamicsWorld) {
+LegSpringSys::LegSpringSys(btDiscreteDynamicsWorld* dynamicsWorld, RayDebugDrawer* rayDebugDrawer)
+: mDynamicsWorld(dynamicsWorld)
+, mRayDebugDrawer(rayDebugDrawer) {
     mRequiredComponents.push_back(LegSpringComp::componentID);
     mRequiredComponents.push_back(RigidBodyComp::componentID);
 }
@@ -64,6 +65,10 @@ void LegSpringSys::onTick() {
         Vec3f absEnd = rigidBody->mLocation + legSpring->mEnd;
         btCollisionWorld::AllHitsRayResultCallback rayCallback(absStart, absEnd);
         mDynamicsWorld->rayTest(absStart, absEnd, rayCallback);
+        
+        if(mRayDebugDrawer) {
+            mRayDebugDrawer->addRay(absStart, absEnd, -1, 0.5f);
+        }
         
         //
         Vec3f hit;

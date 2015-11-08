@@ -8,12 +8,14 @@
 
 #include "NRES.hpp"
 
+#include "Vec3f.hpp"
+
 namespace vse {
 
 class SceneNodeComp : public nres::Component
 {
 public:
-    SceneNodeComp(std::string resname);
+    SceneNodeComp(const std::string& resname, const Vec3f& nodeOffset = Vec3f(0, 0, 0));
     virtual ~SceneNodeComp();
     
     static const nres::ComponentID componentID;
@@ -23,6 +25,8 @@ public:
     Ogre::Entity* mOgreEntity;
     
     std::string mResourceName;
+    
+    Vec3f mSceneNodeOffset;
 
 };
 

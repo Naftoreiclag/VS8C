@@ -26,7 +26,7 @@ void RigidBodySys::RigidBodyMotionListener::getWorldTransform(btTransform& world
 
 void RigidBodySys::RigidBodyMotionListener::setWorldTransform(const btTransform& worldTransform) {
     sendTo->mRotation = worldTransform.getRotation();
-    sendTo->mLocation = worldTransform.getOrigin();
+    sendTo->mLocation = worldTransform.getOrigin() - sendTo->mOffset;
     sendTo->mVelocityLinear = sendTo->mRigidBody->getLinearVelocity();
     sendTo->mOnPhysUpdate = true;
 }
@@ -73,7 +73,7 @@ void RigidBodySys::onTick() {
         RigidBodyComp* rigidBody = (RigidBodyComp*) entity->getComponent(RigidBodyComp::componentID);
         
         if(rigidBody->mOnPhysUpdate) {
-            entity->broadcast(new LocationSignal(Vec3f(rigidBody->mLocation) - rigidBody->mOffset));
+            entity->broadcast(new LocationSignal(Vec3f(rigidBody->mLocation)));
             entity->broadcast(new OrientationSignal(Quate(rigidBody->mRotation)));
             
             rigidBody->mOnPhysUpdate = false;

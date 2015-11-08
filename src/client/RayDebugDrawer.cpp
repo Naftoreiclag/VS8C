@@ -53,21 +53,20 @@ void RayDebugDrawer::onTick(float tps) {
     std::vector<Ray>::iterator iter = mRays.begin();
     while(iter != mRays.end()) {
         Ray& ray = *iter;
+        Ogre::ColourValue ogreColor(1, 1, 0);
+        ogreColor.saturate();
         
+        mLines->position(ray.start);
+        mLines->colour(ogreColor);
+        mLines->position(ray.end);
+        mLines->colour(ogreColor);
+        
+        // Death is calculated after rendering to ensure each ray renders for at least 1 frame
         ray.deathTimer -= tps;
-        
         if(ray.deathTimer <= 0) {
             iter = mRays.erase(iter);
         }
         else {
-            Ogre::ColourValue ogreColor(1, 1, 0);
-            ogreColor.saturate();
-            
-            mLines->position(ray.start);
-            mLines->colour(ogreColor);
-            mLines->position(ray.end);
-            mLines->colour(ogreColor);
-            
             ++ iter;
         }
     }
