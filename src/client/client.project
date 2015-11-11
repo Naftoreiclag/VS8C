@@ -131,6 +131,7 @@
         <IncludePath Value="$(SFML_HOME)/include"/>
         <IncludePath Value="$(BULLET_HOME)/include/bullet"/>
         <IncludePath Value="$(JSON_CPP_HOME)/dist"/>
+        <IncludePath Value="$(RAPIDXML_HOME)/include"/>
         <Preprocessor Value="_DEBUG"/>
         <Preprocessor Value="WIN32"/>
         <Preprocessor Value="_WINDOWS"/>
@@ -174,6 +175,7 @@ JSON_CPP_HOME=../../dependencies/src/jsoncpp-0.10.5
 CEGUI_HOME=C:/CEGUI/built
 SFML_HOME=../../dependencies/win/mingw-w64/SFML-2.3.1
 BULLET_HOME=C:/CppLibs/Built/BULLET_PHYSICS-d
+RAPIDXML_HOME=../../dependencies/src/rapidxml-1.13
 Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
       </Environment>
       <Debugger IsRemote="no" RemoteHostName="" RemoteHostPort="" DebuggerPath="" IsExtended="no">
@@ -236,15 +238,7 @@ Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
         <ClangCmpFlagsC/>
         <ClangCmpFlags/>
         <ClangPP/>
-        <SearchPaths>$(OGRE_SDK)/$(OgreSDKName)/include
-$(OGRE_SDK)/$(OgreSDKName)/include/OGRE
-$(BOOST_HOME)
-$(SDL2_HOME)/include/SDL2
-$(CEGUI_HOME)/include/cegui-0
-$(SFML_HOME)/include
-$(BULLET_HOME)/include/bullet
-$(JSON_CPP_HOME)/dist
-</SearchPaths>
+        <SearchPaths/>
       </Completion>
     </Configuration>
     <Configuration Name="Release" CompilerType="MinGW ( gcc.exe (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.1.0 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">
