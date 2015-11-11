@@ -107,6 +107,10 @@
       <File Name="RayDebugDrawer.hpp"/>
       <File Name="RayDebugDrawer.cpp"/>
     </VirtualDirectory>
+    <VirtualDirectory Name="config">
+      <File Name="StaticStrings.hpp"/>
+      <File Name="StaticStrings.cpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>
@@ -213,6 +217,7 @@ Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
         <Command Enabled="yes"/>
         <Command Enabled="no"># CONFIG</Command>
         <Command Enabled="yes">cp config/Debug/*.xml $(IntermediateDirectory)</Command>
+        <Command Enabled="yes">cp config/Debug/*.json $(IntermediateDirectory)</Command>
         <Command Enabled="yes">cp config/Debug/*.cfg $(IntermediateDirectory)</Command>
         <Command Enabled="yes"/>
         <Command Enabled="no"># Mingw64</Command>

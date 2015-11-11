@@ -28,9 +28,6 @@ public:
     
     Ogre::Root* mOgreRoot;
     CEGUI::OgreRenderer* mCeguiRenderer;
-    
-    const std::string mRenderTargetName = "OgreRenderTarget";
-    const std::string mCeguiRootName = "CeguiRootWindow";
 
 };
 

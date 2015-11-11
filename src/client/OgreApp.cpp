@@ -6,6 +6,7 @@
 #include "SDL.h"
 #include "SFML/System.hpp"
 
+#include "StaticStrings.hpp"
 #include "VseApp.hpp"
 
 namespace vse
@@ -28,7 +29,8 @@ void OgreApp::run() {
     if(mOgreRoot->restoreConfig() || mOgreRoot->showConfigDialog()) {
         mOgreRoot->initialise(false);
 
-        mSdlWindow = SDL_CreateWindow("SDL Window", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_RESIZABLE);
+        std::string& windowTitle = StaticStrings::getSingleton().windowTitle;
+        mSdlWindow = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_RESIZABLE);
 
         SDL_SysWMinfo sdlWindowInfo;
         SDL_VERSION(&sdlWindowInfo.version);
@@ -44,7 +46,7 @@ void OgreApp::run() {
         #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
         ogreParams["parentWindowHandle"] = Ogre::StringConverter::toString(size_t(sdlWindowInfo.info.x11.window));
         #endif
-        mOgreWindow = mOgreRoot->createRenderWindow(mRenderTargetName, 1280, 720, false, &ogreParams);
+        mOgreWindow = mOgreRoot->createRenderWindow(StaticStrings::getSingleton().renderTargetName, 1280, 720, false, &ogreParams);
     }
     else {
         return;
@@ -68,7 +70,7 @@ void OgreApp::run() {
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     
-    Ogre::RenderTarget* renderTarget = mOgreRoot->getRenderTarget(mRenderTargetName);
+    Ogre::RenderTarget* renderTarget = mOgreRoot->getRenderTarget(StaticStrings::getSingleton().renderTargetName);
     mCeguiRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*renderTarget);
     
     CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
@@ -81,7 +83,7 @@ void OgreApp::run() {
     //CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-10");
     CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
     
-    mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", mCeguiRootName);
+    mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", StaticStrings::getSingleton().ceguiRootName);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
     
     VseApp& garnetApp = VseApp::getSingleton();
