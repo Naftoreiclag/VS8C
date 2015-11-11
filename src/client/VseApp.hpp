@@ -2,6 +2,8 @@
 #define GRT_GARNETAPP_HPP
 
 #include "btBulletDynamicsCommon.h"
+#include "CEGUI/CEGUI.h"
+#include "CEGUI/RendererModules/Ogre/Renderer.h"
 #include "OgreRoot.h"
 #include "OgreCamera.h"
 #include "OgreSceneManager.h"
@@ -29,6 +31,8 @@ public:
     btDiscreteDynamicsWorld* mDynamicsWorld;
     
     btRigidBody* mPlaneRigid;
+    
+    CEGUI::OgreRenderer* mCeguiRenderer;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;

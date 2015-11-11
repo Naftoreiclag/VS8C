@@ -236,7 +236,15 @@ Mingw64Dlls=C:/mingw-w64/x86_64-5.1.0-posix-seh-rt_v4-rev0/mingw64/bin]]>
         <ClangCmpFlagsC/>
         <ClangCmpFlags/>
         <ClangPP/>
-        <SearchPaths/>
+        <SearchPaths>$(OGRE_SDK)/$(OgreSDKName)/include
+$(OGRE_SDK)/$(OgreSDKName)/include/OGRE
+$(BOOST_HOME)
+$(SDL2_HOME)/include/SDL2
+$(CEGUI_HOME)/include/cegui-0
+$(SFML_HOME)/include
+$(BULLET_HOME)/include/bullet
+$(JSON_CPP_HOME)/dist
+</SearchPaths>
       </Completion>
     </Configuration>
     <Configuration Name="Release" CompilerType="MinGW ( gcc.exe (x86_64-posix-seh-rev0, Built by MinGW-W64 project) 5.1.0 )" DebuggerType="GNU gdb debugger" Type="Executable" BuildCmpWithGlobalSettings="append" BuildLnkWithGlobalSettings="append" BuildResWithGlobalSettings="append">

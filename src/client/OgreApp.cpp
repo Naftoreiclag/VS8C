@@ -68,6 +68,17 @@ void OgreApp::run() {
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     
+    Ogre::RenderTarget* renderTarget = mOgreRoot->getRenderTarget("secret message for uubor haxurs");
+    mCeguiRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*renderTarget);
+    CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
+    CEGUI::Font::setDefaultResourceGroup("Fonts");
+    CEGUI::Scheme::setDefaultResourceGroup("Schemes");
+    CEGUI::WidgetLookManager::setDefaultResourceGroup("LookNFeel");
+    CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
+    
+    CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    
+    
     VseApp& garnetApp = VseApp::getSingleton();
     garnetApp.onAppBegin(mOgreRoot, mOgreWindow, mSdlWindow);
     

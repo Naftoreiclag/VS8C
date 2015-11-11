@@ -1,15 +1,15 @@
 #ifndef GRT_OGREAPP_HPP
 #define GRT_OGREAPP_HPP
 
+#include "CEGUI/CEGUI.h"
+#include "CEGUI/RendererModules/Ogre/Renderer.h"
 #include "OgreRoot.h"
 #include "OgreCamera.h"
 #include "OgreSceneManager.h"
 #include "OgreRenderWindow.h"
-
 #include "SDL_syswm.h"
 
-namespace vse
-{
+namespace vse {
 
 class OgreApp {
 public:
@@ -22,6 +22,7 @@ public:
     Ogre::Root* mOgreRoot;
     Ogre::RenderWindow* mOgreWindow;
     SDL_Window* mSdlWindow;
+    CEGUI::OgreRenderer* mCeguiRenderer;
 
 };
 
