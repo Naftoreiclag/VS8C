@@ -152,6 +152,13 @@ void VseApp::onAppBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
+    CEGUI::Window* testWindow = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage", "TestWindow");
+    testWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0.5, 0)));
+    testWindow->setSize(CEGUI::USize(CEGUI::UDim(0, 150), CEGUI::UDim(0, 100)));
+    testWindow->setProperty("Image", "TaharezLook/full_image");
+    
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(testWindow);
+    
 }
 
 void VseApp::onAppEnd() {

@@ -77,7 +77,6 @@ public:
     
     nres::Entity* mLocalPlayer;
     
-    
     void onAppBegin(
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
