@@ -44,7 +44,7 @@ void OgreApp::run() {
         #elif OGRE_PLATFORM == OGRE_PLATFORM_LINUX
         ogreParams["parentWindowHandle"] = Ogre::StringConverter::toString(size_t(sdlWindowInfo.info.x11.window));
         #endif
-        mOgreWindow = mOgreRoot->createRenderWindow("secret message for uubor haxurs", 1280, 720, false, &ogreParams);
+        mOgreWindow = mOgreRoot->createRenderWindow(mRenderTargetName, 1280, 720, false, &ogreParams);
     }
     else {
         return;
@@ -68,8 +68,9 @@ void OgreApp::run() {
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
     
-    Ogre::RenderTarget* renderTarget = mOgreRoot->getRenderTarget("secret message for uubor haxurs");
+    Ogre::RenderTarget* renderTarget = mOgreRoot->getRenderTarget(mRenderTargetName);
     mCeguiRenderer = &CEGUI::OgreRenderer::bootstrapSystem(*renderTarget);
+    
     CEGUI::ImageManager::setImagesetDefaultResourceGroup("Imagesets");
     CEGUI::Font::setDefaultResourceGroup("Fonts");
     CEGUI::Scheme::setDefaultResourceGroup("Schemes");
@@ -77,10 +78,14 @@ void OgreApp::run() {
     CEGUI::WindowManager::setDefaultResourceGroup("Layouts");
     
     CEGUI::SchemeManager::getSingleton().createFromFile("TaharezLook.scheme");
+    //CEGUI::System::getSingleton().getDefaultGUIContext().setDefaultFont("DejaVuSans-10");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getMouseCursor().setDefaultImage("TaharezLook/MouseArrow");
     
+    mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", mCeguiRootName);
+    CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
     
     VseApp& garnetApp = VseApp::getSingleton();
-    garnetApp.onAppBegin(mOgreRoot, mOgreWindow, mSdlWindow);
+    garnetApp.onAppBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
     sf::Clock tpsTimer;
     

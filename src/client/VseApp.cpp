@@ -49,10 +49,17 @@ VseApp& VseApp::getSingleton() {
 VseApp::VseApp() {}
 VseApp::~VseApp() {}
 
-void VseApp::onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow) {
+void VseApp::onAppBegin(
+        Ogre::Root* ogreRoot, 
+        Ogre::RenderWindow* ogreWindow, 
+        SDL_Window* sdlWindow, 
+        CEGUI::OgreRenderer* ceguiRenderer,
+        CEGUI::Window* ceguiWindow) {
     mOgreRoot = ogreRoot;
     mOgreWindow = ogreWindow;
     mSdlWindow = sdlWindow;
+    mCeguiRenderer = ceguiRenderer;
+    mCeguiWindow = ceguiWindow;
     
     SDL_SetRelativeMouseMode(SDL_TRUE);
     

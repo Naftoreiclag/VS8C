@@ -1,6 +1,8 @@
 #ifndef GRT_OGREAPP_HPP
 #define GRT_OGREAPP_HPP
 
+#include <string>
+
 #include "CEGUI/CEGUI.h"
 #include "CEGUI/RendererModules/Ogre/Renderer.h"
 #include "OgreRoot.h"
@@ -19,10 +21,16 @@ public:
     static OgreApp& getSingleton();
     void run();
 public:
-    Ogre::Root* mOgreRoot;
+    // It's alive... alive!
     Ogre::RenderWindow* mOgreWindow;
     SDL_Window* mSdlWindow;
+    CEGUI::Window* mCeguiWindow;
+    
+    Ogre::Root* mOgreRoot;
     CEGUI::OgreRenderer* mCeguiRenderer;
+    
+    const std::string mRenderTargetName = "OgreRenderTarget";
+    const std::string mCeguiRootName = "CeguiRootWindow";
 
 };
 

@@ -33,6 +33,7 @@ public:
     btRigidBody* mPlaneRigid;
     
     CEGUI::OgreRenderer* mCeguiRenderer;
+    CEGUI::Window* mCeguiWindow;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
@@ -77,7 +78,12 @@ public:
     nres::Entity* mLocalPlayer;
     
     
-    void onAppBegin(Ogre::Root* ogreRoot, Ogre::RenderWindow* ogreWindow, SDL_Window* sdlWindow);
+    void onAppBegin(
+        Ogre::Root* ogreRoot, 
+        Ogre::RenderWindow* ogreWindow, 
+        SDL_Window* sdlWindow, 
+        CEGUI::OgreRenderer* ceguiRenderer,
+        CEGUI::Window* ceguiWindow);
     
     // User wants to close application
     void onAppEnd();
