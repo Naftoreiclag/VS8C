@@ -151,13 +151,11 @@ void VseApp::onAppBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
-    /*
     CEGUI::Window* testWindow = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage", "TestWindow");
     testWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0.5, 0)));
     testWindow->setSize(CEGUI::USize(CEGUI::UDim(0, 150), CEGUI::UDim(0, 100)));
     
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(testWindow);
-    */
     
 }
 
@@ -286,10 +284,10 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
         }
     }
     
-    //CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CeguiUtil::toCeguiScancode(event.keysym.scancode));
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CeguiUtil::toCeguiScancode(event.keysym.scancode));
 }
 void VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
-    //CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CeguiUtil::toCeguiScancode(event.keysym.scancode));
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CeguiUtil::toCeguiScancode(event.keysym.scancode));
 }
 
 void VseApp::onTextInput(const SDL_TextInputEvent& event) {
@@ -300,13 +298,15 @@ void VseApp::onTextInput(const SDL_TextInputEvent& event) {
 }
 void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
     
-    float dx = -event.xrel;
-    float dy = -event.yrel;
+    float x = event.x;
+    float y = event.y;
+    float dx = event.xrel;
+    float dy = event.yrel;
     Ogre::Radian dYaw = Ogre::Radian(dx / 200);
     Ogre::Radian dPitch = Ogre::Radian(dy / 200);
     
-    mCamPitch += dPitch;
-    mCamYaw += dYaw;
+    mCamPitch -= dPitch;
+    mCamYaw -= dYaw;
     
     if(mCamPitch > Ogre::Degree(90)) {
         mCamPitch = Ogre::Degree(90);
@@ -315,7 +315,7 @@ void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
         mCamPitch = Ogre::Degree(-90);
     }
     
-    //CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(dx, dy);
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(x, y);
     
     updateCamDolly();
 }
@@ -332,7 +332,6 @@ void VseApp::updateCamDolly() {
 
 
 void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
-    /*
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton);
@@ -347,10 +346,8 @@ void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
             break;
         }
     }
-    */
 }
 void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
-    /*
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton);
@@ -365,7 +362,6 @@ void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
             break;
         }
     }
-    */
 }
 
 void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
@@ -383,7 +379,7 @@ void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
     }
     
     updateCamDolly();
-    //CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(event.y);
+    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(event.y);
 }
 }
 
