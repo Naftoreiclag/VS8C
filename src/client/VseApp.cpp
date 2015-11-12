@@ -251,7 +251,9 @@ void VseApp::onTick(float tps) {
         transl = MathUtils::onPlane(transl, Vec3f(0, 1, 0));
         transl.normalize();
         transl *= 1.5;
-        mLocalPlayer->broadcast(new WalkSignal(transl));
+        if(!transl.isNan()) {
+            mLocalPlayer->broadcast(new WalkSignal(transl));
+        }
     }
 }
 

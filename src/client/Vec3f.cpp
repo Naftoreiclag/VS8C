@@ -1,6 +1,7 @@
 #include "Vec3f.hpp"
 
 #include <cmath>
+#include <math.h>
 
 namespace vse {
 
@@ -145,6 +146,10 @@ void Vec3f::zero() {
 
 bool Vec3f::isZero() const {
     return x == 0.f && y == 0.f && z == 0.f;
+}
+// isnan(x) || isnan(y) || isnan(z)
+bool Vec3f::isNan() const {
+    return std::isnan(x) || std::isnan(y) || std::isnan(z);
 }
 
 }

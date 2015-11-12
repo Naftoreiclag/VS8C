@@ -71,6 +71,9 @@ public:
     
     // x == 0 && y == 0 && z == 0
     bool isZero() const;
+    
+    // isnan(x) || isnan(y) || isnan(z)
+    bool isNan() const;
 };
 
 }
