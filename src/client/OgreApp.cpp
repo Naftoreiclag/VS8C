@@ -112,6 +112,7 @@ void OgreApp::run() {
                 }
                 case SDL_TEXTINPUT: {
                     garnetApp.onTextInput(event.text);
+                    break;
                 }
                 case SDL_MOUSEMOTION: {
                     garnetApp.onMouseMove(event.motion);
