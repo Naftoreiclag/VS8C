@@ -103,15 +103,15 @@ void OgreApp::run() {
                     break;
                 }
                 case SDL_KEYDOWN: {
-                    // Do not listen to when the key is being rapid-fire pressed
-                    if(!event.key.repeat) {
-                        garnetApp.onKeyPress(event.key);
-                    }
+                    garnetApp.onKeyPress(event.key, event.key.repeat);
                     break;
                 }
                 case SDL_KEYUP: {
                     garnetApp.onKeyRelease(event.key);
                     break;
+                }
+                case SDL_TEXTINPUT: {
+                    garnetApp.onTextInput(event.text);
                 }
                 case SDL_MOUSEMOTION: {
                     garnetApp.onMouseMove(event.motion);

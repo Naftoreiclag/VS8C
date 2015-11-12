@@ -91,8 +91,9 @@ public:
     void onTick(float tps);
     
     // Key handling
-    void onKeyPress(const SDL_KeyboardEvent& event);
+    void onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
     void onKeyRelease(const SDL_KeyboardEvent& event);
+    void onTextInput(const SDL_TextInputEvent& event);
     
     // Mouse handling
     void onMouseMove(const SDL_MouseMotionEvent& event);
