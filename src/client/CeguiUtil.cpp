@@ -200,9 +200,6 @@ CEGUI::Key::Scan toCeguiScancode(SDL_Scancode key) {
         case SDL_SCANCODE_LEFT                   : return CEGUI::Key::ArrowLeft;
         case SDL_SCANCODE_LEFTBRACKET            : return CEGUI::Key::LeftBracket;
         case SDL_SCANCODE_LGUI                   : return CEGUI::Key::LeftWindows;
-        case SDL_SCANCODE_LOCKINGCAPSLOCK        : return CEGUI::Key::Capital;
-        case SDL_SCANCODE_LOCKINGNUMLOCK         : return CEGUI::Key::Numlock;
-        case SDL_SCANCODE_LOCKINGSCROLLLOCK      : return CEGUI::Key::ScrollLock;
         case SDL_SCANCODE_LSHIFT                 : return CEGUI::Key::LeftShift;
         case SDL_SCANCODE_MAIL                   : return CEGUI::Key::Mail;
         case SDL_SCANCODE_MEDIASELECT            : return CEGUI::Key::MediaSelect;
@@ -212,7 +209,7 @@ CEGUI::Key::Scan toCeguiScancode(SDL_Scancode key) {
         case SDL_SCANCODE_MUTE                   : return CEGUI::Key::Unknown;
         case SDL_SCANCODE_NONUSBACKSLASH         : return CEGUI::Key::Unknown;
         case SDL_SCANCODE_NONUSHASH              : return CEGUI::Key::Unknown;
-        case SDL_SCANCODE_NUMLOCKCLEAR           : return CEGUI::Key::Numlock;
+        case SDL_SCANCODE_NUMLOCKCLEAR           : return CEGUI::Key::Unknown;
         case SDL_SCANCODE_OPER                   : return CEGUI::Key::Unknown;
         case SDL_SCANCODE_OUT                    : return CEGUI::Key::Unknown;
         case SDL_SCANCODE_PAGEDOWN               : return CEGUI::Key::PageDown;

@@ -2,7 +2,7 @@
 #define VSE_CEGUIUTIL_HPP
 
 #include "CEGUI/CEGUI.h"
-#include "SDL_syswm.h"
+#include "SDL.h"
 
 namespace vse {
 
