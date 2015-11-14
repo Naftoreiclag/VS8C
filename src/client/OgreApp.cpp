@@ -148,7 +148,6 @@ void OgreApp::run() {
         }
         
         Ogre::WindowEventUtilities::messagePump();
-        
     }
 }
 

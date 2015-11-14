@@ -151,8 +151,11 @@ void VseApp::onAppBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
-    mTestWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("DeveloperConsole.layout");
-    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mTestWindow);
+    mConsoleWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("DeveloperConsole.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mConsoleWindow);
+    
+    mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
+    mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&VseApp::onConsoleEditboxTextAccepted, this));
 }
 
 void VseApp::onAppEnd() {
@@ -377,5 +380,31 @@ void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
     updateCamDolly();
     CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(event.y);
 }
+
+
+bool VseApp::onConsoleSubmitClicked(const CEGUI::EventArgs& args) {
+    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
+    CEGUI::String text = editbox->getText();
+    onConsoleTextSubmitted(text);
+    editbox->setText("");
+}
+bool VseApp::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
+    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
+    CEGUI::String text = editbox->getText();
+    onConsoleTextSubmitted(text);
+    editbox->setText("");
+}
+bool VseApp::onConsoleTextSubmitted(const CEGUI::String& text) {
+    outputConsoleText(text);
+}
+void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
+    CEGUI::Listbox* listbox = static_cast<CEGUI::Listbox*>(mConsoleWindow->getChild("History"));
+    
+    CEGUI::ListboxTextItem* item = new CEGUI::ListboxTextItem(text);
+    item->setTextColours(color);
+    listbox->addItem(item);
+    listbox->ensureItemIsVisible(item);
+}
+
 }
 

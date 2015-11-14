@@ -35,7 +35,7 @@ public:
     CEGUI::OgreRenderer* mCeguiRenderer;
     CEGUI::Window* mCeguiWindow;
     
-    CEGUI::Window* mTestWindow;
+    CEGUI::Window* mConsoleWindow;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
@@ -106,6 +106,12 @@ public:
     virtual void onEntityExists(nres::Entity* entity);
     virtual void onEntityDestroyed(nres::Entity* entity);
     virtual void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
+    
+    // Console
+    bool onConsoleSubmitClicked(const CEGUI::EventArgs& args);
+    bool onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args);
+    bool onConsoleTextSubmitted(const CEGUI::String& text);
+    void outputConsoleText(const CEGUI::String& text, CEGUI::Colour color = CEGUI::Colour(1.f, 1.f, 1.f));
     
     VseApp();
     ~VseApp();
