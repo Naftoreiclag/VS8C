@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GUILayout version="4">
+    <Window name="Console" type="TaharezLook/FrameWindow" >
+        <Property name="Text" value="Developer Console"/>
+		<Property name="TitlebarFont" value="DejaVuSans-10"/>
+		<Property name="TitlebarEnabled" value="True"/>
+		<Property name="Position" value="{{0.25,0},{0.25,0}}"/>
+		<Property name="Size" value="{{0.5,0},{0.45,0}}"/>
+		
+		<Window name="Editbox" type="TaharezLook/Editbox">
+			<Property name="VerticalAlignment" value="Bottom"/>
+			<Property name="Position" value="{{0,10},{0,-10}}"/>
+			<Property name="Size" value="{{1,-130},{0,30}}"/>
+		</Window>
+		
+		<Window name="Submit" type="TaharezLook/Button">
+			<Property name="VerticalAlignment" value="Bottom"/>
+			<Property name="HorizontalAlignment" value="Right"/>
+			<Property name="Position" value="{{0,-10},{0,-10}}"/>
+			<Property name="Size" value="{{0,100},{0,30}}"/>
+			<Property name="Text" value="Submit"/>
+		</Window>
+		
+		<Window name="History" type="TaharezLook/Listbox">
+			<Property name="Position" value="{{0,10},{0,10}}"/>
+			<Property name="Size" value="{{1,-20},{1,-60}}"/>
+		</Window>
+    </Window>
+</GUILayout>

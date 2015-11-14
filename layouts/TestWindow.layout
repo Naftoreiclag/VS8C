@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<GUILayout version="4">
-    <Window type="TaharezLook/FrameWindow" name="Test Window">
-        <Property name="Text" value="Window Title"/>
-		<Property name="TitlebarFont" value="DejaVuSans-10"/>
-		<Property name="TitlebarEnabled" value="True"/>
-    </Window>
-</GUILayout>

@@ -151,7 +151,7 @@ void VseApp::onAppBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
-    mTestWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TestWindow.layout");
+    mTestWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("DeveloperConsole.layout");
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mTestWindow);
 }
 
