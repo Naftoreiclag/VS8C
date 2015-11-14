@@ -156,6 +156,7 @@ void VseApp::onAppBegin(
     
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
     mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&VseApp::onConsoleEditboxTextAccepted, this));
+    mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
 }
 
 void VseApp::onAppEnd() {
@@ -404,6 +405,19 @@ void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
     item->setTextColours(color);
     listbox->addItem(item);
     listbox->ensureItemIsVisible(item);
+}
+bool VseApp::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
+    setConsoleVisibility(false);
+}
+void VseApp::setConsoleVisibility(bool visible) {
+    mConsoleWindow->setVisible(visible);
+    
+    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
+    if(visible) {
+        editbox->activate();
+    } else {
+        editbox->deactivate();
+    }
 }
 
 }
