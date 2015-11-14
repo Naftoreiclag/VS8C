@@ -288,8 +288,7 @@ void VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
 
 void VseApp::onTextInput(const SDL_TextInputEvent& event) {
     if(event.text != 0) {
-        std::string text = event.text;
-        //CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(text);
+        CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(CEGUI::String(event.text).at(0));
     }
     
 }
