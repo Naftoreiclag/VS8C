@@ -151,12 +151,8 @@ void VseApp::onAppBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
-    CEGUI::Window* testWindow = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/StaticImage", "TestWindow");
-    testWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.5, 0), CEGUI::UDim(0.5, 0)));
-    testWindow->setSize(CEGUI::USize(CEGUI::UDim(0, 150), CEGUI::UDim(0, 100)));
-    
-    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(testWindow);
-    
+    mTestWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("TestWindow.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mTestWindow);
 }
 
 void VseApp::onAppEnd() {
@@ -292,7 +288,8 @@ void VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
 
 void VseApp::onTextInput(const SDL_TextInputEvent& event) {
     if(event.text != 0) {
-        //CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(event.text);
+        std::string text = event.text;
+        //CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(text);
     }
     
 }

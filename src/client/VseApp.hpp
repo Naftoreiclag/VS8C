@@ -34,6 +34,8 @@ public:
     
     CEGUI::OgreRenderer* mCeguiRenderer;
     CEGUI::Window* mCeguiWindow;
+    
+    CEGUI::Window* mTestWindow;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
