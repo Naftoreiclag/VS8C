@@ -157,6 +157,8 @@ void VseApp::onAppBegin(
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
     mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&VseApp::onConsoleEditboxTextAccepted, this));
     mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
+    
+    setConsoleVisibility(false);
 }
 
 void VseApp::onAppEnd() {
@@ -268,6 +270,10 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             break;
         }
         case SDLK_d: {
+            break;
+        }
+        case SDLK_BACKQUOTE: {
+            setConsoleVisibility(true);
             break;
         }
         case SDLK_q: {
