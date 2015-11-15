@@ -98,7 +98,7 @@ void VseApp::onAppBegin(
     mSmgr->setShadowTextureFSAA(2);
     mSmgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE); // SHADOWTYPE_TEXTURE_ADDITIVE
     */
-    mSmgr->setSkyBox(true, "Test");
+    mSmgr->setSkyBox(true, "PlaceholderSky");
     
     Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
     viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
