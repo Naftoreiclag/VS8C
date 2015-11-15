@@ -162,12 +162,6 @@ void VseApp::onAppBegin(
     
     setConsoleVisibility(false);
     
-    std::ofstream fileSave("save.json");
-    Json::Value jsonSave;
-    SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
-    fileSave << jsonSave;
-    fileSave.close();
-    
 }
 
 void VseApp::onAppEnd() {
@@ -411,7 +405,10 @@ bool VseApp::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
     editbox->setText("");
 }
 bool VseApp::onConsoleTextSubmitted(const CEGUI::String& text) {
-    outputConsoleText(text);
+    if(text == "save") {
+        saveGame();
+    }
+    outputConsoleText(">" + text);
 }
 void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
     CEGUI::Listbox* listbox = static_cast<CEGUI::Listbox*>(mConsoleWindow->getChild("History"));
@@ -433,6 +430,14 @@ void VseApp::setConsoleVisibility(bool visible) {
     } else {
         editbox->deactivate();
     }
+}
+
+void VseApp::saveGame() {
+    std::ofstream fileSave("save.json");
+    Json::Value jsonSave;
+    SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
+    fileSave << jsonSave;
+    fileSave.close();
 }
 
 }
