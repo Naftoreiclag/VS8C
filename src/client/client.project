@@ -100,6 +100,8 @@
     <VirtualDirectory Name="serialization">
       <File Name="SerializationUtil.hpp"/>
       <File Name="SerializationUtil.cpp"/>
+      <File Name="JsonAware.hpp"/>
+      <File Name="JsonAware.cpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="misc">
       <File Name="BulletDebugDrawer.cpp"/>

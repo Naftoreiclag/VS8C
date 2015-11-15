@@ -3,6 +3,11 @@
 #include <stdint.h>
 #include <vector>
 
+#include "SceneNodeComp.hpp"
+#include "RigidBodyComp.hpp"
+#include "LegSpringComp.hpp"
+#include "LocalPlayerComp.hpp"
+
 namespace vse {
 
 namespace SerializationUtil {
@@ -18,12 +23,26 @@ void serializeEntities(const nres::World& world, Json::Value& jsonRoot) {
         
         uint32_t componentIndex = 0;
         const std::vector<nres::Component*>& components = entity->getComponents();
-        for(std::vector<nres::Component*>::const_iterator compIter = components.begin(); compIter != components.end(); ++ entIter) {
+        for(std::vector<nres::Component*>::const_iterator compIter = components.begin(); compIter != components.end(); ++ compIter) {
             const nres::Component* component = *compIter;
             
             Json::Value& jsonComponent = jsonEntity[component->getID()];
             
-            // ???
+            if(component->getID() == SceneNodeComp::componentID) {
+                const SceneNodeComp* sceneNode = static_cast<const SceneNodeComp*>(component);
+                
+                jsonComponent["resourceName"] = sceneNode->mResourceName;
+            }
+            else if(component->getID() == RigidBodyComp::componentID) {
+                const RigidBodyComp* rigidBody = static_cast<const RigidBodyComp*>(component);
+                
+                serialize(rigidBody->mLocation, jsonComponent["location"]);
+                serialize(rigidBody->mRotation, jsonComponent["rotation"]);
+                jsonComponent["mass"] = rigidBody->mMass;
+            }
+            else {
+                
+            }
             
             ++ componentIndex;
         }
@@ -34,6 +53,27 @@ void serializeEntities(const nres::World& world, Json::Value& jsonRoot) {
 
 void deserializeEntities(nres::World& world, const Json::Value& json) {
     
+}
+    
+void serializeComponent(const nres::Component& component, Json::Value& json) {
+    if(component.getID() == SceneNodeComp::componentID) {
+        
+    }
+}
+
+nres::Component* deserializeComponent(nres::ComponentID id, const Json::Value& json) {
+    
+}
+void serialize(const Vec3f& vector, Json::Value& json) {
+    json["x"] = vector.x;
+    json["y"] = vector.y;
+    json["z"] = vector.z;
+}
+void serialize(const Quate& quater, Json::Value& json) {
+    json["w"] = quater.w;
+    json["x"] = quater.x;
+    json["y"] = quater.y;
+    json["z"] = quater.z;
 }
 
 }

@@ -115,6 +115,9 @@ public:
     void outputConsoleText(const CEGUI::String& text, CEGUI::Colour color = CEGUI::Colour(1.f, 1.f, 1.f));
     void setConsoleVisibility(bool visible);
     
+    //
+    void saveGame();
+    
     VseApp();
     ~VseApp();
 };

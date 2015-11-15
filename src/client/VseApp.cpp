@@ -1,7 +1,8 @@
 #include "VseApp.hpp"
 
-#include <stdint.h>
 #include <iostream>
+#include <fstream>
+#include <stdint.h>
 
 #include "OgreMath.h"
 #include "OgreEntity.h"
@@ -17,6 +18,7 @@
 #include "RigidBodyComp.hpp"
 #include "RigidBodySys.hpp"
 #include "SceneNodeComp.hpp"
+#include "SerializationUtil.hpp"
 #include "Vec3f.hpp"
 #include "WalkSignal.hpp"
 
@@ -159,6 +161,13 @@ void VseApp::onAppBegin(
     mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
     
     setConsoleVisibility(false);
+    
+    std::ofstream fileSave("save.json");
+    Json::Value jsonSave;
+    SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
+    fileSave << jsonSave;
+    fileSave.close();
+    
 }
 
 void VseApp::onAppEnd() {
