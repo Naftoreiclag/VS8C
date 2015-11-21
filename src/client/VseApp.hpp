@@ -36,6 +36,8 @@ public:
     CEGUI::Window* mCeguiWindow;
     
     CEGUI::Window* mConsoleWindow;
+    CEGUI::Window* mPauseWindow;
+    CEGUI::Window* mInventoryWindow;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
@@ -117,6 +119,9 @@ public:
     
     //
     void saveGame();
+    
+    bool mPaused;
+    void togglePause();
     
     VseApp();
     ~VseApp();

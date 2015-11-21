@@ -102,16 +102,16 @@ void OgreApp::run() {
                     appRunning = false;
                     break;
                 }
+                case SDL_TEXTINPUT: {
+                    garnetApp.onTextInput(event.text);
+                    break;
+                }
                 case SDL_KEYDOWN: {
                     garnetApp.onKeyPress(event.key, event.key.repeat);
                     break;
                 }
                 case SDL_KEYUP: {
                     garnetApp.onKeyRelease(event.key);
-                    break;
-                }
-                case SDL_TEXTINPUT: {
-                    garnetApp.onTextInput(event.text);
                     break;
                 }
                 case SDL_MOUSEMOTION: {

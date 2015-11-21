@@ -156,6 +156,16 @@ void VseApp::onAppBegin(
     mConsoleWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("DeveloperConsole.layout");
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mConsoleWindow);
     
+    mPauseWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("PauseMenu.layout");
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mPauseWindow);
+    mPaused = false;
+    mPauseWindow->setVisible(false);
+    
+    mInventoryWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Inventory.layout");
+    //mInventoryWindow->getChild("Contents")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
+    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mInventoryWindow);
+    
+    
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
     mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&VseApp::onConsoleEditboxTextAccepted, this));
     mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
@@ -279,6 +289,10 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             setConsoleVisibility(true);
             break;
         }
+        case SDLK_ESCAPE: {
+            togglePause();
+            break;
+        }
         case SDLK_q: {
             if(!repeat) {
                 nres::Entity* testCube = mWorld.newEntity();
@@ -311,17 +325,20 @@ void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
     float y = event.y;
     float dx = event.xrel;
     float dy = event.yrel;
-    Ogre::Radian dYaw = Ogre::Radian(dx / 200);
-    Ogre::Radian dPitch = Ogre::Radian(dy / 200);
     
-    mCamPitch -= dPitch;
-    mCamYaw -= dYaw;
-    
-    if(mCamPitch > Ogre::Degree(90)) {
-        mCamPitch = Ogre::Degree(90);
-    }
-    else if(mCamPitch < Ogre::Degree(-90)) {
-        mCamPitch = Ogre::Degree(-90);
+    if(!mPaused) {
+        Ogre::Radian dYaw = Ogre::Radian(dx / 200);
+        Ogre::Radian dPitch = Ogre::Radian(dy / 200);
+        
+        mCamPitch -= dPitch;
+        mCamYaw -= dYaw;
+        
+        if(mCamPitch > Ogre::Degree(90)) {
+            mCamPitch = Ogre::Degree(90);
+        }
+        else if(mCamPitch < Ogre::Degree(-90)) {
+            mCamPitch = Ogre::Degree(-90);
+        }
     }
     
     CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(x, y);
@@ -405,10 +422,14 @@ bool VseApp::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
     editbox->setText("");
 }
 bool VseApp::onConsoleTextSubmitted(const CEGUI::String& text) {
+    outputConsoleText(">" + text);
     if(text == "save") {
         saveGame();
+        outputConsoleText("game saved");
     }
-    outputConsoleText(">" + text);
+    else {
+        outputConsoleText("unknown command", CEGUI::Colour(1.f, 0.f, 0.f));
+    }
 }
 void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
     CEGUI::Listbox* listbox = static_cast<CEGUI::Listbox*>(mConsoleWindow->getChild("History"));
@@ -421,6 +442,7 @@ void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
 bool VseApp::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
     setConsoleVisibility(false);
 }
+
 void VseApp::setConsoleVisibility(bool visible) {
     mConsoleWindow->setVisible(visible);
     
@@ -438,6 +460,19 @@ void VseApp::saveGame() {
     SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
     fileSave << jsonSave;
     fileSave.close();
+}
+
+void VseApp::togglePause() {
+    mPaused = !mPaused;
+    
+    if(mPaused) {
+        SDL_SetRelativeMouseMode(SDL_FALSE);
+        mPauseWindow->setVisible(true);
+    }
+    else {
+        SDL_SetRelativeMouseMode(SDL_TRUE);
+        mPauseWindow->setVisible(false);
+    }
 }
 
 }
