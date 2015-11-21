@@ -9,4 +9,4 @@ src/client/client.txt
 src/Makefile
 
 dependencies/*
-media*
+resources/media*
