@@ -17,7 +17,7 @@
 
 #include <iostream>
 
-#include "OgreApp.hpp"
+#include "PotatoCake.hpp"
 
 using namespace vse;
 

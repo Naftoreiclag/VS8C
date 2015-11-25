@@ -15,7 +15,7 @@
 
 */
 
-#include "OgreApp.hpp"
+#include "PotatoCake.hpp"
 
 #include "OgreRenderWindow.h"
 #include "OgreConfigFile.h"

@@ -15,8 +15,8 @@
 
 */
 
-#ifndef GRT_OGREAPP_HPP
-#define GRT_OGREAPP_HPP
+#ifndef VSE_POTATOCAKE_HPP
+#define VSE_POTATOCAKE_HPP
 
 #include <string>
 
@@ -50,4 +50,4 @@ public:
 
 }
 
-#endif // GRT_OGREAPP_HPP
+#endif // VSE_POTATOCAKE_HPP

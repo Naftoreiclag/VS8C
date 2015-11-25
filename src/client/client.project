@@ -79,8 +79,8 @@
     </VirtualDirectory>
     <VirtualDirectory Name="low-level">
       <File Name="main.cpp"/>
-      <File Name="OgreApp.cpp"/>
-      <File Name="OgreApp.hpp"/>
+      <File Name="PotatoCake.cpp"/>
+      <File Name="PotatoCake.hpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="math">
       <File Name="Vec2f.cpp"/>

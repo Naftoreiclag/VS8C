@@ -4,6 +4,8 @@ src/.clang/*
 binDebug/*
 bin/*
 
+*.exe
+
 src/client/*.mk
 src/client/client.txt
 src/Makefile
