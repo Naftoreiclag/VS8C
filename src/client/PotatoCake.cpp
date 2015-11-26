@@ -103,8 +103,9 @@ void OgreApp::run() {
     mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", StaticStrings::getSingleton().ceguiRootName);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
     
-    VseApp garnetApp;
-    garnetApp.onBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    
+    mGameLayerMachine->setBase(new VseApp());
     
     sf::Clock tpsTimer;
     
@@ -114,37 +115,37 @@ void OgreApp::run() {
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_QUIT: {
-                    garnetApp.onEnd();
+                    mGameLayerMachine->removeAll();
                     mOgreRoot->queueEndRendering();
                     appRunning = false;
                     break;
                 }
                 case SDL_TEXTINPUT: {
-                    garnetApp.onTextInput(event.text);
+                    mGameLayerMachine->onTextInput(event.text);
                     break;
                 }
                 case SDL_KEYDOWN: {
-                    garnetApp.onKeyPress(event.key, event.key.repeat);
+                    mGameLayerMachine->onKeyPress(event.key, event.key.repeat);
                     break;
                 }
                 case SDL_KEYUP: {
-                    garnetApp.onKeyRelease(event.key);
+                    mGameLayerMachine->onKeyRelease(event.key);
                     break;
                 }
                 case SDL_MOUSEMOTION: {
-                    garnetApp.onMouseMove(event.motion);
+                    mGameLayerMachine->onMouseMove(event.motion);
                     break;
                 }
                 case SDL_MOUSEBUTTONDOWN: {
-                    garnetApp.onMousePress(event.button);
+                    mGameLayerMachine->onMousePress(event.button);
                     break;
                 }
                 case SDL_MOUSEBUTTONUP: {
-                    garnetApp.onMouseRelease(event.button);
+                    mGameLayerMachine->onMouseRelease(event.button);
                     break;
                 }
                 case SDL_MOUSEWHEEL: {
-                    garnetApp.onMouseWheel(event.wheel);
+                    mGameLayerMachine->onMouseWheel(event.wheel);
                     break;
                 }
                 default : {
@@ -157,7 +158,7 @@ void OgreApp::run() {
         if(appRunning) {
             float tps = tpsTimer.getElapsedTime().asSeconds();
             tpsTimer.restart();
-            garnetApp.onTick(tps);
+            mGameLayerMachine->onTick(tps);
             
             if(!mOgreRoot->renderOneFrame()) {
                 appRunning = false;

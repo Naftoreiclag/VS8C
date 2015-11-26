@@ -46,6 +46,7 @@ public:
     void setBase(GameLayer* gm);
     void addAbove(GameLayer* caller, GameLayer* gm);
     void remove(GameLayer* gm);
+    void removeAll();
     
     // Ticks
     void onTick(float tps);

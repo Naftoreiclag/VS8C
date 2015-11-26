@@ -28,6 +28,8 @@
 #include "OgreRenderWindow.h"
 #include "SDL_syswm.h"
 
+#include "GameLayerMachine.hpp"
+
 namespace vse {
 
 class OgreApp {
@@ -45,6 +47,8 @@ public:
     
     Ogre::Root* mOgreRoot;
     CEGUI::OgreRenderer* mCeguiRenderer;
+    
+    GameLayerMachine* mGameLayerMachine;
 
 };
 

@@ -36,10 +36,11 @@ GameLayerMachine::GameLayerMachine(
 
 GameLayerMachine::~GameLayerMachine() {}
 
-void GameLayerMachine::setBase(GameLayer* gm) {
+void GameLayerMachine::setBase(GameLayer* addMe) {
     assert(mLayers.empty());
     
-    mLayers.push_back(gm);
+    mLayers.push_back(addMe);
+    addMe->onBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
 }
 void GameLayerMachine::addAbove(GameLayer* caller, GameLayer* addMe) {
     // Find where the caller is located
@@ -95,6 +96,13 @@ void GameLayerMachine::remove(GameLayer* removeMe) {
     
     // Remove layer
     mLayers.erase(location);
+}
+void GameLayerMachine::removeAll() {
+    for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
+        GameLayer* layer = *iter;
+        
+        this->remove(layer);
+    }
 }
 
 // Ticks
