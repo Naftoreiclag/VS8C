@@ -29,8 +29,6 @@
   <Description/>
   <Dependencies/>
   <VirtualDirectory Name="src">
-    <File Name="VseApp.cpp"/>
-    <File Name="VseApp.hpp"/>
     <VirtualDirectory Name="nres">
       <File Name="nresComponent.cpp"/>
       <File Name="nresComponent.hpp"/>
@@ -77,10 +75,12 @@
         <File Name="SceneNodeSys.hpp"/>
       </VirtualDirectory>
     </VirtualDirectory>
-    <VirtualDirectory Name="low-level">
+    <VirtualDirectory Name="engine">
       <File Name="main.cpp"/>
       <File Name="PotatoCake.cpp"/>
       <File Name="PotatoCake.hpp"/>
+      <File Name="GameLayerMachine.cpp"/>
+      <File Name="GameLayerMachine.hpp"/>
     </VirtualDirectory>
     <VirtualDirectory Name="math">
       <File Name="Vec2f.cpp"/>
@@ -115,10 +115,12 @@
       <File Name="StaticStrings.hpp"/>
       <File Name="StaticStrings.cpp"/>
     </VirtualDirectory>
-    <File Name="GameLayer.cpp"/>
-    <File Name="GameLayer.hpp"/>
-    <File Name="GameLayerMachine.hpp"/>
-    <File Name="GameLayerMachine.cpp"/>
+    <VirtualDirectory Name="gamelayers">
+      <File Name="GameLayer.cpp"/>
+      <File Name="GameLayer.hpp"/>
+      <File Name="Overworld.cpp"/>
+      <File Name="Overworld.hpp"/>
+    </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

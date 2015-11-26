@@ -32,12 +32,12 @@
 
 namespace vse {
 
-class OgreApp {
+class PotatoCake {
 public:
-    OgreApp();
-    virtual ~OgreApp();
+    PotatoCake();
+    virtual ~PotatoCake();
 public:
-    static OgreApp& getSingleton();
+    static PotatoCake& getSingleton();
     void run();
 public:
     // It's alive... alive!

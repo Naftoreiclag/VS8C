@@ -21,7 +21,7 @@
 #include <sstream>
 #include <stdint.h>
 
-#include "VseApp.hpp"
+#include "Overworld.hpp"
 #include "RigidBodyComp.hpp"
 
 #include "Vec3f.hpp"

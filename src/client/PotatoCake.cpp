@@ -24,23 +24,23 @@
 #include "SFML/System.hpp"
 
 #include "StaticStrings.hpp"
-#include "VseApp.hpp"
+#include "Overworld.hpp"
 
 namespace vse
 {
 
-OgreApp& OgreApp::getSingleton() {
-    static OgreApp instance;
+PotatoCake& PotatoCake::getSingleton() {
+    static PotatoCake instance;
     return instance;
 }
     
-OgreApp::OgreApp() {
+PotatoCake::PotatoCake() {
 }
 
-OgreApp::~OgreApp() {
+PotatoCake::~PotatoCake() {
 }
 
-void OgreApp::run() {
+void PotatoCake::run() {
     mOgreRoot = new Ogre::Root("plugins.cfg");
     
     if(mOgreRoot->restoreConfig() || mOgreRoot->showConfigDialog()) {

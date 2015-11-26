@@ -37,7 +37,7 @@
 
 namespace vse {
     
-class VseApp : public GameLayer, public nres::Listener  {
+class Overworld : public GameLayer, public nres::Listener  {
 public:
     btBroadphaseInterface* mBroadphase;
     btDefaultCollisionConfiguration* mCollisionConfiguration;
@@ -141,8 +141,8 @@ public:
     bool mPaused;
     void togglePause();
     
-    VseApp();
-    ~VseApp();
+    Overworld();
+    ~Overworld();
 };
 
 }

@@ -22,7 +22,7 @@
 using namespace vse;
 
 int main(int argc, char **argv) {
-    OgreApp& app = OgreApp::getSingleton();
+    PotatoCake& app = PotatoCake::getSingleton();
     app.run();
     return 0;
 }
