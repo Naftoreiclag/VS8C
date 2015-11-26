@@ -41,10 +41,10 @@
 
 namespace vse {
     
-void VseApp::onEntityExists(nres::Entity* entity) {}
-void VseApp::onEntityDestroyed(nres::Entity* entity) {}
+void Overworld::onEntityExists(nres::Entity* entity) {}
+void Overworld::onEntityDestroyed(nres::Entity* entity) {}
 
-void VseApp::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
+void Overworld::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
@@ -59,10 +59,10 @@ void VseApp::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     }
 }
 
-VseApp::VseApp() {}
-VseApp::~VseApp() {}
+Overworld::Overworld() {}
+Overworld::~Overworld() {}
 
-void VseApp::onBegin(
+void Overworld::onBegin(
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 
@@ -178,14 +178,14 @@ void VseApp::onBegin(
     CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mInventoryWindow);
     
     
-    mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
-    mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&VseApp::onConsoleEditboxTextAccepted, this));
-    mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
+    mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleSubmitClicked, this));
+    mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&Overworld::onConsoleEditboxTextAccepted, this));
+    mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleCloseClicked, this));
     
     setConsoleVisibility(false);
 }
 
-void VseApp::onEnd() {
+void Overworld::onEnd() {
     delete mDynamicsWorld;
     delete mSolver;
     delete mDispatcher;
@@ -198,13 +198,13 @@ void VseApp::onEnd() {
     delete mRigidBodySys;
     delete mLegSpringSys;
 }
-void VseApp::onAddedAbove(const GameLayer* layer) {
+void Overworld::onAddedAbove(const GameLayer* layer) {
     
 }
-void VseApp::onRemovedAbove(const GameLayer* layer) {
+void Overworld::onRemovedAbove(const GameLayer* layer) {
     
 }
-void VseApp::onTick(float tps) {
+void Overworld::onTick(float tps) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
@@ -288,7 +288,7 @@ void VseApp::onTick(float tps) {
 }
 
 
-bool VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
+bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
     switch(event.keysym.sym) {
         case SDLK_w: {
             break;
@@ -328,13 +328,13 @@ bool VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
     
     return true;
 }
-bool VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
+bool Overworld::onKeyRelease(const SDL_KeyboardEvent& event) {
     CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CeguiUtil::toCeguiScancode(event.keysym.scancode));
     
     return true;
 }
 
-bool VseApp::onTextInput(const SDL_TextInputEvent& event) {
+bool Overworld::onTextInput(const SDL_TextInputEvent& event) {
     if(event.text != 0) {
         CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(CEGUI::String(event.text).at(0));
     }
@@ -342,7 +342,7 @@ bool VseApp::onTextInput(const SDL_TextInputEvent& event) {
     return true;
     
 }
-bool VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
+bool Overworld::onMouseMove(const SDL_MouseMotionEvent& event) {
     
     float x = event.x;
     float y = event.y;
@@ -371,7 +371,7 @@ bool VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
     return true;
 }
 
-void VseApp::updateCamDolly() {
+void Overworld::updateCamDolly() {
     mCamYawNode->resetOrientation();
     mCamYawNode->yaw(mCamYaw);
     mCamPitchNode->resetOrientation();
@@ -382,7 +382,7 @@ void VseApp::updateCamDolly() {
 }
 
 
-bool VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
+bool Overworld::onMousePress(const SDL_MouseButtonEvent& event) {
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton);
@@ -400,7 +400,7 @@ bool VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
     
     return true;
 }
-bool VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
+bool Overworld::onMouseRelease(const SDL_MouseButtonEvent& event) {
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton);
@@ -419,7 +419,7 @@ bool VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
     return true;
 }
 
-bool VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
+bool Overworld::onMouseWheel(const SDL_MouseWheelEvent& event) {
     
     float delta = -event.y;
     delta *= 0.5f;
@@ -440,19 +440,19 @@ bool VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
 }
 
 
-bool VseApp::onConsoleSubmitClicked(const CEGUI::EventArgs& args) {
+bool Overworld::onConsoleSubmitClicked(const CEGUI::EventArgs& args) {
     CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
     CEGUI::String text = editbox->getText();
     onConsoleTextSubmitted(text);
     editbox->setText("");
 }
-bool VseApp::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
+bool Overworld::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
     CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
     CEGUI::String text = editbox->getText();
     onConsoleTextSubmitted(text);
     editbox->setText("");
 }
-bool VseApp::onConsoleTextSubmitted(const CEGUI::String& text) {
+bool Overworld::onConsoleTextSubmitted(const CEGUI::String& text) {
     outputConsoleText(">" + text);
     if(text == "save") {
         saveGame();
@@ -462,7 +462,7 @@ bool VseApp::onConsoleTextSubmitted(const CEGUI::String& text) {
         outputConsoleText("unknown command", CEGUI::Colour(1.f, 0.f, 0.f));
     }
 }
-void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
+void Overworld::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
     CEGUI::Listbox* listbox = static_cast<CEGUI::Listbox*>(mConsoleWindow->getChild("History"));
     
     CEGUI::ListboxTextItem* item = new CEGUI::ListboxTextItem(text);
@@ -470,11 +470,11 @@ void VseApp::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
     listbox->addItem(item);
     listbox->ensureItemIsVisible(item);
 }
-bool VseApp::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
+bool Overworld::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
     setConsoleVisibility(false);
 }
 
-void VseApp::setConsoleVisibility(bool visible) {
+void Overworld::setConsoleVisibility(bool visible) {
     mConsoleWindow->setVisible(visible);
     
     CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
@@ -485,7 +485,7 @@ void VseApp::setConsoleVisibility(bool visible) {
     }
 }
 
-void VseApp::saveGame() {
+void Overworld::saveGame() {
     std::ofstream fileSave("save.json");
     Json::Value jsonSave;
     SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
@@ -493,7 +493,7 @@ void VseApp::saveGame() {
     fileSave.close();
 }
 
-void VseApp::togglePause() {
+void Overworld::togglePause() {
     mPaused = !mPaused;
     
     if(mPaused) {

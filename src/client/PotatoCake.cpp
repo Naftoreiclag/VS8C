@@ -105,7 +105,7 @@ void PotatoCake::run() {
     
     mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
-    mGameLayerMachine->setBase(new VseApp());
+    mGameLayerMachine->setBase(new Overworld());
     
     sf::Clock tpsTimer;
     
