@@ -27,6 +27,7 @@
 #include "OgreRenderWindow.h"
 #include "SDL_events.h"
 
+#include "GameLayer.hpp"
 #include "NRES.hpp"
 #include "RigidBodySys.hpp"
 #include "SceneNodeSys.hpp"
@@ -36,9 +37,7 @@
 
 namespace vse {
     
-class VseApp : public nres::Listener {
-public:
-    static VseApp& getSingleton();
+class VseApp : public GameLayer, public nres::Listener  {
 public:
     btBroadphaseInterface* mBroadphase;
     btDefaultCollisionConfiguration* mCollisionConfiguration;
@@ -98,33 +97,35 @@ public:
     
     nres::Entity* mLocalPlayer;
     
-    void onAppBegin(
+    void onBegin(
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 
         CEGUI::OgreRenderer* ceguiRenderer,
         CEGUI::Window* ceguiWindow);
-    
-    // User wants to close application
-    void onAppEnd();
+    void onEnd();
     
     // Ticks
     void onTick(float tps);
     
+    // Layering
+    void onAddedAbove(const GameLayer* layer);
+    void onRemovedAbove(const GameLayer* layer);
+    
     // Key handling
-    void onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
-    void onKeyRelease(const SDL_KeyboardEvent& event);
-    void onTextInput(const SDL_TextInputEvent& event);
+    bool onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
+    bool onKeyRelease(const SDL_KeyboardEvent& event);
+    bool onTextInput(const SDL_TextInputEvent& event);
     
     // Mouse handling
-    void onMouseMove(const SDL_MouseMotionEvent& event);
-    void onMousePress(const SDL_MouseButtonEvent& event);
-    void onMouseRelease(const SDL_MouseButtonEvent& event);
-    void onMouseWheel(const SDL_MouseWheelEvent& event);
+    bool onMouseMove(const SDL_MouseMotionEvent& event);
+    bool onMousePress(const SDL_MouseButtonEvent& event);
+    bool onMouseRelease(const SDL_MouseButtonEvent& event);
+    bool onMouseWheel(const SDL_MouseWheelEvent& event);
     
-    virtual void onEntityExists(nres::Entity* entity);
-    virtual void onEntityDestroyed(nres::Entity* entity);
-    virtual void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
+    void onEntityExists(nres::Entity* entity);
+    void onEntityDestroyed(nres::Entity* entity);
+    void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
     
     // Console
     bool onConsoleSubmitClicked(const CEGUI::EventArgs& args);

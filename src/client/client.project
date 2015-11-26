@@ -115,6 +115,10 @@
       <File Name="StaticStrings.hpp"/>
       <File Name="StaticStrings.cpp"/>
     </VirtualDirectory>
+    <File Name="GameLayer.cpp"/>
+    <File Name="GameLayer.hpp"/>
+    <File Name="GameLayerMachine.hpp"/>
+    <File Name="GameLayerMachine.cpp"/>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
   <Dependencies Name="Release"/>

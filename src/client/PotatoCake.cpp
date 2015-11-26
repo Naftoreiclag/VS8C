@@ -103,8 +103,8 @@ void OgreApp::run() {
     mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", StaticStrings::getSingleton().ceguiRootName);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
     
-    VseApp& garnetApp = VseApp::getSingleton();
-    garnetApp.onAppBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    VseApp garnetApp;
+    garnetApp.onBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
     sf::Clock tpsTimer;
     
@@ -114,7 +114,7 @@ void OgreApp::run() {
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_QUIT: {
-                    garnetApp.onAppEnd();
+                    garnetApp.onEnd();
                     mOgreRoot->queueEndRendering();
                     appRunning = false;
                     break;

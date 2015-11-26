@@ -58,16 +58,11 @@ void VseApp::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
         }
     }
 }
-    
-VseApp& VseApp::getSingleton() {
-    static VseApp instance;
-    return instance;
-}
 
 VseApp::VseApp() {}
 VseApp::~VseApp() {}
 
-void VseApp::onAppBegin(
+void VseApp::onBegin(
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 
@@ -188,10 +183,9 @@ void VseApp::onAppBegin(
     mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&VseApp::onConsoleCloseClicked, this));
     
     setConsoleVisibility(false);
-    
 }
 
-void VseApp::onAppEnd() {
+void VseApp::onEnd() {
     delete mDynamicsWorld;
     delete mSolver;
     delete mDispatcher;
@@ -203,6 +197,12 @@ void VseApp::onAppEnd() {
     delete mSceneNodeSys;
     delete mRigidBodySys;
     delete mLegSpringSys;
+}
+void VseApp::onAddedAbove(const GameLayer* layer) {
+    
+}
+void VseApp::onRemovedAbove(const GameLayer* layer) {
+    
 }
 void VseApp::onTick(float tps) {
     
@@ -288,7 +288,7 @@ void VseApp::onTick(float tps) {
 }
 
 
-void VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
+bool VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
     switch(event.keysym.sym) {
         case SDLK_w: {
             break;
@@ -325,18 +325,24 @@ void VseApp::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
     }
     
     CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CeguiUtil::toCeguiScancode(event.keysym.scancode));
+    
+    return true;
 }
-void VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
+bool VseApp::onKeyRelease(const SDL_KeyboardEvent& event) {
     CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CeguiUtil::toCeguiScancode(event.keysym.scancode));
+    
+    return true;
 }
 
-void VseApp::onTextInput(const SDL_TextInputEvent& event) {
+bool VseApp::onTextInput(const SDL_TextInputEvent& event) {
     if(event.text != 0) {
         CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(CEGUI::String(event.text).at(0));
     }
     
+    return true;
+    
 }
-void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
+bool VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
     
     float x = event.x;
     float y = event.y;
@@ -361,6 +367,8 @@ void VseApp::onMouseMove(const SDL_MouseMotionEvent& event) {
     CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(x, y);
     
     updateCamDolly();
+    
+    return true;
 }
 
 void VseApp::updateCamDolly() {
@@ -374,7 +382,7 @@ void VseApp::updateCamDolly() {
 }
 
 
-void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
+bool VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton);
@@ -389,8 +397,10 @@ void VseApp::onMousePress(const SDL_MouseButtonEvent& event) {
             break;
         }
     }
+    
+    return true;
 }
-void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
+bool VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
     switch(event.button) {
         case SDL_BUTTON_LEFT: {
             CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton);
@@ -405,9 +415,11 @@ void VseApp::onMouseRelease(const SDL_MouseButtonEvent& event) {
             break;
         }
     }
+    
+    return true;
 }
 
-void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
+bool VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
     
     float delta = -event.y;
     delta *= 0.5f;
@@ -423,6 +435,8 @@ void VseApp::onMouseWheel(const SDL_MouseWheelEvent& event) {
     
     updateCamDolly();
     CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(event.y);
+    
+    return true;
 }
 
 
