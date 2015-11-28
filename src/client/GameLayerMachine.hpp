@@ -44,7 +44,7 @@ private:
     std::vector<GameLayer*> mLayers;
 public:
     void addAbove(GameLayer* addMe, GameLayer* aboveMe);
-    void addTop(GameLayer* addMe);
+    void addBottom(GameLayer* addMe);
     void remove(GameLayer* removeMe);
     void removeAll();
     

@@ -108,8 +108,8 @@ void PotatoCake::run() {
     
     mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
-    mGameLayerMachine->addTop(new Overworld());
-    mGameLayerMachine->addTop(new CeguiInjector());
+    mGameLayerMachine->addBottom(new CeguiInjector());
+    mGameLayerMachine->addBottom(new Overworld());
     
     sf::Clock tpsTimer;
     
