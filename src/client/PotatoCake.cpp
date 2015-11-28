@@ -24,6 +24,7 @@
 #include "SFML/System.hpp"
 
 #include "CeguiInjector.hpp"
+#include "CeguiFrames.hpp"
 #include "Overworld.hpp"
 #include "StaticStrings.hpp"
 
@@ -103,6 +104,7 @@ void PotatoCake::run() {
     
     mCeguiWindow = CEGUI::WindowManager::getSingleton().createWindow("DefaultWindow", StaticStrings::getSingleton().ceguiRootName);
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
+    CeguiFrames::getSingleton().loadAllLayouts(mCeguiWindow);
     
     mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     

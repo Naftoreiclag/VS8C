@@ -108,8 +108,12 @@
       <File Name="BulletDebugDrawer.hpp"/>
       <File Name="RayDebugDrawer.hpp"/>
       <File Name="RayDebugDrawer.cpp"/>
-      <File Name="CeguiUtil.hpp"/>
-      <File Name="CeguiUtil.cpp"/>
+      <VirtualDirectory Name="cegui">
+        <File Name="CeguiFrames.cpp"/>
+        <File Name="CeguiFrames.hpp"/>
+        <File Name="CeguiUtil.cpp"/>
+        <File Name="CeguiUtil.hpp"/>
+      </VirtualDirectory>
     </VirtualDirectory>
     <VirtualDirectory Name="config">
       <File Name="StaticStrings.hpp"/>
