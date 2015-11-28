@@ -108,10 +108,11 @@ void GameLayerMachine::remove(GameLayer* removeMe) {
     mLayers.erase(location);
 }
 void GameLayerMachine::removeAll() {
-    for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
+    std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin();
+    while(iter != mLayers.rend()) {
         GameLayer* layer = *iter;
-        
         this->remove(layer);
+        ++ iter
     }
 }
 
