@@ -36,13 +36,23 @@ GameLayerMachine::GameLayerMachine(
 
 GameLayerMachine::~GameLayerMachine() {}
 
-void GameLayerMachine::setBase(GameLayer* addMe) {
-    assert(mLayers.empty());
-    
-    mLayers.push_back(addMe);
+void GameLayerMachine::addTop(GameLayer* addMe) {
     addMe->onBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    
+    for(std::vector<GameLayer*>::iterator iter = mLayers.begin(); iter != mLayers.end(); ++ iter) {
+        GameLayer* layer = *iter;
+        
+        layer->onAddedAbove(addMe);
+    }
+    mLayers.push_back(addMe);
 }
-void GameLayerMachine::addAbove(GameLayer* caller, GameLayer* addMe) {
+/*
+void GameLayerMachine::addGlobal(GameLayer* addMe) {
+}
+void GameLayerMachine::removeGlobal(GameLayer* removeMe) {
+}
+*/
+void GameLayerMachine::addAbove(GameLayer* addMe, GameLayer* caller) {
     // Find where the caller is located
     std::vector<GameLayer*>::iterator location = mLayers.end();
     for(std::vector<GameLayer*>::iterator iter = mLayers.begin(); iter != mLayers.end(); ++ iter) {
@@ -59,7 +69,7 @@ void GameLayerMachine::addAbove(GameLayer* caller, GameLayer* addMe) {
     
     // Insert the new game layer into the next location ("One layer above")
     ++ location;
-    mLayers.insert(location, addMe);
+    mLayers.insert(location, addMe); // Inserting here is safe
     addMe->onBegin(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
     // Inform all layers "below" this one that a new layer was added above them (this should logically include the caller)

@@ -23,8 +23,9 @@
 #include "SDL.h"
 #include "SFML/System.hpp"
 
-#include "StaticStrings.hpp"
+#include "CeguiInjector.hpp"
 #include "Overworld.hpp"
+#include "StaticStrings.hpp"
 
 namespace vse
 {
@@ -105,7 +106,8 @@ void PotatoCake::run() {
     
     mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
-    mGameLayerMachine->setBase(new Overworld());
+    mGameLayerMachine->addTop(new Overworld());
+    mGameLayerMachine->addTop(new CeguiInjector());
     
     sf::Clock tpsTimer;
     

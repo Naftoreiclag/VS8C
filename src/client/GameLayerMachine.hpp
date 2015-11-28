@@ -43,9 +43,9 @@ public:
 private:
     std::vector<GameLayer*> mLayers;
 public:
-    void setBase(GameLayer* gm);
-    void addAbove(GameLayer* caller, GameLayer* gm);
-    void remove(GameLayer* gm);
+    void addAbove(GameLayer* addMe, GameLayer* aboveMe);
+    void addTop(GameLayer* addMe);
+    void remove(GameLayer* removeMe);
     void removeAll();
     
     // Ticks

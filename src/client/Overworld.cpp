@@ -26,7 +26,6 @@
 #include "OgreSubEntity.h"
 #include "SDL.h"
 
-#include "CeguiUtil.hpp"
 #include "EntSignal.hpp"
 #include "LegSpringComp.hpp"
 #include "LocalPlayerComp.hpp"
@@ -324,23 +323,14 @@ bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
         }
     }
     
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CeguiUtil::toCeguiScancode(event.keysym.scancode));
-    
     return true;
 }
 bool Overworld::onKeyRelease(const SDL_KeyboardEvent& event) {
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyUp(CeguiUtil::toCeguiScancode(event.keysym.scancode));
-    
     return true;
 }
 
 bool Overworld::onTextInput(const SDL_TextInputEvent& event) {
-    if(event.text != 0) {
-        CEGUI::System::getSingleton().getDefaultGUIContext().injectChar(CEGUI::String(event.text).at(0));
-    }
-    
     return true;
-    
 }
 bool Overworld::onMouseMove(const SDL_MouseMotionEvent& event) {
     
@@ -364,7 +354,7 @@ bool Overworld::onMouseMove(const SDL_MouseMotionEvent& event) {
         }
     }
     
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectMousePosition(x, y);
+    
     
     updateCamDolly();
     
@@ -383,38 +373,9 @@ void Overworld::updateCamDolly() {
 
 
 bool Overworld::onMousePress(const SDL_MouseButtonEvent& event) {
-    switch(event.button) {
-        case SDL_BUTTON_LEFT: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::LeftButton);
-            break;
-        }
-        case SDL_BUTTON_MIDDLE: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::MiddleButton);
-            break;
-        }
-        case SDL_BUTTON_RIGHT: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonDown(CEGUI::RightButton);
-            break;
-        }
-    }
-    
     return true;
 }
 bool Overworld::onMouseRelease(const SDL_MouseButtonEvent& event) {
-    switch(event.button) {
-        case SDL_BUTTON_LEFT: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::LeftButton);
-            break;
-        }
-        case SDL_BUTTON_MIDDLE: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::MiddleButton);
-            break;
-        }
-        case SDL_BUTTON_RIGHT: {
-            CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseButtonUp(CEGUI::RightButton);
-            break;
-        }
-    }
     
     return true;
 }
@@ -434,7 +395,6 @@ bool Overworld::onMouseWheel(const SDL_MouseWheelEvent& event) {
     }
     
     updateCamDolly();
-    CEGUI::System::getSingleton().getDefaultGUIContext().injectMouseWheelChange(event.y);
     
     return true;
 }

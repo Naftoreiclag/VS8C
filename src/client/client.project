@@ -120,6 +120,10 @@
       <File Name="GameLayer.hpp"/>
       <File Name="Overworld.cpp"/>
       <File Name="Overworld.hpp"/>
+      <File Name="PauseScreen.hpp"/>
+      <File Name="PauseScreen.cpp"/>
+      <File Name="CeguiInjector.hpp"/>
+      <File Name="CeguiInjector.cpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
