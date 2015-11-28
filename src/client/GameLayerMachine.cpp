@@ -112,7 +112,7 @@ void GameLayerMachine::removeAll() {
     while(iter != mLayers.rend()) {
         GameLayer* layer = *iter;
         this->remove(layer);
-        ++ iter
+        ++ iter;
     }
 }
 
