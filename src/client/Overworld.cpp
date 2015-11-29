@@ -201,7 +201,7 @@ void Overworld::onAddedAbove(const GameLayer* layer) {
 void Overworld::onRemovedAbove(const GameLayer* layer) {
     
 }
-void Overworld::onTick(float tps, const Uint8* keyStates) {
+bool Overworld::onTick(float tps, const Uint8* keyStates) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
@@ -280,6 +280,8 @@ void Overworld::onTick(float tps, const Uint8* keyStates) {
             mLocalPlayer->broadcast(new WalkSignal(transl));
         }
     }
+    
+    return true;
 }
 
 

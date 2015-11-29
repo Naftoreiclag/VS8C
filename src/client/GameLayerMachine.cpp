@@ -20,6 +20,8 @@
 
 namespace vse {
 
+Uint8* GameLayerMachine::mRelaxedKeyStates = nullptr;
+    
 GameLayerMachine::GameLayerMachine(
     Ogre::Root* ogreRoot, 
     Ogre::RenderWindow* ogreWindow, 
@@ -31,7 +33,16 @@ GameLayerMachine::GameLayerMachine(
 , mSdlWindow(sdlWindow)
 , mCeguiRenderer(ceguiRenderer)
 , mCeguiWindow(ceguiWindow) {
-    
+    if(!mRelaxedKeyStates) {
+        int size;
+        SDL_GetKeyboardState(&size);
+        
+        mRelaxedKeyStates = new Uint8[size];
+        
+        for(int i = 0; i < size; ++ i) {
+            mRelaxedKeyStates[i] = SDL_FALSE;
+        }
+    }
 }
 
 GameLayerMachine::~GameLayerMachine() {}
@@ -110,11 +121,14 @@ void GameLayerMachine::removeAll() {
 }
 
 // Ticks
-void GameLayerMachine::onTick(float tps, const Uint8* keyStates) {
+void GameLayerMachine::onTick(float tps, const Uint8* keys) {
+    const Uint8* keyStates = keys;
     for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
         GameLayer* layer = *iter;
         
-        layer->onTick(tps, keyStates);
+        if(layer->onTick(tps, keyStates)) {
+            keyStates = getRelaxedKeyStates();
+        }
     }
 }
 
@@ -192,5 +206,9 @@ void GameLayerMachine::onMouseWheel(const SDL_MouseWheelEvent& event) {
     }
 }
 
+
+const Uint8* GameLayerMachine::getRelaxedKeyStates() {
+    return mRelaxedKeyStates;
+}
 
 }

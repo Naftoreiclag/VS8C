@@ -46,7 +46,7 @@ public:
     virtual void onEnd() = 0;
     
     // Ticks
-    virtual void onTick(float tps, const Uint8* keyStates) = 0;
+    virtual bool onTick(float tps, const Uint8* keyStates) = 0;
     
     // Layering
     virtual void onAddedAbove(const GameLayer* layer) = 0;

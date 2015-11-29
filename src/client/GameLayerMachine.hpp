@@ -42,6 +42,8 @@ public:
 
 private:
     std::vector<GameLayer*> mLayers;
+    
+    static Uint8* mRelaxedKeyStates;
 public:
     void addAbove(GameLayer* addMe, GameLayer* aboveMe);
     void addBottom(GameLayer* addMe);
@@ -61,6 +63,8 @@ public:
     void onMousePress(const SDL_MouseButtonEvent& event);
     void onMouseRelease(const SDL_MouseButtonEvent& event);
     void onMouseWheel(const SDL_MouseWheelEvent& event);
+    
+    const Uint8* getRelaxedKeyStates();
 };
 
 }
