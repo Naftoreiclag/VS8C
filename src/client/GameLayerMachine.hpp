@@ -49,7 +49,7 @@ public:
     void removeAll();
     
     // Ticks
-    void onTick(float tps);
+    void onTick(float tps, const Uint8* keyStates);
     
     // Key handling
     void onKeyPress(const SDL_KeyboardEvent& event, bool repeat);

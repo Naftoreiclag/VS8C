@@ -33,7 +33,7 @@ void CeguiInjector::onBegin(
         CEGUI::Window* ceguiWindow) { }
 void CeguiInjector::onEnd() { }
 
-void CeguiInjector::onTick(float tps) { }
+void CeguiInjector::onTick(float tps, const Uint8* keyStates) { }
 void CeguiInjector::onAddedAbove(const GameLayer* layer) { }
 void CeguiInjector::onRemovedAbove(const GameLayer* layer) { }
 

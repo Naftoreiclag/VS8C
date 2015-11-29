@@ -52,7 +52,7 @@ void PauseScreen::onEnd() {
 }
 
 // Ticks
-void PauseScreen::onTick(float tps) { }
+void PauseScreen::onTick(float tps, const Uint8* keyStates) { }
 
 // Layering
 void PauseScreen::onAddedAbove(const GameLayer* layer) { }

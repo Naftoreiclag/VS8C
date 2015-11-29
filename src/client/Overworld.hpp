@@ -108,7 +108,7 @@ public:
     void onEnd();
     
     // Ticks
-    void onTick(float tps);
+    void onTick(float tps, const Uint8* keyStates);
     
     // Layering
     void onAddedAbove(const GameLayer* layer);

@@ -162,7 +162,7 @@ void PotatoCake::run() {
         if(appRunning) {
             float tps = tpsTimer.getElapsedTime().asSeconds();
             tpsTimer.restart();
-            mGameLayerMachine->onTick(tps);
+            mGameLayerMachine->onTick(tps, SDL_GetKeyboardState(NULL));
             
             if(!mOgreRoot->renderOneFrame()) {
                 appRunning = false;

@@ -110,11 +110,11 @@ void GameLayerMachine::removeAll() {
 }
 
 // Ticks
-void GameLayerMachine::onTick(float tps) {
+void GameLayerMachine::onTick(float tps, const Uint8* keyStates) {
     for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
         GameLayer* layer = *iter;
         
-        layer->onTick(tps);
+        layer->onTick(tps, keyStates);
     }
 }
 

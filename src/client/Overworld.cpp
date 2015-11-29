@@ -201,7 +201,7 @@ void Overworld::onAddedAbove(const GameLayer* layer) {
 void Overworld::onRemovedAbove(const GameLayer* layer) {
     
 }
-void Overworld::onTick(float tps) {
+void Overworld::onTick(float tps, const Uint8* keyStates) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
@@ -210,8 +210,6 @@ void Overworld::onTick(float tps) {
     mRayDebugDrawer->onTick(tps);
     mBtDebugDrawer->onTick();
     mDynamicsWorld->debugDrawWorld();
-    
-    const Uint8* keyStates = SDL_GetKeyboardState(NULL);
     
     Vec3f moveVec;
     if(keyStates[SDL_GetScancodeFromKey(SDLK_w)]) {
