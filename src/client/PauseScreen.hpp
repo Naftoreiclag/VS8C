@@ -29,8 +29,12 @@ public:
 
 public:
 
+    CEGUI::Window* mCeguiWindow;
+    CEGUI::Window* mPauseWindow;
+    
     // Lifecycle
     void onBegin(
+        GameLayerMachine* glmachine,
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 

@@ -39,6 +39,8 @@ namespace vse {
     
 class Overworld : public GameLayer, public nres::Listener  {
 public:
+    GameLayerMachine* mGameLayerMachine;
+    
     btBroadphaseInterface* mBroadphase;
     btDefaultCollisionConfiguration* mCollisionConfiguration;
     btCollisionDispatcher* mDispatcher;
@@ -52,7 +54,6 @@ public:
     CEGUI::Window* mCeguiWindow;
     
     CEGUI::Window* mConsoleWindow;
-    CEGUI::Window* mPauseWindow;
     CEGUI::Window* mInventoryWindow;
 
     Ogre::Root* mOgreRoot;
@@ -98,6 +99,7 @@ public:
     nres::Entity* mLocalPlayer;
     
     void onBegin(
+        GameLayerMachine* glmachine,
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 

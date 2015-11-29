@@ -40,12 +40,6 @@ void GameLayerMachine::addBottom(GameLayer* addMe) {
     mLayers.insert(mLayers.begin(), addMe);
     addMe->onBegin(this, mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
 }
-/*
-void GameLayerMachine::addGlobal(GameLayer* addMe) {
-}
-void GameLayerMachine::removeGlobal(GameLayer* removeMe) {
-}
-*/
 void GameLayerMachine::addAbove(GameLayer* addMe, GameLayer* caller) {
     // Find where the caller is located
     std::vector<GameLayer*>::iterator location = mLayers.end();
@@ -67,10 +61,15 @@ void GameLayerMachine::addAbove(GameLayer* addMe, GameLayer* caller) {
     addMe->onBegin(this, mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
     
     // Inform all layers "below" this one that a new layer was added above them (this should logically include the caller)
-    for(std::vector<GameLayer*>::iterator iter = mLayers.begin(); iter != location; ++ iter) {
+    for(std::vector<GameLayer*>::iterator iter = mLayers.begin(); iter != mLayers.end(); ++ iter) {
         GameLayer* layer = *iter;
         
-        layer->onAddedAbove(addMe);
+        if(layer == addMe) {
+            break;
+        }
+        else {
+            layer->onAddedAbove(addMe);
+        }
     }
 }
 void GameLayerMachine::remove(GameLayer* removeMe) {

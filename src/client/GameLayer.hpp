@@ -29,6 +29,7 @@
 
 namespace vse {
 
+class GameLayerMachine;
 class GameLayer {
 public:
     GameLayer();
@@ -36,6 +37,7 @@ public:
 public:
     // Lifecycle
     virtual void onBegin(
+        GameLayerMachine* glmachine,
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 

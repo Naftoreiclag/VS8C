@@ -25,11 +25,12 @@ CeguiInjector::CeguiInjector() { }
 CeguiInjector::~CeguiInjector() { }
 
 void CeguiInjector::onBegin(
-    Ogre::Root* ogreRoot, 
-    Ogre::RenderWindow* ogreWindow, 
-    SDL_Window* sdlWindow, 
-    CEGUI::OgreRenderer* ceguiRenderer,
-    CEGUI::Window* ceguiWindow) { }
+        GameLayerMachine* glmachine,
+        Ogre::Root* ogreRoot, 
+        Ogre::RenderWindow* ogreWindow, 
+        SDL_Window* sdlWindow, 
+        CEGUI::OgreRenderer* ceguiRenderer,
+        CEGUI::Window* ceguiWindow) { }
 void CeguiInjector::onEnd() { }
 
 void CeguiInjector::onTick(float tps) { }

@@ -17,6 +17,10 @@
 
 #include "PauseScreen.hpp"
 
+#include <iostream>
+
+#include "CeguiFrames.hpp"
+
 namespace vse
 {
 
@@ -30,12 +34,22 @@ PauseScreen::~PauseScreen()
 
 // Lifecycle
 void PauseScreen::onBegin(
-    Ogre::Root* ogreRoot, 
-    Ogre::RenderWindow* ogreWindow, 
-    SDL_Window* sdlWindow, 
-    CEGUI::OgreRenderer* ceguiRenderer,
-    CEGUI::Window* ceguiWindow) { }
-void PauseScreen::onEnd() { }
+        GameLayerMachine* glmachine,
+        Ogre::Root* ogreRoot, 
+        Ogre::RenderWindow* ogreWindow, 
+        SDL_Window* sdlWindow, 
+        CEGUI::OgreRenderer* ceguiRenderer,
+        CEGUI::Window* ceguiWindow) {
+    
+    mCeguiWindow = ceguiWindow;
+    
+    mPauseWindow = CeguiFrames::getSingleton().getPauseWindow();
+    mPauseWindow->setVisible(true);
+}
+void PauseScreen::onEnd() {
+    
+    mPauseWindow->setVisible(false);
+}
 
 // Ticks
 void PauseScreen::onTick(float tps) { }

@@ -26,11 +26,14 @@
 #include "OgreSubEntity.h"
 #include "SDL.h"
 
+#include "CeguiFrames.hpp"
 #include "EntSignal.hpp"
+#include "GameLayerMachine.hpp"
 #include "LegSpringComp.hpp"
 #include "LocalPlayerComp.hpp"
 #include "LocationSignal.hpp"
 #include "MathUtils.hpp"
+#include "PauseScreen.hpp"
 #include "RigidBodyComp.hpp"
 #include "RigidBodySys.hpp"
 #include "SceneNodeComp.hpp"
@@ -62,11 +65,13 @@ Overworld::Overworld() {}
 Overworld::~Overworld() {}
 
 void Overworld::onBegin(
+        GameLayerMachine* glmachine,
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 
         CEGUI::OgreRenderer* ceguiRenderer,
         CEGUI::Window* ceguiWindow) {
+    mGameLayerMachine = glmachine;
     mOgreRoot = ogreRoot;
     mOgreWindow = ogreWindow;
     mSdlWindow = sdlWindow;
@@ -164,17 +169,10 @@ void Overworld::onBegin(
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
     
-    mConsoleWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("DeveloperConsole.layout");
-    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mConsoleWindow);
+    mConsoleWindow = CeguiFrames::getSingleton().getConsoleWindow();
     
-    mPauseWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("PauseMenu.layout");
-    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mPauseWindow);
-    mPaused = false;
-    mPauseWindow->setVisible(false);
-    
-    mInventoryWindow = CEGUI::WindowManager::getSingleton().loadLayoutFromFile("Inventory.layout");
+    mInventoryWindow = CeguiFrames::getSingleton().getInventoryWindow();
     //mInventoryWindow->getChild("Contents")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
-    CEGUI::System::getSingleton().getDefaultGUIContext().getRootWindow()->addChild(mInventoryWindow);
     
     
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleSubmitClicked, this));
@@ -458,11 +456,10 @@ void Overworld::togglePause() {
     
     if(mPaused) {
         SDL_SetRelativeMouseMode(SDL_FALSE);
-        mPauseWindow->setVisible(true);
+        mGameLayerMachine->addAbove(new PauseScreen(), this);
     }
     else {
         SDL_SetRelativeMouseMode(SDL_TRUE);
-        mPauseWindow->setVisible(false);
     }
 }
 

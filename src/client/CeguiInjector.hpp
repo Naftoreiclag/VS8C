@@ -31,6 +31,7 @@ public:
 
     // Lifecycle
     void onBegin(
+        GameLayerMachine* glmachine,
         Ogre::Root* ogreRoot, 
         Ogre::RenderWindow* ogreWindow, 
         SDL_Window* sdlWindow, 
