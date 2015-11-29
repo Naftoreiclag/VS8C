@@ -59,14 +59,14 @@ void PauseScreen::onAddedAbove(const GameLayer* layer) { }
 void PauseScreen::onRemovedAbove(const GameLayer* layer) { }
 
 // Key handling
-bool PauseScreen::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) { return false; }
-bool PauseScreen::onKeyRelease(const SDL_KeyboardEvent& event) { return false; }
-bool PauseScreen::onTextInput(const SDL_TextInputEvent& event) { return false; }
+bool PauseScreen::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) { return true; }
+bool PauseScreen::onKeyRelease(const SDL_KeyboardEvent& event) { return true; }
+bool PauseScreen::onTextInput(const SDL_TextInputEvent& event) { return true; }
 
 // Mouse handling
-bool PauseScreen::onMouseMove(const SDL_MouseMotionEvent& event) { return false; }
-bool PauseScreen::onMousePress(const SDL_MouseButtonEvent& event) { return false; }
-bool PauseScreen::onMouseRelease(const SDL_MouseButtonEvent& event) { return false; }
-bool PauseScreen::onMouseWheel(const SDL_MouseWheelEvent& event) { return false; }
+bool PauseScreen::onMouseMove(const SDL_MouseMotionEvent& event) { return true; }
+bool PauseScreen::onMousePress(const SDL_MouseButtonEvent& event) { return true; }
+bool PauseScreen::onMouseRelease(const SDL_MouseButtonEvent& event) { return true; }
+bool PauseScreen::onMouseWheel(const SDL_MouseWheelEvent& event) { return true; }
 
 }
