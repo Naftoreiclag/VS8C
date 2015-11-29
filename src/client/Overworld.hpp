@@ -140,9 +140,6 @@ public:
     //
     void saveGame();
     
-    bool mPaused;
-    void togglePause();
-    
     Overworld();
     ~Overworld();
 };

@@ -45,6 +45,8 @@ void PauseScreen::onBegin(
     
     mPauseWindow = CeguiFrames::getSingleton().getPauseWindow();
     mPauseWindow->setVisible(true);
+    
+    SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 void PauseScreen::onEnd() {
     

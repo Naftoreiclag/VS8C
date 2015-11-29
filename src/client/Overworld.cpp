@@ -199,7 +199,7 @@ void Overworld::onAddedAbove(const GameLayer* layer) {
     
 }
 void Overworld::onRemovedAbove(const GameLayer* layer) {
-    
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 bool Overworld::onTick(float tps, const Uint8* keyStates) {
     
@@ -304,7 +304,7 @@ bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             break;
         }
         case SDLK_ESCAPE: {
-            togglePause();
+            mGameLayerMachine->addAbove(new PauseScreen(), this);
             break;
         }
         case SDLK_q: {
@@ -337,19 +337,17 @@ bool Overworld::onMouseMove(const SDL_MouseMotionEvent& event) {
     float dx = event.xrel;
     float dy = event.yrel;
     
-    if(!mPaused) {
-        Ogre::Radian dYaw = Ogre::Radian(dx / 200);
-        Ogre::Radian dPitch = Ogre::Radian(dy / 200);
-        
-        mCamPitch -= dPitch;
-        mCamYaw -= dYaw;
-        
-        if(mCamPitch > Ogre::Degree(90)) {
-            mCamPitch = Ogre::Degree(90);
-        }
-        else if(mCamPitch < Ogre::Degree(-90)) {
-            mCamPitch = Ogre::Degree(-90);
-        }
+    Ogre::Radian dYaw = Ogre::Radian(dx / 200);
+    Ogre::Radian dPitch = Ogre::Radian(dy / 200);
+    
+    mCamPitch -= dPitch;
+    mCamYaw -= dYaw;
+    
+    if(mCamPitch > Ogre::Degree(90)) {
+        mCamPitch = Ogre::Degree(90);
+    }
+    else if(mCamPitch < Ogre::Degree(-90)) {
+        mCamPitch = Ogre::Degree(-90);
     }
     
     
@@ -449,18 +447,6 @@ void Overworld::saveGame() {
     SerializationUtil::serializeEntities(mWorld, jsonSave["entities"]);
     fileSave << jsonSave;
     fileSave.close();
-}
-
-void Overworld::togglePause() {
-    mPaused = !mPaused;
-    
-    if(mPaused) {
-        SDL_SetRelativeMouseMode(SDL_FALSE);
-        mGameLayerMachine->addAbove(new PauseScreen(), this);
-    }
-    else {
-        SDL_SetRelativeMouseMode(SDL_TRUE);
-    }
 }
 
 }
