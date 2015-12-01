@@ -46,6 +46,7 @@ void DeveloperConsole::onRemovedAbove(const GameLayer* layer) {
 void DeveloperConsole::activate() {
     mActive = true;
     mConsoleWindow->setVisible(true);
+    mConsoleWindow->moveToFront();
 }
 
 void DeveloperConsole::deactivate() {
@@ -58,7 +59,9 @@ bool DeveloperConsole::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
         case SDLK_BACKQUOTE: {
             if(!mActive) {
                 activate();
-                return true;
+            }
+            else {
+                mConsoleWindow->moveToFront();
             }
             return true;
             break; // why

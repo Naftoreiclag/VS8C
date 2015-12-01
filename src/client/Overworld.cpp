@@ -166,9 +166,11 @@ void Overworld::onBegin(PotatoCake* potatoCake) {
     
     mInventoryWindow = CeguiFrames::getSingleton().getInventoryWindow();
     
+    /*
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleSubmitClicked, this));
     mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&Overworld::onConsoleEditboxTextAccepted, this));
     mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleCloseClicked, this));
+    */
     
     setConsoleVisibility(false);
 }
