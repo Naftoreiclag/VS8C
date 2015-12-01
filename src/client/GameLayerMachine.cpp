@@ -16,23 +16,18 @@
 */
 
 #include "GameLayerMachine.hpp"
+
 #include <algorithm>
+
+#include "GameLayer.hpp"
 
 namespace vse {
 
 Uint8* GameLayerMachine::mRelaxedKeyStates = nullptr;
     
 GameLayerMachine::GameLayerMachine(
-    Ogre::Root* ogreRoot, 
-    Ogre::RenderWindow* ogreWindow, 
-    SDL_Window* sdlWindow, 
-    CEGUI::OgreRenderer* ceguiRenderer,
-    CEGUI::Window* ceguiWindow)
-: mOgreRoot(ogreRoot)
-, mOgreWindow(ogreWindow)
-, mSdlWindow(sdlWindow)
-, mCeguiRenderer(ceguiRenderer)
-, mCeguiWindow(ceguiWindow) {
+    PotatoCake* potatoCake)
+: mPotatoCake(potatoCake) {
     if(!mRelaxedKeyStates) {
         int size;
         SDL_GetKeyboardState(&size);
@@ -49,7 +44,7 @@ GameLayerMachine::~GameLayerMachine() {}
 
 void GameLayerMachine::addBottom(GameLayer* addMe) {
     mLayers.insert(mLayers.begin(), addMe);
-    addMe->onBegin(this, mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    addMe->onBegin(mPotatoCake);
 }
 void GameLayerMachine::addAbove(GameLayer* addMe, GameLayer* caller) {
     // Find where the caller is located
@@ -69,7 +64,7 @@ void GameLayerMachine::addAbove(GameLayer* addMe, GameLayer* caller) {
     // Insert the new game layer into the next location ("One layer above")
     ++ location;
     mLayers.insert(location, addMe); // Inserting here is safe
-    addMe->onBegin(this, mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    addMe->onBegin(mPotatoCake);
     
     // Inform all layers "below" this one that a new layer was added above them (this should logically include the caller)
     for(std::vector<GameLayer*>::iterator iter = mLayers.begin(); iter != mLayers.end(); ++ iter) {

@@ -20,6 +20,7 @@
 
 #include "GameLayer.hpp"
 #include "GameLayerMachine.hpp"
+#include "PotatoCake.hpp"
 
 namespace vse {
 
@@ -31,7 +32,6 @@ public:
 public:
     GameLayerMachine* mGamelayerMachine;
     
-    CEGUI::Window* mCeguiWindow;
     CEGUI::Window* mPauseWindow;
     
     CEGUI::Event::Connection mQuitButtonConnection;
@@ -45,13 +45,7 @@ public:
     bool onLoadButtonClicked(const CEGUI::EventArgs& args);
     
     // Lifecycle
-    void onBegin(
-        GameLayerMachine* glmachine,
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow);
+    void onBegin(PotatoCake* potatoCake);
     void onEnd();
     
     // Ticks

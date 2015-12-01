@@ -17,8 +17,6 @@
 
 #include "PauseScreen.hpp"
 
-#include <iostream>
-
 #include "CeguiFrames.hpp"
 
 namespace vse
@@ -31,16 +29,8 @@ PauseScreen::~PauseScreen() {
 }
 
 // Lifecycle
-void PauseScreen::onBegin(
-        GameLayerMachine* glmachine,
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow) {
-    
-    mGamelayerMachine = glmachine;
-    mCeguiWindow = ceguiWindow;
+void PauseScreen::onBegin(PotatoCake* potatoCake) {
+    mGamelayerMachine = potatoCake->mGameLayerMachine;
     
     mPauseWindow = CeguiFrames::getSingleton().getPauseWindow();
     mPauseWindow->setVisible(true);
@@ -62,15 +52,15 @@ void PauseScreen::onEnd() {
 }
 
 bool PauseScreen::onQuitButtonClicked(const CEGUI::EventArgs& args) {
-    
-    
+    mGamelayerMachine->remove(this);
+    delete this;
 }
 bool PauseScreen::onResumeButtonClicked(const CEGUI::EventArgs& args) {
     mGamelayerMachine->remove(this);
     delete this;
 }
 bool PauseScreen::onSaveButtonClicked(const CEGUI::EventArgs& args) {
-    std::cout << "Hello world!" << std::endl;
+    
 }
 bool PauseScreen::onLoadButtonClicked(const CEGUI::EventArgs& args) {
     

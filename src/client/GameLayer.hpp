@@ -18,31 +18,20 @@
 #ifndef VSE_GAMELAYER_HPP
 #define VSE_GAMELAYER_HPP
 
-#include "btBulletDynamicsCommon.h"
-#include "CEGUI/CEGUI.h"
-#include "CEGUI/RendererModules/Ogre/Renderer.h"
-#include "OgreRoot.h"
-#include "OgreCamera.h"
-#include "OgreSceneManager.h"
-#include "OgreRenderWindow.h"
 #include "SDL_events.h"
+
+#include "GameLayerMachine.hpp"
+#include "PotatoCake.hpp"
 
 namespace vse {
 
-class GameLayerMachine;
 class GameLayer {
 public:
     GameLayer();
     virtual ~GameLayer();
 public:
     // Lifecycle
-    virtual void onBegin(
-        GameLayerMachine* glmachine,
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow) = 0;
+    virtual void onBegin(PotatoCake* potatoCake) = 0;
     virtual void onEnd() = 0;
     
     // Ticks

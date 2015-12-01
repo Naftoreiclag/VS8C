@@ -64,19 +64,13 @@ void Overworld::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
 Overworld::Overworld() {}
 Overworld::~Overworld() {}
 
-void Overworld::onBegin(
-        GameLayerMachine* glmachine,
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow) {
-    mGameLayerMachine = glmachine;
-    mOgreRoot = ogreRoot;
-    mOgreWindow = ogreWindow;
-    mSdlWindow = sdlWindow;
-    mCeguiRenderer = ceguiRenderer;
-    mCeguiWindow = ceguiWindow;
+void Overworld::onBegin(PotatoCake* potatoCake) {
+    mGameLayerMachine = potatoCake->mGameLayerMachine;
+    mOgreRoot = potatoCake->mOgreRoot;
+    mOgreWindow = potatoCake->mOgreWindow;
+    mSdlWindow = potatoCake->mSdlWindow;
+    mCeguiRenderer = potatoCake->mCeguiRenderer;
+    mCeguiWindow = potatoCake->mCeguiWindow;
     
     SDL_SetRelativeMouseMode(SDL_TRUE);
     
@@ -116,7 +110,7 @@ void Overworld::onBegin(
     */
     mSmgr->setSkyBox(true, "PlaceholderSky");
     
-    Ogre::Viewport* viewport = ogreWindow->addViewport(mCam);
+    Ogre::Viewport* viewport = mOgreWindow->addViewport(mCam);
     viewport->setBackgroundColour(Ogre::ColourValue(0, 0, 0));
     
     Ogre::SceneNode* groundNode = mSmgr->getRootSceneNode()->createChildSceneNode();

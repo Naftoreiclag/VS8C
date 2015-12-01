@@ -107,7 +107,7 @@ void PotatoCake::run() {
     CEGUI::System::getSingleton().getDefaultGUIContext().setRootWindow(mCeguiWindow);
     CeguiFrames::getSingleton().loadAllLayouts(mCeguiWindow);
     
-    mGameLayerMachine = new GameLayerMachine(mOgreRoot, mOgreWindow, mSdlWindow, mCeguiRenderer, mCeguiWindow);
+    mGameLayerMachine = new GameLayerMachine(this);
     
     mGameLayerMachine->addBottom(new CeguiInjector());
     mGameLayerMachine->addBottom(new Overworld());

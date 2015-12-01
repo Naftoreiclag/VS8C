@@ -24,13 +24,7 @@ namespace vse {
 CeguiInjector::CeguiInjector() { }
 CeguiInjector::~CeguiInjector() { }
 
-void CeguiInjector::onBegin(
-        GameLayerMachine* glmachine,
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow) { }
+void CeguiInjector::onBegin(PotatoCake* potatoCake) { }
 void CeguiInjector::onEnd() { }
 
 bool CeguiInjector::onTick(float tps, const Uint8* keyStates) { return false; }

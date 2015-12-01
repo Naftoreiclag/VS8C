@@ -18,27 +18,20 @@
 #ifndef VSE_GAMELAYERMACHINE_HPP
 #define VSE_GAMELAYERMACHINE_HPP
 
-#include <vector>
+#include "SDL_events.h"
 
-#include "GameLayer.hpp"
+#include <vector>
 
 namespace vse {
 
+class PotatoCake;
+class GameLayer;
 class GameLayerMachine {
 public:
-    GameLayerMachine(
-        Ogre::Root* ogreRoot, 
-        Ogre::RenderWindow* ogreWindow, 
-        SDL_Window* sdlWindow, 
-        CEGUI::OgreRenderer* ceguiRenderer,
-        CEGUI::Window* ceguiWindow);
+    GameLayerMachine(PotatoCake* potatoCake);
     ~GameLayerMachine();
     
-    Ogre::Root* mOgreRoot;
-    Ogre::RenderWindow* mOgreWindow;
-    SDL_Window* mSdlWindow;
-    CEGUI::OgreRenderer* mCeguiRenderer;
-    CEGUI::Window* mCeguiWindow;
+    PotatoCake* mPotatoCake;
 
 private:
     std::vector<GameLayer*> mLayers;
