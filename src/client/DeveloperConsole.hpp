@@ -36,6 +36,10 @@ public:
     PotatoCake* mPotatoCake;    
     CEGUI::Window* mConsoleWindow;
     
+    CEGUI::Event::Connection mSubmitButtonConnection;
+    CEGUI::Event::Connection mEditBoxConnection;
+    CEGUI::Event::Connection mCloseWindowConnection;
+    
     // Lifecycle
     void onBegin(PotatoCake* potatoCake);
     void onEnd();
@@ -59,6 +63,11 @@ public:
     bool onMouseRelease(const SDL_MouseButtonEvent& event);
     bool onMouseWheel(const SDL_MouseWheelEvent& event);
 
+    bool onConsoleSubmitClicked(const CEGUI::EventArgs& args);
+    bool onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args);
+    bool onConsoleTextSubmitted(const CEGUI::String& text);
+    bool onConsoleCloseClicked(const CEGUI::EventArgs& args);
+    void outputConsoleText(const CEGUI::String& text, CEGUI::Colour color = CEGUI::Colour(1.f, 1.f, 1.f));
 };
 
 }

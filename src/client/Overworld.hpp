@@ -53,8 +53,6 @@ public:
     CEGUI::OgreRenderer* mCeguiRenderer;
     CEGUI::Window* mCeguiWindow;
     
-    CEGUI::Window* mConsoleWindow;
-    CEGUI::Window* mInventoryWindow;
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
@@ -125,12 +123,6 @@ public:
     void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
     
     // Console
-    bool onConsoleSubmitClicked(const CEGUI::EventArgs& args);
-    bool onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args);
-    bool onConsoleTextSubmitted(const CEGUI::String& text);
-    bool onConsoleCloseClicked(const CEGUI::EventArgs& args);
-    void outputConsoleText(const CEGUI::String& text, CEGUI::Colour color = CEGUI::Colour(1.f, 1.f, 1.f));
-    void setConsoleVisibility(bool visible);
     
     //
     void saveGame();

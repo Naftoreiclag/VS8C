@@ -161,18 +161,6 @@ void Overworld::onBegin(PotatoCake* potatoCake) {
     ));
     mLocalPlayer->addListener(this);
     mLocalPlayer->publish();
-    
-    mConsoleWindow = CeguiFrames::getSingleton().getConsoleWindow();
-    
-    mInventoryWindow = CeguiFrames::getSingleton().getInventoryWindow();
-    
-    /*
-    mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleSubmitClicked, this));
-    mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&Overworld::onConsoleEditboxTextAccepted, this));
-    mConsoleWindow->subscribeEvent(CEGUI::FrameWindow::EventCloseClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleCloseClicked, this));
-    */
-    
-    setConsoleVisibility(false);
 }
 
 void Overworld::onEnd() {
@@ -390,50 +378,7 @@ bool Overworld::onMouseWheel(const SDL_MouseWheelEvent& event) {
 }
 
 
-bool Overworld::onConsoleSubmitClicked(const CEGUI::EventArgs& args) {
-    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
-    CEGUI::String text = editbox->getText();
-    onConsoleTextSubmitted(text);
-    editbox->setText("");
-}
-bool Overworld::onConsoleEditboxTextAccepted(const CEGUI::EventArgs& args) {
-    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
-    CEGUI::String text = editbox->getText();
-    onConsoleTextSubmitted(text);
-    editbox->setText("");
-}
-bool Overworld::onConsoleTextSubmitted(const CEGUI::String& text) {
-    outputConsoleText(">" + text);
-    if(text == "save") {
-        saveGame();
-        outputConsoleText("game saved");
-    }
-    else {
-        outputConsoleText("unknown command", CEGUI::Colour(1.f, 0.f, 0.f));
-    }
-}
-void Overworld::outputConsoleText(const CEGUI::String& text, CEGUI::Colour color) {
-    CEGUI::Listbox* listbox = static_cast<CEGUI::Listbox*>(mConsoleWindow->getChild("History"));
-    
-    CEGUI::ListboxTextItem* item = new CEGUI::ListboxTextItem(text);
-    item->setTextColours(color);
-    listbox->addItem(item);
-    listbox->ensureItemIsVisible(item);
-}
-bool Overworld::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
-    setConsoleVisibility(false);
-}
 
-void Overworld::setConsoleVisibility(bool visible) {
-    mConsoleWindow->setVisible(visible);
-    
-    CEGUI::Window* editbox = mConsoleWindow->getChild("Editbox");
-    if(visible) {
-        editbox->activate();
-    } else {
-        editbox->deactivate();
-    }
-}
 
 void Overworld::saveGame() {
     std::ofstream fileSave("save.json");
