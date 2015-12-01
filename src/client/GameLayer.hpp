@@ -31,33 +31,33 @@ public:
     virtual ~GameLayer();
 public:
     // Lifecycle
-    virtual void onBegin(PotatoCake* potatoCake) = 0;
-    virtual void onEnd() = 0;
+    virtual void onBegin(PotatoCake* potatoCake);
+    virtual void onEnd();
     
     // Ticks
-    virtual void onTick(float tps, const Uint8* keyStates) = 0;
+    virtual void onTick(float tps, const Uint8* keyStates);
     
     /* Key filtering:
      *  Set whatever keystates to be false before passing them on to the next layers
      *  Return true to set all keys to false
      *  Not guaranteed to be called each tick
      */
-    virtual bool filterKeys(Uint8* keyStates) = 0;
+    virtual bool filterKeys(Uint8* keyStates);
     
     // Layering
-    virtual void onAddedAbove(const GameLayer* layer) = 0;
-    virtual void onRemovedAbove(const GameLayer* layer) = 0;
+    virtual void onAddedAbove(const GameLayer* layer);
+    virtual void onRemovedAbove(const GameLayer* layer);
     
     // Key handling
-    virtual bool onKeyPress(const SDL_KeyboardEvent& event, bool repeat) = 0;
-    virtual bool onKeyRelease(const SDL_KeyboardEvent& event) = 0;
-    virtual bool onTextInput(const SDL_TextInputEvent& event) = 0;
+    virtual bool onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
+    virtual bool onKeyRelease(const SDL_KeyboardEvent& event);
+    virtual bool onTextInput(const SDL_TextInputEvent& event);
     
     // Mouse handling
-    virtual bool onMouseMove(const SDL_MouseMotionEvent& event) = 0;
-    virtual bool onMousePress(const SDL_MouseButtonEvent& event) = 0;
-    virtual bool onMouseRelease(const SDL_MouseButtonEvent& event) = 0;
-    virtual bool onMouseWheel(const SDL_MouseWheelEvent& event) = 0;
+    virtual bool onMouseMove(const SDL_MouseMotionEvent& event);
+    virtual bool onMousePress(const SDL_MouseButtonEvent& event);
+    virtual bool onMouseRelease(const SDL_MouseButtonEvent& event);
+    virtual bool onMouseWheel(const SDL_MouseWheelEvent& event);
 };
 
 }

@@ -28,18 +28,6 @@ public:
     ~CeguiInjector();
 
 public:
-
-    // Lifecycle
-    void onBegin(PotatoCake* potatoCake);
-    void onEnd();
-    
-    // Ticks
-    void onTick(float tps, const Uint8* keyStates);
-    
-    // Layering
-    bool filterKeys(Uint8* keyStates);
-    void onAddedAbove(const GameLayer* layer);
-    void onRemovedAbove(const GameLayer* layer);
     
     // Key handling
     bool onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
