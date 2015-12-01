@@ -51,6 +51,17 @@ public:
     
     // Layering
     bool filterKeys(Uint8* keyStates);
+    
+    // Key handling
+    bool onKeyPress(const SDL_KeyboardEvent& event, bool repeat);
+    bool onKeyRelease(const SDL_KeyboardEvent& event);
+    bool onTextInput(const SDL_TextInputEvent& event);
+    
+    // Mouse handling
+    bool onMouseMove(const SDL_MouseMotionEvent& event);
+    bool onMousePress(const SDL_MouseButtonEvent& event);
+    bool onMouseRelease(const SDL_MouseButtonEvent& event);
+    bool onMouseWheel(const SDL_MouseWheelEvent& event);
 };
 
 }
