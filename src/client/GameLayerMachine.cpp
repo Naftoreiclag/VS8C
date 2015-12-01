@@ -23,23 +23,23 @@
 
 namespace vse {
 
-Uint8* GameLayerMachine::mRelaxedKeyStates = nullptr;
-int GameLayerMachine::mNumKeyStates = 0;
+Uint8* GameLayerMachine::sRelaxedKeyStates = nullptr;
+int GameLayerMachine::sNumKeyStates = 0;
     
 GameLayerMachine::GameLayerMachine(
     PotatoCake* potatoCake)
 : mPotatoCake(potatoCake) {
-    if(!mRelaxedKeyStates) {
-        SDL_GetKeyboardState(&mNumKeyStates);
+    if(!sRelaxedKeyStates) {
+        SDL_GetKeyboardState(&sNumKeyStates);
         
-        mRelaxedKeyStates = new Uint8[mNumKeyStates];
+        sRelaxedKeyStates = new Uint8[sNumKeyStates];
         
-        for(int i = 0; i < mNumKeyStates; ++ i) {
-            mRelaxedKeyStates[i] = SDL_FALSE;
+        for(int i = 0; i < sNumKeyStates; ++ i) {
+            sRelaxedKeyStates[i] = SDL_FALSE;
         }
     }
     
-    mFilteredKeyStates = new Uint8[mNumKeyStates];
+    mFilteredKeyStates = new Uint8[sNumKeyStates];
 }
 
 GameLayerMachine::~GameLayerMachine() {}
@@ -120,14 +120,14 @@ void GameLayerMachine::removeAll() {
 // Ticks
 void GameLayerMachine::onTick(float tps, const Uint8* keys) {
     bool allKeysFiltered = false;
-    for(int i = 0; i < mNumKeyStates; ++ i) {
+    for(int i = 0; i < sNumKeyStates; ++ i) {
         mFilteredKeyStates[i] = keys[i];
     }
     for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
         GameLayer* layer = *iter;
         
         if(allKeysFiltered) {
-            layer->onTick(tps, mRelaxedKeyStates);
+            layer->onTick(tps, sRelaxedKeyStates);
         }
         else {
             layer->onTick(tps, mFilteredKeyStates);
@@ -214,7 +214,7 @@ void GameLayerMachine::onMouseWheel(const SDL_MouseWheelEvent& event) {
 
 
 const Uint8* GameLayerMachine::getRelaxedKeyStates() {
-    return mRelaxedKeyStates;
+    return sRelaxedKeyStates;
 }
 
 }

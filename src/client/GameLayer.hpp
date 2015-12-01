@@ -37,8 +37,14 @@ public:
     // Ticks
     virtual void onTick(float tps, const Uint8* keyStates) = 0;
     
+    /* Key filtering:
+     *  Set whatever keystates to be false before passing them on to the next layers
+     *  Return true to set all keys to false
+     *  Not guaranteed to be called each tick
+     */
+    virtual bool filterKeys(Uint8* keyStates) = 0;
+    
     // Layering
-    virtual bool filterKeys(Uint8* keyStates) = 0; // Modify keystate data for lower layers, should not set any keystates to be true
     virtual void onAddedAbove(const GameLayer* layer) = 0;
     virtual void onRemovedAbove(const GameLayer* layer) = 0;
     
