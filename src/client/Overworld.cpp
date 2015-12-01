@@ -192,7 +192,10 @@ void Overworld::onAddedAbove(const GameLayer* layer) {
 void Overworld::onRemovedAbove(const GameLayer* layer) {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
-bool Overworld::onTick(float tps, const Uint8* keyStates) {
+bool Overworld::filterKeys(Uint8* keyStates) {
+    return true;
+}
+void Overworld::onTick(float tps, const Uint8* keyStates) {
     
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
@@ -271,8 +274,6 @@ bool Overworld::onTick(float tps, const Uint8* keyStates) {
             mLocalPlayer->broadcast(new WalkSignal(transl));
         }
     }
-    
-    return true;
 }
 
 

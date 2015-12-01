@@ -35,9 +35,10 @@ public:
     virtual void onEnd() = 0;
     
     // Ticks
-    virtual bool onTick(float tps, const Uint8* keyStates) = 0;
+    virtual void onTick(float tps, const Uint8* keyStates) = 0;
     
     // Layering
+    virtual bool filterKeys(Uint8* keyStates) = 0; // Modify keystate data for lower layers, should not set any keystates to be true
     virtual void onAddedAbove(const GameLayer* layer) = 0;
     virtual void onRemovedAbove(const GameLayer* layer) = 0;
     

@@ -69,8 +69,12 @@ bool PauseScreen::onLoadButtonClicked(const CEGUI::EventArgs& args) {
 }
 
 
+bool PauseScreen::filterKeys(Uint8* keyStates) {
+    return true;
+}
+
 // Ticks
-bool PauseScreen::onTick(float tps, const Uint8* keyStates) { return true; }
+void PauseScreen::onTick(float tps, const Uint8* keyStates) { }
 
 // Layering
 void PauseScreen::onAddedAbove(const GameLayer* layer) { }

@@ -50,9 +50,10 @@ public:
     void onEnd();
     
     // Ticks
-    bool onTick(float tps, const Uint8* keyStates);
+    void onTick(float tps, const Uint8* keyStates);
     
     // Layering
+    bool filterKeys(Uint8* keyStates);
     void onAddedAbove(const GameLayer* layer);
     void onRemovedAbove(const GameLayer* layer);
     

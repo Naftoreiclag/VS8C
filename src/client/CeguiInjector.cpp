@@ -27,9 +27,13 @@ CeguiInjector::~CeguiInjector() { }
 void CeguiInjector::onBegin(PotatoCake* potatoCake) { }
 void CeguiInjector::onEnd() { }
 
-bool CeguiInjector::onTick(float tps, const Uint8* keyStates) { return false; }
+void CeguiInjector::onTick(float tps, const Uint8* keyStates) { }
 void CeguiInjector::onAddedAbove(const GameLayer* layer) { }
 void CeguiInjector::onRemovedAbove(const GameLayer* layer) { }
+
+bool CeguiInjector::filterKeys(Uint8* keyStates) {
+    return false;
+}
 
 bool CeguiInjector::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
     CEGUI::System::getSingleton().getDefaultGUIContext().injectKeyDown(CeguiUtil::toCeguiScancode(event.keysym.scancode));
