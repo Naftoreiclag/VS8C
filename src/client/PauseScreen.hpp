@@ -19,6 +19,7 @@
 #define VSE_PAUSESCREEN_HPP
 
 #include "GameLayer.hpp"
+#include "GameLayerMachine.hpp"
 
 namespace vse {
 
@@ -28,9 +29,20 @@ public:
     ~PauseScreen();
 
 public:
-
+    GameLayerMachine* mGamelayerMachine;
+    
     CEGUI::Window* mCeguiWindow;
     CEGUI::Window* mPauseWindow;
+    
+    CEGUI::Event::Connection mQuitButtonConnection;
+    CEGUI::Event::Connection mResumeButtonConnection;
+    CEGUI::Event::Connection mSaveButtonConnection;
+    CEGUI::Event::Connection mLoadButtonConnection;
+    
+    bool onQuitButtonClicked(const CEGUI::EventArgs& args);
+    bool onResumeButtonClicked(const CEGUI::EventArgs& args);
+    bool onSaveButtonClicked(const CEGUI::EventArgs& args);
+    bool onLoadButtonClicked(const CEGUI::EventArgs& args);
     
     // Lifecycle
     void onBegin(

@@ -24,12 +24,10 @@
 namespace vse
 {
 
-PauseScreen::PauseScreen()
-{
+PauseScreen::PauseScreen() {
 }
 
-PauseScreen::~PauseScreen()
-{
+PauseScreen::~PauseScreen() {
 }
 
 // Lifecycle
@@ -41,17 +39,43 @@ void PauseScreen::onBegin(
         CEGUI::OgreRenderer* ceguiRenderer,
         CEGUI::Window* ceguiWindow) {
     
+    mGamelayerMachine = glmachine;
     mCeguiWindow = ceguiWindow;
     
     mPauseWindow = CeguiFrames::getSingleton().getPauseWindow();
     mPauseWindow->setVisible(true);
     
+    mQuitButtonConnection = mPauseWindow->getChild("QuitButton")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PauseScreen::onQuitButtonClicked, this));
+    mResumeButtonConnection = mPauseWindow->getChild("ResumeButton")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PauseScreen::onResumeButtonClicked, this));
+    mSaveButtonConnection = mPauseWindow->getChild("SaveButton")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PauseScreen::onSaveButtonClicked, this));
+    mLoadButtonConnection = mPauseWindow->getChild("LoadButton")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&PauseScreen::onLoadButtonClicked, this));
+    
     SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 void PauseScreen::onEnd() {
+    mQuitButtonConnection->disconnect();
+    mResumeButtonConnection->disconnect();
+    mSaveButtonConnection->disconnect();
+    mLoadButtonConnection->disconnect();
     
     mPauseWindow->setVisible(false);
 }
+
+bool PauseScreen::onQuitButtonClicked(const CEGUI::EventArgs& args) {
+    
+    
+}
+bool PauseScreen::onResumeButtonClicked(const CEGUI::EventArgs& args) {
+    mGamelayerMachine->remove(this);
+    delete this;
+}
+bool PauseScreen::onSaveButtonClicked(const CEGUI::EventArgs& args) {
+    std::cout << "Hello world!" << std::endl;
+}
+bool PauseScreen::onLoadButtonClicked(const CEGUI::EventArgs& args) {
+    
+}
+
 
 // Ticks
 bool PauseScreen::onTick(float tps, const Uint8* keyStates) { return true; }
