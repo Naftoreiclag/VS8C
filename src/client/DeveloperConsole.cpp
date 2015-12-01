@@ -38,16 +38,10 @@ void DeveloperConsole::onEnd() {
     this->deactivate();
 }
 
-void DeveloperConsole::onTick(float tps, const Uint8* keyStates) {
-}
 bool DeveloperConsole::filterKeys(Uint8* keyStates) {
     keyStates[SDL_GetScancodeFromKey(SDLK_BACKQUOTE)] = false;
     
     return false;
-}
-void DeveloperConsole::onAddedAbove(const GameLayer* layer) {
-}
-void DeveloperConsole::onRemovedAbove(const GameLayer* layer) {
 }
 
 void DeveloperConsole::activate() {
@@ -114,25 +108,6 @@ void DeveloperConsole::outputConsoleText(const CEGUI::String& text, CEGUI::Colou
 }
 bool DeveloperConsole::onConsoleCloseClicked(const CEGUI::EventArgs& args) {
     this->deactivate();
-}
-
-bool DeveloperConsole::onKeyRelease(const SDL_KeyboardEvent& event) {
-    return false;
-}
-bool DeveloperConsole::onTextInput(const SDL_TextInputEvent& event) {
-    return false;
-}
-bool DeveloperConsole::onMouseMove(const SDL_MouseMotionEvent& event) {
-    return false;
-}
-bool DeveloperConsole::onMousePress(const SDL_MouseButtonEvent& event) {
-    return false;
-}
-bool DeveloperConsole::onMouseRelease(const SDL_MouseButtonEvent& event) {
-    return false;
-}
-bool DeveloperConsole::onMouseWheel(const SDL_MouseWheelEvent& event) {
-    return false;
 }
 
 }
