@@ -30,6 +30,7 @@ PauseScreen::~PauseScreen() {
 
 // Lifecycle
 void PauseScreen::onBegin(PotatoCake* potatoCake) {
+    mPotatoCake = potatoCake;
     mGamelayerMachine = potatoCake->mGameLayerMachine;
     
     mPauseWindow = CeguiFrames::getSingleton().getPauseWindow();
@@ -53,6 +54,7 @@ void PauseScreen::onEnd() {
 
 bool PauseScreen::onQuitButtonClicked(const CEGUI::EventArgs& args) {
     mGamelayerMachine->remove(this);
+    mPotatoCake->stop();
     delete this;
 }
 bool PauseScreen::onResumeButtonClicked(const CEGUI::EventArgs& args) {

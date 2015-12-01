@@ -38,10 +38,10 @@ public:
     virtual ~PotatoCake();
 private:
     bool mRunning;
-    void stop();
 public:
     static PotatoCake& getSingleton();
     void run();
+    void stop();
 public:
     // It's alive... alive!
     Ogre::RenderWindow* mOgreWindow;

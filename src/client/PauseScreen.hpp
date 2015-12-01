@@ -30,6 +30,7 @@ public:
     ~PauseScreen();
 
 public:
+    PotatoCake* mPotatoCake;
     GameLayerMachine* mGamelayerMachine;
     
     CEGUI::Window* mPauseWindow;
