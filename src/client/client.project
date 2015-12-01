@@ -128,6 +128,12 @@
       <File Name="PauseScreen.cpp"/>
       <File Name="CeguiInjector.hpp"/>
       <File Name="CeguiInjector.cpp"/>
+      <File Name="DeveloperConsole.hpp"/>
+      <File Name="DeveloperConsole.cpp"/>
+    </VirtualDirectory>
+    <VirtualDirectory Name="emptyconcretes">
+      <File Name="EmptyConcreteLayer.cpp"/>
+      <File Name="EmptyConcreteLayer.hpp"/>
     </VirtualDirectory>
   </VirtualDirectory>
   <Dependencies Name="Debug"/>
