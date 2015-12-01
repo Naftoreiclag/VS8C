@@ -36,7 +36,7 @@ public:
 private:
     std::vector<GameLayer*> mLayers;
     
-    static Uint8* mRelaxedKeyStates;
+    static Uint8* sRelaxedKeyStates;
     static int sNumKeyStates;
     
     Uint8* mFilteredKeyStates;

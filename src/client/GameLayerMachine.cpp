@@ -123,16 +123,23 @@ void GameLayerMachine::onTick(float tps, const Uint8* keys) {
     for(int i = 0; i < sNumKeyStates; ++ i) {
         mFilteredKeyStates[i] = keys[i];
     }
-    for(std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin(); iter != mLayers.rend(); ++ iter) {
+    std::vector<GameLayer*>::reverse_iterator iter = mLayers.rbegin();
+    while(iter != mLayers.rend()) {
         GameLayer* layer = *iter;
         
         if(allKeysFiltered) {
             layer->onTick(tps, sRelaxedKeyStates);
+            
+            ++ iter;
         }
         else {
             layer->onTick(tps, mFilteredKeyStates);
-            if(layer->filterKeys(mFilteredKeyStates)) {
-                allKeysFiltered = true;
+            
+            // Only filter keys if there are layers below this one
+            if(++ iter != mLayers.rend()) {
+                if(layer->filterKeys(mFilteredKeyStates)) {
+                    allKeysFiltered = true;
+                }
             }
         }
     }
