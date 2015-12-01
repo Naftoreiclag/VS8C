@@ -25,6 +25,7 @@
 
 #include "CeguiInjector.hpp"
 #include "CeguiFrames.hpp"
+#include "DeveloperConsole.hpp"
 #include "Overworld.hpp"
 #include "StaticStrings.hpp"
 
@@ -110,6 +111,7 @@ void PotatoCake::run() {
     mGameLayerMachine = new GameLayerMachine(this);
     
     mGameLayerMachine->addBottom(new CeguiInjector());
+    mGameLayerMachine->addBottom(new DeveloperConsole());
     mGameLayerMachine->addBottom(new Overworld());
     
     sf::Clock tpsTimer;

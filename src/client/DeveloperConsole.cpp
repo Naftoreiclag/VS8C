@@ -17,14 +17,16 @@
 
 #include "DeveloperConsole.hpp"
 
+#include "CeguiFrames.hpp"
+
 namespace vse {
 
-DeveloperConsole::DeveloperConsole() {
-}
-DeveloperConsole::~DeveloperConsole() {
-}
+DeveloperConsole::DeveloperConsole() { }
+DeveloperConsole::~DeveloperConsole() { }
 
 void DeveloperConsole::onBegin(PotatoCake* potatoCake) {
+    mConsoleWindow = CeguiFrames::getSingleton().getConsoleWindow();
+    this->deactivate();
 }
 void DeveloperConsole::onEnd() {
 }
@@ -32,6 +34,8 @@ void DeveloperConsole::onEnd() {
 void DeveloperConsole::onTick(float tps, const Uint8* keyStates) {
 }
 bool DeveloperConsole::filterKeys(Uint8* keyStates) {
+    keyStates[SDL_GetScancodeFromKey(SDLK_BACKQUOTE)] = false;
+    
     return false;
 }
 void DeveloperConsole::onAddedAbove(const GameLayer* layer) {
@@ -39,7 +43,37 @@ void DeveloperConsole::onAddedAbove(const GameLayer* layer) {
 void DeveloperConsole::onRemovedAbove(const GameLayer* layer) {
 }
 
+void DeveloperConsole::activate() {
+    mActive = true;
+    mConsoleWindow->setVisible(true);
+}
+
+void DeveloperConsole::deactivate() {
+    mActive = false;
+    mConsoleWindow->setVisible(false);
+}
+
 bool DeveloperConsole::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
+    switch(event.keysym.sym) {
+        case SDLK_BACKQUOTE: {
+            if(!mActive) {
+                activate();
+                return true;
+            }
+            return true;
+            break; // why
+        }
+        case SDLK_ESCAPE: {
+            if(mActive) {
+                deactivate();
+                return true;
+            }
+            break;
+        }
+        default: {
+            break;
+        }
+    }
     return false;
 }
 

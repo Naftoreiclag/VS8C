@@ -292,7 +292,7 @@ bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             break;
         }
         case SDLK_BACKQUOTE: {
-            setConsoleVisibility(true);
+            //setConsoleVisibility(true);
             break;
         }
         case SDLK_ESCAPE: {

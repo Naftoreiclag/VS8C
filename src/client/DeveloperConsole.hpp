@@ -27,7 +27,15 @@ public:
     DeveloperConsole();
     ~DeveloperConsole();
 
+private:
+    bool mActive;
+    void activate();
+    void deactivate();
+
 public:
+    PotatoCake* mPotatoCake;    
+    CEGUI::Window* mConsoleWindow;
+    
     // Lifecycle
     void onBegin(PotatoCake* potatoCake);
     void onEnd();
