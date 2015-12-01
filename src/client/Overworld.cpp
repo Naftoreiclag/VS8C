@@ -121,7 +121,6 @@ void Overworld::onBegin(
     
     Ogre::SceneNode* groundNode = mSmgr->getRootSceneNode()->createChildSceneNode();
     Ogre::Entity* groundEnt = mSmgr->createEntity("Ground", "ground.mesh");
-    //groundEnt->getSubEntity(0)->getMaterial()->setReceiveShadows(true);
     groundEnt->setCastShadows(false);
     groundNode->attachObject(groundEnt);
     
@@ -172,8 +171,6 @@ void Overworld::onBegin(
     mConsoleWindow = CeguiFrames::getSingleton().getConsoleWindow();
     
     mInventoryWindow = CeguiFrames::getSingleton().getInventoryWindow();
-    //mInventoryWindow->getChild("Contents")->subscribeEvent(CEGUI::Listbox::EventSelectionChanged, CEGUI::Event::Subscriber(&VseApp::onConsoleSubmitClicked, this));
-    
     
     mConsoleWindow->getChild("Submit")->subscribeEvent(CEGUI::PushButton::EventClicked, CEGUI::Event::Subscriber(&Overworld::onConsoleSubmitClicked, this));
     mConsoleWindow->getChild("Editbox")->subscribeEvent(CEGUI::Editbox::EventTextAccepted, CEGUI::Event::Subscriber(&Overworld::onConsoleEditboxTextAccepted, this));
@@ -311,7 +308,7 @@ bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             if(!repeat) {
                 nres::Entity* testCube = mWorld.newEntity();
                 testCube->add(new RigidBodyComp(new btSphereShape(1)));
-                testCube->add(new SceneNodeComp("Ball.mesh"));
+                testCube->add(new SceneNodeComp("Cone.mesh"));
                 testCube->publish();
             }
             break;
