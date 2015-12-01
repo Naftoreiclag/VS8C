@@ -43,6 +43,7 @@ PotatoCake::~PotatoCake() {
 }
 
 void PotatoCake::run() {
+    mRunning = true;
     mOgreRoot = new Ogre::Root("plugins.cfg");
     
     if(mOgreRoot->restoreConfig() || mOgreRoot->showConfigDialog()) {
@@ -113,15 +114,13 @@ void PotatoCake::run() {
     
     sf::Clock tpsTimer;
     
-    bool appRunning = true;
-    while(appRunning) {
+    while(mRunning) {
         SDL_Event event;
         while(SDL_PollEvent(&event)) {
             switch(event.type) {
                 case SDL_QUIT: {
                     mGameLayerMachine->removeAll();
-                    mOgreRoot->queueEndRendering();
-                    appRunning = false;
+                    this->stop();
                     break;
                 }
                 case SDL_TEXTINPUT: {
@@ -159,13 +158,16 @@ void PotatoCake::run() {
         }
         
         // It is possible that an event triggered the loop to end
-        if(appRunning) {
+        if(!mRunning) {
+            mOgreRoot->queueEndRendering();
+        }
+        else {
             float tps = tpsTimer.getElapsedTime().asSeconds();
             tpsTimer.restart();
             mGameLayerMachine->onTick(tps, SDL_GetKeyboardState(NULL));
             
             if(!mOgreRoot->renderOneFrame()) {
-                appRunning = false;
+                mRunning = false;
             }
         }
         
@@ -173,6 +175,9 @@ void PotatoCake::run() {
     }
 }
 
+void PotatoCake::stop() {
+    mRunning = false;
+}
 
 }
 

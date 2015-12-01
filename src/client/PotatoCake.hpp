@@ -36,6 +36,9 @@ class PotatoCake {
 public:
     PotatoCake();
     virtual ~PotatoCake();
+private:
+    bool mRunning;
+    void stop();
 public:
     static PotatoCake& getSingleton();
     void run();
