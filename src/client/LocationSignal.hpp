@@ -26,9 +26,9 @@ namespace vse {
 class LocationSignal : public EntSignal {
 public:
     LocationSignal(Vec3f locationUpdate);
-    virtual ~LocationSignal();
+    ~LocationSignal();
 
-    virtual EntSignal::Type getType() const;
+    EntSignal::Type getType() const;
     
     Vec3f mLocationUpdate;
 };

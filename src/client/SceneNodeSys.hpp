@@ -30,7 +30,7 @@ namespace vse {
 class SceneNodeSys : public nres::System {
 public:
     SceneNodeSys(Ogre::SceneManager* smgr);
-    virtual ~SceneNodeSys();
+    ~SceneNodeSys();
     
 private:
     std::vector<nres::ComponentID> mRequiredComponents;
@@ -39,11 +39,11 @@ private:
     Ogre::SceneManager* mSmgr;
     
 public:
-    virtual void onEntityExists(nres::Entity* entity);
-    virtual void onEntityDestroyed(nres::Entity* entity);
-    virtual void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
+    void onEntityExists(nres::Entity* entity);
+    void onEntityDestroyed(nres::Entity* entity);
+    void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
     
-    virtual const std::vector<nres::ComponentID>& getRequiredComponents();
+    const std::vector<nres::ComponentID>& getRequiredComponents();
     
     std::string generateOgreEntityName();
     

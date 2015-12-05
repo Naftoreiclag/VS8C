@@ -32,10 +32,10 @@ namespace vse {
 class SceneNodeComp : public nres::Component {
 public:
     SceneNodeComp(const std::string& resname, const Vec3f& nodeOffset = Vec3f(0, 0, 0));
-    virtual ~SceneNodeComp();
+    ~SceneNodeComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID() const;
+    const nres::ComponentID& getID() const;
     
     // Populated by system
     Ogre::SceneNode* mSceneNode;

@@ -25,10 +25,10 @@ namespace vse {
 class LocalPlayerComp : public nres::Component {
 public:
     LocalPlayerComp();
-    virtual ~LocalPlayerComp();
+    ~LocalPlayerComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID() const;
+    const nres::ComponentID& getID() const;
 
 };
 

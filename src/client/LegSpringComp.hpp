@@ -62,10 +62,10 @@ public:
         const float& maxUpVel = -1,
         const float& minVel = 0.3f,
         const Vec3f& upVector = Vec3f(0, 1, 0));
-    virtual ~LegSpringComp();
+    ~LegSpringComp();
     
     static const nres::ComponentID componentID;
-    virtual const nres::ComponentID& getID() const;
+    const nres::ComponentID& getID() const;
 
 };
 

@@ -26,9 +26,9 @@ namespace vse {
 class OrientationSignal : public EntSignal {
 public:
     OrientationSignal(Quate orienationUpdate);
-    virtual ~OrientationSignal();
+    ~OrientationSignal();
 
-    virtual EntSignal::Type getType() const;
+    EntSignal::Type getType() const;
     
     Quate mOrientationUpdate;
 };

@@ -33,12 +33,12 @@ public:
         RigidBodyComp* const sendTo;
     public:
         RigidBodyMotionListener(const btTransform& initialLoc, RigidBodyComp* const sendTo);
-        virtual void getWorldTransform(btTransform& worldTransform) const;
-        virtual void setWorldTransform(const btTransform& worldTransform);
+        void getWorldTransform(btTransform& worldTransform) const;
+        void setWorldTransform(const btTransform& worldTransform);
     };
 public:
     RigidBodySys(btDynamicsWorld* dynamicsWorld);
-    virtual ~RigidBodySys();
+    ~RigidBodySys();
     
 private:
     std::vector<nres::ComponentID> mRequiredComponents;
@@ -47,11 +47,11 @@ private:
     btDynamicsWorld* mDynamicsWorld;
     
 public:
-    virtual void onEntityExists(nres::Entity* entity);
-    virtual void onEntityDestroyed(nres::Entity* entity);
-    virtual void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
+    void onEntityExists(nres::Entity* entity);
+    void onEntityDestroyed(nres::Entity* entity);
+    void onEntityBroadcast(nres::Entity* entity, const EntSignal* data);
     
-    virtual const std::vector<nres::ComponentID>& getRequiredComponents();
+    const std::vector<nres::ComponentID>& getRequiredComponents();
     
     void onTick();
 };

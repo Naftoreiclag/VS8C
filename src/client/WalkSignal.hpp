@@ -26,9 +26,9 @@ namespace vse {
 class WalkSignal : public EntSignal {
 public:
     WalkSignal(Vec3f requestedMovement);
-    virtual ~WalkSignal();
+    ~WalkSignal();
 
-    virtual EntSignal::Type getType() const;
+    EntSignal::Type getType() const;
     
     Vec3f requestedMovement;
 };
