@@ -50,16 +50,12 @@ public:
     
     btRigidBody* mPlaneRigid;
     
-    CEGUI::OgreRenderer* mCeguiRenderer;
-    CEGUI::Window* mCeguiWindow;
-    
 
     Ogre::Root* mOgreRoot;
     Ogre::Camera* mCam;
     Ogre::SceneManager* mSmgr;
     
     Ogre::RenderWindow* mOgreWindow;
-    SDL_Window* mSdlWindow;
     
     Ogre::SceneNode* mRootNode;
     

@@ -26,7 +26,6 @@
 #include "OgreSubEntity.h"
 #include "SDL.h"
 
-#include "CeguiFrames.hpp"
 #include "EntSignal.hpp"
 #include "GameLayerMachine.hpp"
 #include "LegSpringComp.hpp"
@@ -68,9 +67,6 @@ void Overworld::onBegin(PotatoCake* potatoCake) {
     mGameLayerMachine = potatoCake->mGameLayerMachine;
     mOgreRoot = potatoCake->mOgreRoot;
     mOgreWindow = potatoCake->mOgreWindow;
-    mSdlWindow = potatoCake->mSdlWindow;
-    mCeguiRenderer = potatoCake->mCeguiRenderer;
-    mCeguiWindow = potatoCake->mCeguiWindow;
     
     SDL_SetRelativeMouseMode(SDL_TRUE);
     
