@@ -26,6 +26,7 @@
 #include "OgreSubEntity.h"
 #include "SDL.h"
 
+#include "AnimateSignal.hpp"
 #include "EntSignal.hpp"
 #include "GameLayerMachine.hpp"
 #include "LegSpringComp.hpp"
@@ -186,6 +187,7 @@ void Overworld::onTick(float tps, const Uint8* keyStates) {
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
     mLegSpringSys->onTick();
+    mSceneNodeSys->onTick(tps);
     
     mRayDebugDrawer->onTick(tps);
     mBtDebugDrawer->onTick();
@@ -203,6 +205,12 @@ void Overworld::onTick(float tps, const Uint8* keyStates) {
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_d)]) {
         moveVec.x = 1;
+    }
+    if(keyStates[SDL_GetScancodeFromKey(SDLK_g)]) {
+        mLocalPlayer->broadcast(new AnimateSignal("walk"));
+    }
+    if(keyStates[SDL_GetScancodeFromKey(SDLK_h)]) {
+        mLocalPlayer->broadcast(new AnimateSignal("idle"));
     }
     if(keyStates[SDL_GetScancodeFromKey(SDLK_f)]) {
         Vec3f absStart = mCamRollNode->convertLocalToWorldPosition(Vec3f(0, 0, 0));

@@ -46,6 +46,8 @@ public:
     virtual const std::vector<nres::ComponentID>& getRequiredComponents();
     
     std::string generateOgreEntityName();
+    
+    void onTick(const float& tps);
 };
 
 }

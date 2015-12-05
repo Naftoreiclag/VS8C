@@ -15,23 +15,26 @@
 
 */
 
-#include "SceneNodeComp.hpp"
+#ifndef VSE_ANIMATESIGNAL_HPP
+#define VSE_ANIMATESIGNAL_HPP
+
+#include <string>
+
+#include "EntSignal.hpp"
 
 namespace vse {
+
+class AnimateSignal : public EntSignal {
+public:
+    AnimateSignal(std::string mAnimName);
+    ~AnimateSignal();
     
-const nres::ComponentID SceneNodeComp::componentID = "sceneN";
+    std::string mAnimName;
 
-SceneNodeComp::SceneNodeComp(const std::string& resname, const Vec3f& nodeOffset)
-: mResourceName(resname)
-, mSceneNodeOffset(nodeOffset)
-, mAnimState(nullptr) {
-}
+    EntSignal::Type getType() const;
 
-SceneNodeComp::~SceneNodeComp() {
-}
-
-const nres::ComponentID& SceneNodeComp::getID() const {
-    return componentID;
-}
+};
 
 }
+
+#endif // VSE_ANIMATESIGNAL_HPP

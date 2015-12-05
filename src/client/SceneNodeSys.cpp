@@ -21,14 +21,15 @@
 #include <sstream>
 #include <stdint.h>
 
-#include "Overworld.hpp"
-#include "RigidBodyComp.hpp"
+#include "OgreStringVector.h"
 
-#include "Vec3f.hpp"
-#include "Quate.hpp"
-
+#include "AnimateSignal.hpp"
 #include "LocationSignal.hpp"
 #include "OrientationSignal.hpp"
+#include "Overworld.hpp"
+#include "Quate.hpp"
+#include "RigidBodyComp.hpp"
+#include "Vec3f.hpp"
 
 namespace vse {
     
@@ -68,6 +69,17 @@ void SceneNodeSys::onEntityDestroyed(nres::Entity* entity) {
 }
 void SceneNodeSys::onEntityBroadcast(nres::Entity* entity, const EntSignal* data) {
     switch(data->getType()) {
+        case EntSignal::Type::ANIMATION: {
+            AnimateSignal* signal = (AnimateSignal*) data;
+            SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
+            
+            comp->mAnimState = comp->mOgreEntity->getAnimationState(signal->mAnimName);
+            
+            if(comp->mAnimState) {
+                comp->mAnimState->setLoop(true);
+                comp->mAnimState->setEnabled(true);
+            }
+        }
         case EntSignal::Type::LOCATION: {
             LocationSignal* signal = (LocationSignal*) data;
             SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
@@ -91,4 +103,14 @@ const std::vector<nres::ComponentID>& SceneNodeSys::getRequiredComponents() {
     return mRequiredComponents;
 }
 
+void SceneNodeSys::onTick(const float& tps) {
+    for(std::vector<nres::Entity*>::iterator it = mTrackedEntities.begin(); it != mTrackedEntities.end(); ++ it) {
+        nres::Entity* entity = *it;
+        
+        SceneNodeComp* comp = (SceneNodeComp*) entity->getComponent(SceneNodeComp::componentID);
+        if(comp->mAnimState) {
+            comp->mAnimState->addTime(tps);
+        }
+    }
+}
 }

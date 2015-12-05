@@ -53,6 +53,8 @@
         <File Name="OrientationSignal.cpp"/>
         <File Name="WalkSignal.cpp"/>
         <File Name="WalkSignal.hpp"/>
+        <File Name="AnimateSignal.hpp"/>
+        <File Name="AnimateSignal.cpp"/>
       </VirtualDirectory>
       <VirtualDirectory Name="components">
         <File Name="LocalPlayerComp.hpp"/>

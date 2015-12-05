@@ -29,8 +29,7 @@
 
 namespace vse {
 
-class SceneNodeComp : public nres::Component
-{
+class SceneNodeComp : public nres::Component {
 public:
     SceneNodeComp(const std::string& resname, const Vec3f& nodeOffset = Vec3f(0, 0, 0));
     virtual ~SceneNodeComp();
@@ -38,12 +37,18 @@ public:
     static const nres::ComponentID componentID;
     virtual const nres::ComponentID& getID() const;
     
+    // Populated by system
     Ogre::SceneNode* mSceneNode;
     Ogre::Entity* mOgreEntity;
     
+    // Used to load resource
     std::string mResourceName;
     
+    // Can translate scenenode by amount
     Vec3f mSceneNodeOffset;
+    
+    // Animation state
+    Ogre::AnimationState* mAnimState;
 
 };
 

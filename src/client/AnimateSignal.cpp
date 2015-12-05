@@ -15,23 +15,21 @@
 
 */
 
-#include "SceneNodeComp.hpp"
+#include "AnimateSignal.hpp"
 
 namespace vse {
-    
-const nres::ComponentID SceneNodeComp::componentID = "sceneN";
 
-SceneNodeComp::SceneNodeComp(const std::string& resname, const Vec3f& nodeOffset)
-: mResourceName(resname)
-, mSceneNodeOffset(nodeOffset)
-, mAnimState(nullptr) {
+AnimateSignal::AnimateSignal(std::string animName)
+: mAnimName(animName) {
 }
 
-SceneNodeComp::~SceneNodeComp() {
+AnimateSignal::~AnimateSignal() {
 }
 
-const nres::ComponentID& SceneNodeComp::getID() const {
-    return componentID;
+EntSignal::Type AnimateSignal::getType() const {
+    return EntSignal::Type::ANIMATION;
 }
 
+
 }
+

@@ -26,7 +26,8 @@ public:
     enum Type {
         REQ_WALK, // Player input requests movement
         LOCATION, // Physics changed location
-        ORIENTATION // Physics changed orientation (i.e. rotation)
+        ORIENTATION, // Physics changed orientation (i.e. rotation)
+        ANIMATION // Play an animation
     };
 public:
     EntSignal();
