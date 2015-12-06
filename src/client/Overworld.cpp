@@ -184,10 +184,11 @@ bool Overworld::filterKeys(Uint8* keyStates) {
 }
 void Overworld::onTick(float tps, const Uint8* keyStates) {
     
+    mSceneNodeSys->onTick(tps);
+    
     mDynamicsWorld->stepSimulation(tps, 5);
     mRigidBodySys->onTick();
     mLegSpringSys->onTick();
-    mSceneNodeSys->onTick(tps);
     
     mRayDebugDrawer->onTick(tps);
     mBtDebugDrawer->onTick();
