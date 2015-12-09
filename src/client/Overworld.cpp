@@ -190,9 +190,11 @@ void Overworld::onTick(float tps, const Uint8* keyStates) {
     mRigidBodySys->onTick();
     mLegSpringSys->onTick();
     
+    /*
     mRayDebugDrawer->onTick(tps);
     mBtDebugDrawer->onTick();
     mDynamicsWorld->debugDrawWorld();
+    */
     
     Vec3f moveVec;
     if(keyStates[SDL_GetScancodeFromKey(SDLK_w)]) {
@@ -298,7 +300,7 @@ bool Overworld::onKeyPress(const SDL_KeyboardEvent& event, bool repeat) {
             if(!repeat) {
                 nres::Entity* testCube = mWorld.newEntity();
                 testCube->add(new RigidBodyComp(new btSphereShape(1)));
-                testCube->add(new SceneNodeComp("Cone.mesh"));
+                testCube->add(new SceneNodeComp("Lennox.mesh"));
                 testCube->publish();
             }
             break;
