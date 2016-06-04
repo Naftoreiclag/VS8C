@@ -1,5 +1,5 @@
 /*
-   Copyright 2015 James Fong
+   Copyright 2015-2016 James Fong
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -72,8 +72,8 @@ Vec2f Vec2f::operator+(const Vec2f& v) {
     return Vec2f(x + v.x, z + v.z);
 }
 Vec2f& Vec2f::operator+=(const Vec2f& v) {
-    x *= v.x;
-    z *= v.z;
+    x += v.x;
+    z += v.z;
     return *this;
 }
 
@@ -82,8 +82,8 @@ Vec2f Vec2f::operator-(const Vec2f& v) {
     return Vec2f(x - v.x, z - v.z);
 }
 Vec2f& Vec2f::operator-=(const Vec2f& v) {
-    x *= v.x;
-    z *= v.z;
+    x -= v.x;
+    z -= v.z;
     return *this;
 }
 

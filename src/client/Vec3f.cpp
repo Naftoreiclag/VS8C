@@ -1,5 +1,5 @@
 /*
-   Copyright 2015 James Fong
+   Copyright 2015-2016 James Fong
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -96,9 +96,9 @@ Vec3f Vec3f::operator+(const Vec3f& v) const {
     return Vec3f(x + v.x, y + v.y, z + v.z);
 }
 Vec3f& Vec3f::operator+=(const Vec3f& v) {
-    x *= v.x;
-    y *= v.y;
-    z *= v.z;
+    x += v.x;
+    y += v.y;
+    z += v.z;
     return *this;
 }
 
@@ -107,9 +107,9 @@ Vec3f Vec3f::operator-(const Vec3f& v) const {
     return Vec3f(x - v.x, y - v.y, z - v.z);
 }
 Vec3f& Vec3f::operator-=(const Vec3f& v) {
-    x *= v.x;
-    y *= v.y;
-    z *= v.z;
+    x -= v.x;
+    y -= v.y;
+    z -= v.z;
     return *this;
 }
 
